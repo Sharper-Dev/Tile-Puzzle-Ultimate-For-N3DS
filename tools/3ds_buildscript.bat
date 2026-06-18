@@ -1,0 +1,2 @@
+3dstool -cvtf romfs "../romfs.bin" --romfs-dir "../romfs"
+makerom -f cci -o "../build/lpp-3ds.3ds" -rsf "../build_assets/3ds_workaround.rsf" -target d -exefslogo -elf "../elf/lpp-3ds.elf" -romfs "../romfs.bin"

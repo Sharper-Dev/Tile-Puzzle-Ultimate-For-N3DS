@@ -1,0 +1,1 @@
+F:\Games\Emuladores\Citra\citra.exe ./build/lpp-3ds.3ds

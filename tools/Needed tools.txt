@@ -1,0 +1,3 @@
+3dstool.exe
+3dsxtool.exe
+makerom.exe
