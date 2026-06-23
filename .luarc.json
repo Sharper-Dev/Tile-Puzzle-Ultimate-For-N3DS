@@ -68,5 +68,8 @@
     "Sound",
     "JPGV",
     "Render"
+  ],
+  "diagnostics.disable": [
+    "luadoc-miss-module-name"
   ]
 }
