@@ -3,7 +3,7 @@
 --- @author Sharper Dev
 
 local InputSystem = {}
-local InputSettings = require("micro2d.input.m2d_input_settings")
+local InputSettings = require("input.m2d_input_settings")
 
 local previousInput = 0
 local currentInput = 0

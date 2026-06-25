@@ -4,15 +4,16 @@
 
 local Image = {}
 Image.__index = Image
-local UITransform = require("micro2d.ui.m2d_ui_transform")
+local UITransform = require("ui.m2d_ui_transform")
 
 function Image:new(properties)
     local this = setmetatable({}, Image)
     this.transform = properties.transform or UITransform:new()
     this.isVisible = properties.isVisible or true
-    Image.setImage(this, properties.imagePath)
+    Image:setImage(properties.imagePath)
     return this
 end
+
 function Image:setImage(img)
     if type(img) == "string" then
         self.image = Graphics.loadImage(img)
