@@ -4,11 +4,6 @@
 
 local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
-local Canvas = require("ui.m2d_ui_canvas")
-local Image = require("ui.m2d_ui_image")
-
-local bottomCanvas
-local bottomBackground
 
 CoreRuntime.behaviours = {}
 
@@ -20,9 +15,6 @@ function CoreRuntime._start()
     for _, behaviour in ipairs(CoreRuntime.behaviours) do
         behaviour:start()
     end
-    -- bottomCanvas = Canvas:new(BOTTOM_SCREEN)
-    -- bottomBackground = Image:new({ imagePath = "romfs:/assets/images/background_bottom.png" })
-    -- bottomCanvas:addCanvasComponent(bottomBackground)
 end
 
 ------
@@ -37,7 +29,6 @@ function CoreRuntime._loop()
     for _, behaviour in ipairs(CoreRuntime.behaviours) do
         behaviour:update()
     end
-    --bottomCanvas:draw()
     
     Screen.flip()
     
