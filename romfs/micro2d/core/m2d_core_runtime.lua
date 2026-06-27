@@ -4,17 +4,11 @@
 
 local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
-
-CoreRuntime.behaviours = {}
-
+local Settings = require("m2d_settings")
 ------
 --- Called when the app starts.
 function CoreRuntime._start()
     Graphics.init()
-    dofile("romfs:/assets/scripts/behaviour_test.lua")
-    for _, behaviour in ipairs(CoreRuntime.behaviours) do
-        behaviour:start()
-    end
 end
 
 ------
@@ -25,11 +19,7 @@ function CoreRuntime._loop()
     
     Screen.clear(TOP_SCREEN)
     Screen.clear(BOTTOM_SCREEN)
-    
-    for _, behaviour in ipairs(CoreRuntime.behaviours) do
-        behaviour:update()
-    end
-    
+  
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then
