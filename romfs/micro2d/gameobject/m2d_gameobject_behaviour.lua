@@ -1,16 +1,15 @@
 --- The base class for all objects.
 --- It contains the life cycle functions.
---- @module object_behaviour
+--- @module gameobject_behaviour
 --- @author Sharper Dev
 
 local Behaviour = {}
-local Runtime = require("core.m2d_core_runtime")
 ------
 --- The constructor for the object behaviour.
 --- It creates a new behaviour object and adds it to the runtime.
 function Behaviour:new()
     local this = setmetatable({}, Behaviour)
-    table.insert(Runtime.behaviours, this)
+    setmetatable(this, {__index = Behaviour})
     return this
 end
 ------

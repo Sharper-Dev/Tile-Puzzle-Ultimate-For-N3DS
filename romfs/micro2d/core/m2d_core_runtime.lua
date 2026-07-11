@@ -4,11 +4,13 @@
 
 local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
-local Settings = require("m2d_settings")
+local ScenesManager = require("scenes.m2d_scenes_manager")
+
 ------
 --- Called when the app starts.
 function CoreRuntime._start()
     Graphics.init()
+    ScenesManager.loadScene(1)
 end
 
 ------
@@ -19,7 +21,7 @@ function CoreRuntime._loop()
     
     Screen.clear(TOP_SCREEN)
     Screen.clear(BOTTOM_SCREEN)
-  
+    ScenesManager.getCurrentScene():update()
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then

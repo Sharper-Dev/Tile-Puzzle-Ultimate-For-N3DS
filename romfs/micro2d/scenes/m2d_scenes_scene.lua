@@ -4,23 +4,23 @@
 
 local Scene = {}
 Scene.__index = Scene
-Scene.gameObjects = {}
 
 function Scene:new()
     local this = setmetatable({}, Scene)
-    
+    this.gameObjects = {}
+    setmetatable(this, {__index = Scene})
     return this
 end
 
 function Scene:start()
 	for _, gameObject in ipairs(self.gameObjects) do
-		gameObject:start()
+		gameObject.behaviour:start()
 	end
 end
 
 function Scene:update()
     for _, gameObject in ipairs(self.gameObjects) do
-        gameObject:update()
+        gameObject.behaviour:update()
     end
 end
 
