@@ -12,18 +12,6 @@ function Scene:new()
     return this
 end
 
-function Scene:start()
-	for _, gameObject in ipairs(self.gameObjects) do
-		gameObject.behaviour:start()
-	end
-end
-
-function Scene:update()
-    for _, gameObject in ipairs(self.gameObjects) do
-        gameObject.behaviour:update()
-    end
-end
-
 function Scene:addGameObject(gameObject)
     table.insert(self.gameObjects, gameObject)
 end

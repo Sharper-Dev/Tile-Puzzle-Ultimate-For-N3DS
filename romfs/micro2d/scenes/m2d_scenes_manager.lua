@@ -8,13 +8,17 @@ local currentScene = nil
 
 function ScenesManager.loadScene(sceneIndex)
     local scenePath = settings.SCENES[sceneIndex]
-    local success, scene = pcall(dofile, scenePath)
-    --dofile(scenePath)
-    if not success then
-        error("Failed to load scene: " .. scenePath)
-    end
+    -- local success, scene = pcall(dofile, scenePath)
+    -- if not success then
+    --     error("Failed to load scene: " .. scenePath)
+    -- end
+    local scene = dofile(scenePath)
     currentScene = scene
-    scene:start()
+    for _, obj in ipairs(currentScene.gameObjects) do
+        for _, component in ipairs(obj.components) do
+            component:start()
+        end
+    end
 end
 
 function ScenesManager.getCurrentScene()

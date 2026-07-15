@@ -4,12 +4,14 @@
 
 local Image = {}
 Image.__index = Image
-local UITransform = require("ui.m2d_ui_transform")
 
 function Image:new(properties)
     local this = setmetatable({}, Image)
-    this.transform = properties.transform or UITransform:new()
     this.isVisible = properties.isVisible or true
+    if properties.gameObject == nil then
+        error("gameObject is required")
+    end
+    this.gameObject = properties.gameObject
     Image:setImage(properties.imagePath)
     return this
 end
@@ -26,7 +28,7 @@ end
 function Image:_drawGPU()
     if not self.isVisible then return end
 
-    Graphics.drawImage(self.transform.position.x, self.transform.position.y, self.image)
+    Graphics.drawImage(self.gameObject.transform.position.x, self.gameObject.transform.position.y, self.image)
 end
 
 return Image

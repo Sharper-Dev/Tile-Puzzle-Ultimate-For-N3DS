@@ -1,15 +1,15 @@
 --- The base class for all objects.
 --- It contains the life cycle functions.
---- @module gameobject_behaviour
+--- @module components_script
 --- @author Sharper Dev
 
-local Behaviour = {}
+local Script = {}
 ------
 --- The constructor for the object behaviour.
 --- It creates a new behaviour object and adds it to the runtime.
-function Behaviour:new()
-    local this = setmetatable({}, Behaviour)
-    setmetatable(this, {__index = Behaviour})
+function Script:new()
+    local this = setmetatable({}, Script)
+    setmetatable(this, {__index = Script})
     return this
 end
 ------
@@ -25,7 +25,7 @@ end
 --- function MyObject:start()
 ---     -- Do something when the object is instantiated
 --- end
-Behaviour.start = function() end
+Script.start = function() end
 
 --- Virtual method called every game frame.
 --
@@ -39,6 +39,6 @@ Behaviour.start = function() end
 --- function MyObject:update()
 ---     -- Do something every frame.
 --- end
-Behaviour.update = function() end
+Script.update = function() end
 
-return Behaviour
+return Script

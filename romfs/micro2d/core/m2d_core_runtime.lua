@@ -21,7 +21,11 @@ function CoreRuntime._loop()
     
     Screen.clear(TOP_SCREEN)
     Screen.clear(BOTTOM_SCREEN)
-    ScenesManager.getCurrentScene():update()
+    for _, obj in ipairs(ScenesManager.getCurrentScene().gameObjects) do
+        for _, component in ipairs(obj.components) do
+            component:update()
+        end
+    end
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then
