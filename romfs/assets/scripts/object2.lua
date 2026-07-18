@@ -8,22 +8,21 @@ local Input = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
 
 local topCanvas
-local bottomCanvas
 local bottomBackground
 
 function Script:start()
-    -- bottomCanvas = Canvas:new(BOTTOM_SCREEN)
+    -- topCanvas = Canvas:new(TOP_SCREEN)
     -- bottomBackground = Image:new({ imagePath = "romfs:/assets/images/background_bottom.png", gameObject = Object })
-    -- bottomCanvas:addCanvasComponent(bottomBackground)
+    -- topCanvas:addCanvasComponent(bottomBackground)
 end
 
 function Script:update()
-    -- bottomCanvas:draw()
     Graphics.initBlend(TOP_SCREEN)
-    Graphics.fillRect(10, 100, 10, 100, Color.new(255, 255, 255))
+    Graphics.fillRect(10, 100, 10, 100, Color.new(0, 0, 255))
     Graphics.termBlend()
+    -- topCanvas:draw()
     if Input.getKeyDown(KEY_B) then
-        ScenesManager.loadScene(2)
+        ScenesManager.loadScene(1)
     end
 end
 

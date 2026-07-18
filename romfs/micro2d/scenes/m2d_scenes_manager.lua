@@ -7,6 +7,9 @@ local settings = require("m2d_settings")
 local currentScene = nil
 
 function ScenesManager.loadScene(sceneIndex)
+    if currentScene then
+        currentScene:unload()
+    end
     local scenePath = settings.SCENES[sceneIndex]
     -- local success, scene = pcall(dofile, scenePath)
     -- if not success then
@@ -24,4 +27,5 @@ end
 function ScenesManager.getCurrentScene()
     return currentScene
 end
+
 return ScenesManager

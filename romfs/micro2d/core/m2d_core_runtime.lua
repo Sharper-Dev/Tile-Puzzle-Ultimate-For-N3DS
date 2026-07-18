@@ -16,6 +16,8 @@ end
 ------
 --- Called every frame.
 function CoreRuntime._loop()
+    InputSystem.readInputs()
+    
     Screen.refresh()
     Screen.waitVblankStart()
     

@@ -11,5 +11,6 @@ local settings = {}
 settings.SCENES = {}
 
 settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
+settings.SCENES[2] = "romfs:/assets/scripts/scenes/scene2.lua"
 
 return settings

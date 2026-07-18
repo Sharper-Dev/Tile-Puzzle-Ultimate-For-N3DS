@@ -15,5 +15,10 @@ end
 function Scene:addGameObject(gameObject)
     table.insert(self.gameObjects, gameObject)
 end
-
+function Scene:unload()
+	for _, gameObject in ipairs(self.gameObjects) do
+		gameObject:destroy()
+	end
+	self.gameObjects = nil
+end
 return Scene

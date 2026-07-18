@@ -11,4 +11,10 @@ function GameObject:addComponent(component)
     table.insert(self.components, component)
 end
 
+function GameObject:destroy()
+    for _, component in ipairs(self.components) do
+        component:destroy()
+    end
+end
+
 return GameObject

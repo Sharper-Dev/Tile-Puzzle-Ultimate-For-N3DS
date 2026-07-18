@@ -9,8 +9,12 @@ local Script = {}
 --- It creates a new behaviour object and adds it to the runtime.
 function Script:new()
     local this = setmetatable({}, Script)
-    setmetatable(this, {__index = Script})
+    setmetatable(this, { __index = Script })
     return this
+end
+
+function Script:destroy()
+	self = nil
 end
 ------
 --- Virtual method called when the object is instantiated.
