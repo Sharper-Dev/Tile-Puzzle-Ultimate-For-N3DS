@@ -5,6 +5,7 @@
 local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
+local Renderer = require("renderer.m2d_renderer")
 
 ------
 --- Called when the app starts.
@@ -28,6 +29,8 @@ function CoreRuntime._loop()
             component:update()
         end
     end
+    Renderer.drawTop()
+    Renderer.drawBottom()
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then
