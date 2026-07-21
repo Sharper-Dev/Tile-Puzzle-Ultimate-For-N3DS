@@ -20,6 +20,7 @@ local renderTask = RenderTask:new({
     end
 })
 local renderTask2 = RenderTask:new({
+    enabled = false,
     layer = Object.transform.position.z,
     id = 2,
     execute = function()
@@ -33,14 +34,15 @@ function Script:start()
     -- bottomCanvas:addCanvasComponent(bottomBackground)
     
     Renderer.addRenderTask(renderTask, TOP_SCREEN)
+    Renderer.addRenderTask(renderTask2, BOTTOM_SCREEN)
 end
 
 function Script:update()
     -- bottomCanvas:draw()
     if Input.getKeyDown(KEY_B) then
         --ScenesManager.loadScene(2)
-        Renderer.removeRenderTask(renderTask, TOP_SCREEN)
-        Renderer.addRenderTask(renderTask2, BOTTOM_SCREEN)
+        renderTask.enabled = not renderTask.enabled
+        renderTask2.enabled = not renderTask2.enabled
     end
 end
 
