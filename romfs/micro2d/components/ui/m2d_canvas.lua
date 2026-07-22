@@ -4,36 +4,30 @@
 
 local Canvas = {}
 Canvas.__index = Canvas
+local Renderer = require("renderer.m2d_renderer")
 
-------
---- Creates a new UI Canvas.
---- @param space integer The space to draw the canvas on.
---- @return self The new UI Canvas.
---- @usage local canvas = Canvas:new(TOP_SCREEN)
-function Canvas:new(space)
+function Canvas:new(params)
     local this = setmetatable({}, Canvas)
-    this.space = space or TOP_SCREEN
-    this.components = {}
+    this.space = params.space or TOP_SCREEN
+    this.enabled = (params.enabled == nil) and true or params.enabled
+    this.gameObject = params.gameObject
+    this.elements = {}
     return this
 end
 
-------
---- Internal function to draw all the canvas components.
---- @usage canvas:draw()
---- @private
-function Canvas:draw()
-    Graphics.initBlend(self.space)
-    for _, component in ipairs(self.components) do
-        if (type(component._drawGPU) == "function") then
-            component:_drawGPU(self.space)
-        end
-    end
-    Graphics.termBlend()
+function Canvas:addElement(element)
+    table.insert(self.elements, element)
+    Renderer.addRenderTask(element.renderTask, self.space)
 end
 
-function Canvas:addCanvasComponent(component)
-    table.insert(self.components, component)
-    table.sort(self.components, function(a, b) return a.transform.position.z < b.transform.position.z end)
+function Canvas:delElement(element)
+	for i, e in ipairs(self.elements) do
+		if e.id == element.id then
+			table.remove(self.elements, i)
+			Renderer.delRenderTask(element.renderTask, self.space)
+			return
+		end
+	end
 end
 
 return Canvas

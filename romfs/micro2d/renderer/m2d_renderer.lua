@@ -27,7 +27,7 @@ function Renderer.addRenderTask(task, screen)
     end
 end
 
-function Renderer.removeRenderTask(task, screen)
+function Renderer.delRenderTask(task, screen)
     if screen == TOP_SCREEN then
         for i, topTask in ipairs(renderTasksTop) do
             if topTask.id == task.id then
