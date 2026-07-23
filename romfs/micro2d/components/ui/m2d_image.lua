@@ -4,15 +4,21 @@
 
 local Image = {}
 Image.__index = Image
+local RenderTask = require("renderer.m2d_render_task")
 
-function Image:new(properties)
+function Image:new(params)
     local this = setmetatable({}, Image)
-    this.isVisible = properties.isVisible or true
-    if properties.gameObject == nil then
+    this.enabled = (params.enabled == nil) and true or params.enabled
+    if params.gameObject == nil then
         error("gameObject is required")
     end
-    this.gameObject = properties.gameObject
-    Image:setImage(properties.imagePath)
+    this.gameObject = params.gameObject
+    
+    this.task = RenderTask:new({
+        layer = this.gameObject.transform.position.z,
+        execute = this.render
+    })
+    Image:setImage(params.imagePath)
     return this
 end
 
@@ -25,8 +31,13 @@ function Image:setImage(img)
     return self
 end
 
-function Image:_drawGPU()
-    if not self.isVisible then return end
+function Image:destroy()
+    Graphics.freeImage(self.image)
+	self = nil
+end
+
+function Image:render()
+    if not self.enabled then return end
 
     Graphics.drawImage(self.gameObject.transform.position.x, self.gameObject.transform.position.y, self.image)
 end

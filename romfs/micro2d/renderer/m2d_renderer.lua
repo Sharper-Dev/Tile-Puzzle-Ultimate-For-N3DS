@@ -30,7 +30,7 @@ end
 function Renderer.delRenderTask(task, screen)
     if screen == TOP_SCREEN then
         for i, topTask in ipairs(renderTasksTop) do
-            if topTask.id == task.id then
+            if topTask == task then
                 table.remove(renderTasksTop, i)
                 break
             end
@@ -38,7 +38,7 @@ function Renderer.delRenderTask(task, screen)
         sortTasks(renderTasksTop)
     else
         for i, bottomTask in ipairs(renderTasksBottom) do
-            if bottomTask.id == task.id then
+            if bottomTask == task then
                 table.remove(renderTasksBottom, i)
                 break
             end

@@ -1,3 +1,4 @@
+
 local GameObject = {}
 local componentsList = {
     ["Script"] = "script.m2d_script",
