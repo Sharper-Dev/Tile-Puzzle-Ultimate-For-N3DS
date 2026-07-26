@@ -3,29 +3,31 @@
 --- @author Sharper Dev
 
 local ScenesManager = {}
-local settings = require("m2d_settings")
-local currentScene = nil
+local activeScenes = {}
 
 function ScenesManager.loadScene(sceneIndex)
-    if currentScene then
-        currentScene:unload()
+    for i, scene in ipairs(activeScenes) do
+        ScenesManager.unloadScene(i)
     end
-    local scenePath = settings.SCENES[sceneIndex]
-    -- local success, scene = pcall(dofile, scenePath)
-    -- if not success then
-    --     error("Failed to load scene: " .. scenePath)
-    -- end
+    local scenePath = M2D_SETTINGS.SCENES[sceneIndex]
     local scene = dofile(scenePath)
-    currentScene = scene
-    for _, obj in ipairs(currentScene.gameObjects) do
+    table.insert(activeScenes, scene)
+    for _, obj in ipairs(scene.gameObjects) do
         for _, component in ipairs(obj.components) do
             component:start()
         end
     end
 end
 
-function ScenesManager.getCurrentScene()
-    return currentScene
+function ScenesManager.unloadScene(sceneIndex)
+    if activeScenes[sceneIndex] then
+        activeScenes[sceneIndex]:unload()
+        table.remove(activeScenes, sceneIndex)
+    end
+end
+
+function ScenesManager.getActiveScenes()
+    return activeScenes
 end
 
 return ScenesManager

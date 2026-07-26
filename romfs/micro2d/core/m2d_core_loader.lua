@@ -4,6 +4,8 @@
 --- @author Sharper Dev
 
 package.path = package.path .. ";romfs:/micro2d/?.lua"
+
+require("m2d_settings")
 local m2d_runtime = require("core.m2d_core_runtime")
 
 m2d_runtime._start()

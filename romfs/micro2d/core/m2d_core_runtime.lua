@@ -24,13 +24,17 @@ function CoreRuntime._loop()
     
     Screen.clear(TOP_SCREEN)
     Screen.clear(BOTTOM_SCREEN)
-    for _, obj in ipairs(ScenesManager.getCurrentScene().gameObjects) do
-        for _, component in ipairs(obj.components) do
-            component:update()
+    for _, scene in ipairs(ScenesManager.getActiveScenes()) do
+        if scene.gameObjects ~= nil then
+            for _, obj in ipairs(scene.gameObjects) do
+                for _, component in ipairs(obj.components) do
+                    component:update()
+                end
+            end
         end
     end
-    Renderer.drawTop()
-    Renderer.drawBottom()
+    --Renderer.drawTop()
+    --Renderer.drawBottom()
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then

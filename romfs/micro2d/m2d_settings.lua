@@ -1,16 +1,16 @@
 --- The module containing the Micro2D engine settings.
---- @module settings
+--- @module Settings
 --- @author Sharper Dev
 
-local settings = {}
+local Settings = {}
 
 --- The scenes list to store the paths of the scene scripts.
 --
 --- You must specify the path to the scene script. So you can load it later by its index.
---- @usage settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
-settings.SCENES = {}
+--- @usage Settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
+Settings.SCENES = {}
 
-settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
-settings.SCENES[2] = "romfs:/assets/scripts/scenes/scene2.lua"
+Settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
+Settings.SCENES[2] = "romfs:/assets/scripts/scenes/scene2.lua"
 
-return settings
+_G.M2D_SETTINGS = Settings
