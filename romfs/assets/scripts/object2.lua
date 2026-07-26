@@ -1,18 +1,10 @@
-local Object = require("gameobject.m2d_gameobject"):new()
-local Input = require("input.m2d_input_system")
-local Script = Object:addComponent("Script", {})
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local Object2 = require("gameobject.m2d_gameobject"):new("2")
+local Script2 = Object2:addComponent("Script", {})
 
-function Script:start()
-end
-
-function Script:update()
-    Graphics.initBlend(BOTTOM_SCREEN)
-    Graphics.fillRect(0,10,0,10,Color.new(255,255,255))
+function Script2:update()
+    Graphics.initBlend(TOP_SCREEN)
+    local pos = Object2.transform:getPosition()
+    Graphics.fillRect(pos.x, 100 + pos.x, pos.y, 100 + pos.y, Color.new(255,255,255))
     Graphics.termBlend()
-    if Input.getKeyDown(KEY_B) then
-        ScenesManager.loadScene(1)
-    end
 end
-
-return Object
+return Object2

@@ -5,12 +5,24 @@ local componentsList = {
     --["Canvas"] = "components.ui.m2d_canvas",
     --["Image"] = "components.ui.m2d_image"
 }
-function GameObject:new()
+local SceneManager = require("scenes.m2d_scenes_manager")
+
+function GameObject:new(name)
     local this = setmetatable({}, GameObject)
     this.transform = require("components.transform.m2d_transform"):new()
     this.components = {}
+    this.name = name
     setmetatable(this, {__index = GameObject})
     return this
+end
+
+function GameObject.get(name)
+    for _, object in ipairs(SceneManager.getActiveScenes()[1].gameObjects) do
+        if object.name == name then
+            return object
+        end
+    end
+    return nil
 end
 
 function GameObject:addComponent(component, params)
