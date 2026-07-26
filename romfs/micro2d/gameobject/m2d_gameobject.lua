@@ -1,9 +1,9 @@
 
 local GameObject = {}
 local componentsList = {
-    ["Script"] = "script.m2d_script",
-    ["Canvas"] = "ui.m2d_canvas",
-    ["Image"] = "ui.m2d_image"
+    ["Script"] = "components.script.m2d_script",
+    --["Canvas"] = "components.ui.m2d_canvas",
+    --["Image"] = "components.ui.m2d_image"
 }
 function GameObject:new()
     local this = setmetatable({}, GameObject)
@@ -13,9 +13,10 @@ function GameObject:new()
     return this
 end
 
-function GameObject:addComponent(component)
-    local comp = require(componentsList[component]):new()
+function GameObject:addComponent(component, params)
+    local comp = require(componentsList[component]):new(params)
     table.insert(self.components, comp)
+    return comp
 end 
 
 function GameObject:destroy()
