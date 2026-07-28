@@ -11,17 +11,26 @@ function Script:start()
 end
 
 function Script:update()
-    Graphics.initBlend(BOTTOM_SCREEN)
-    local pos = Object.transform:getPosition()
-    Graphics.fillRect(pos.x, 100 + pos.x, pos.y, 100 + pos.y, Color.new(255,255,255))
-    Graphics.termBlend()
-    if (Input.getKeyDown(KEY_A)) then
+    if Input.getKeyDown(KEY_DRIGHT) then
+        local previousPosition = Object2.transform:getPosition().x
+        previousPosition = previousPosition + 3
+        Object2.transform:setPosition(previousPosition)
+    end
+    if Input.getKeyDown(KEY_DLEFT) then
+        local previousPosition = Object2.transform:getPosition().x
+        previousPosition = previousPosition - 3
+        Object2.transform:setPosition(previousPosition)
+    end
+    if Input.getKeyDown(KEY_A) then
         Object.transform:setParent(Object2.transform)
     end
-    if Input.getKeyDown(KEY_DRIGHT) then
-        local position = Object.transform:getPosition()
-        position.x = position.x + 3
-        Object.transform:setPosition(position.x)
+
+    if Input.getKeyDown(KEY_B) then
+        Object.transform:setParent(nil)
     end
+    Screen.debugPrint(100, 2, "DEBUG MODE", Color.new(255, 255, 255), BOTTOM_SCREEN)
+
+    Screen.debugPrint(2, 20, string.format("OBJ1: %s", Object.transform:getHierarchyString()), Color.new(255,255,255), BOTTOM_SCREEN)
+    Screen.debugPrint(2, 40, string.format("OBJ2: %s", Object2.transform:getHierarchyString()), Color.new(255,255,255), BOTTOM_SCREEN)
 end
 return Object

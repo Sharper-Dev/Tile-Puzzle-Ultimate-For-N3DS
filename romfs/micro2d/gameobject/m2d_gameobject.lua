@@ -9,7 +9,7 @@ local SceneManager = require("scenes.m2d_scenes_manager")
 
 function GameObject:new(name)
     local this = setmetatable({}, GameObject)
-    this.transform = require("components.transform.m2d_transform"):new()
+    this.transform = require("components.transform.m2d_transform"):new(this)
     this.components = {}
     this.name = name
     setmetatable(this, {__index = GameObject})

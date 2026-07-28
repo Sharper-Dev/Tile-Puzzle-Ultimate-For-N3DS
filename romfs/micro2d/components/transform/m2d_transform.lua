@@ -5,15 +5,33 @@
 local Transform = {}
 Transform.__index = Transform
 
-function Transform:new()
+function Transform:new(gameObject)
     local this = setmetatable({}, Transform)
     this.position = { x = 0, y = 0, z = 0 }
+    this.gameObject = gameObject
     this.localPosition = { x = 0, y = 0, z = 0 }
     this.parent = nil
     this.children = {}
     this.rotation = 0
     this.scale = { x = 1, y = 1 }
     return this
+end
+
+function Transform:posToString()
+	return string.format("(%s, %s, %s)", self.position.x, self.position.y, self.position.z)
+end
+
+function Transform:getHierarchyString()
+    if self.parent or #self.children > 0 then
+        local children = {}
+        for _, child in ipairs(self.children) do
+            children[#children + 1] = child.gameObject.name
+        end
+        local parentName = self.parent and self.parent.gameObject.name or "None"
+        return string.format("Parent: %s, Children: %s", parentName, table.concat(children, ", "))
+    else
+        return nil
+    end
 end
 
 function Transform:setParent(transform)
