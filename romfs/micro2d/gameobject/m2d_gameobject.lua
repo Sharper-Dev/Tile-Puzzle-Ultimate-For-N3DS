@@ -16,7 +16,7 @@ function GameObject:new(name)
     return this
 end
 
-function GameObject.get(name)
+function GameObject.findByName(name)
     for _, object in ipairs(SceneManager.getActiveScenes()[1].gameObjects) do
         if object.name == name then
             return object

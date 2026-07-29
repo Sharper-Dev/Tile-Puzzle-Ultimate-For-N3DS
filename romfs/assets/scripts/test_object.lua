@@ -1,12 +1,11 @@
-local Object = require("gameobject.m2d_gameobject"):new("main")
+local Object = require("gameobject.m2d_gameobject"):new("1")
 
 local Input = require("input.m2d_input_system")
 local Script = Object:addComponent("Script", {})
 
 local Object2
-
 function Script:start()
-    Object2 = Object.get("2")
+    Object2 = Object.findByName("2")
     Object.transform:setPosition(0, 100)
 end
 
@@ -21,10 +20,11 @@ function Script:update()
         previousPosition = previousPosition - 3
         Object2.transform:setPosition(previousPosition)
     end
+    
     if Input.getKeyDown(KEY_A) then
         Object.transform:setParent(Object2.transform)
     end
-
+    
     if Input.getKeyDown(KEY_B) then
         Object.transform:setParent(nil)
     end
