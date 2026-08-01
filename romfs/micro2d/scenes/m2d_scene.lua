@@ -1,5 +1,5 @@
 --- A scene in the Micro2D engine.
---- @module m2d_scenes_scene
+--- @module scenes_scene
 --- @author Sharper Dev
 
 local Scene = {}

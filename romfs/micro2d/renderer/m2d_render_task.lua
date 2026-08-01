@@ -1,3 +1,7 @@
+--- The render task.
+--- @module renderer_render_task
+--- @author Sharper Dev
+
 local RenderTask = {}
 RenderTask.__index = RenderTask
 

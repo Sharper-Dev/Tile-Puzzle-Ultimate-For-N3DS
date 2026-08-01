@@ -1,3 +1,7 @@
+--- The main renderer module.
+--- @module renderer
+--- @author Sharper Dev
+
 local Renderer = {}
 
 local renderTasksTop = {}

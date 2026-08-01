@@ -6,3 +6,5 @@ file = {
     "./romfs/micro2d"
 }
 dir = "./doc"
+
+all = true

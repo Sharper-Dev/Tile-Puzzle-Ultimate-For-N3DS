@@ -1,3 +1,8 @@
+--- The GameObject.
+--- @module gameobject
+--- @alias m2d_gameobject
+--- @author Sharper Dev
+
 local GameObject = {}
 local componentsList = {
     ["Script"] = "components.script.m2d_script",

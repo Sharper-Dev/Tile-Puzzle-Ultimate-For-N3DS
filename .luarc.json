@@ -70,6 +70,9 @@
     "Render"
   ],
   "diagnostics.disable": [
-    "luadoc-miss-module-name"
+    "luadoc-miss-module-name",
+        "undefined-doc-name",
+        "undefined-field",
+        "param-type-mismatch"
   ]
 }
