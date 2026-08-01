@@ -18,32 +18,31 @@ function Transform:new(gameObject)
     return this
 end
 
-function Transform:getHierarchyString()
-    local children = {}
-    for _, child in pairs(self.children) do
-        table.insert(children, child.gameObject.name)
-    end
-    local parentName = "None"
-    if self.parent then
-        parentName = self.parent.gameObject.name
-    end
+local function worldToLocal(parent, child)
+    return {
+        x = child.position.x - parent.position.x,
+        y = child.position.y - parent.position.y,
+        z = child.position.z - parent.position.z,
+    }
+end
 
-    return string.format("Parent: %s, Children: %s", parentName, table.concat(children, ", "))
+local function localToWorld(parent, child)
+    return {
+        x = child.localPosition.x + parent.position.x,
+        y = child.localPosition.y + parent.position.y,
+        z = child.localPosition.z + parent.position.z,
+    }
 end
 
 function Transform:setParent(transform)
     if self.parent then
         self.parent.children[tostring(self)] = nil
-        self.position.x = self.parent.position.x + self.localPosition.x
-        self.position.y = self.parent.position.y + self.localPosition.y
-        self.position.z = self.parent.position.z + self.localPosition.z
+        self.position = localToWorld(self.parent, self)
     end
     self.parent = transform
     if transform then
         transform.children[tostring(self)] = self
-        self.localPosition.x = self.position.x - transform.position.x
-        self.localPosition.y = self.position.y - transform.position.y
-        self.localPosition.z = self.position.z - transform.position.z
+        self.localPosition = worldToLocal(transform, self)
     end
     
     return self
@@ -59,36 +58,21 @@ function Transform:setPosition(x, y, z)
         self.position.y = y or self.position.y
         self.position.z = z or self.position.z
     end
-    
+
     return self
 end
-function Transform:getFinalPosition()
-	local returnTable = {}
-	if self.parent then
-		returnTable.x = self.localPosition.x + self.parent.position.x
-		returnTable.y = self.localPosition.y + self.parent.position.y
-		returnTable.z = self.localPosition.z + self.parent.position.z
-	else
-		returnTable.x = self.position.x
-		returnTable.y = self.position.y
-		returnTable.z = self.position.z
-	end
-	return returnTable
-end
+
 function Transform:getPosition()
     if self.parent then
-        local returnTable = {}
-        returnTable.x = self.localPosition.x
-        returnTable.y = self.localPosition.y
-        returnTable.z = self.localPosition.z
-        return returnTable
-    else
-        return self.position
+        return localToWorld(self.parent, self)
     end
+    
+    return self.position
 end
 
 function Transform:setRotation(rotation)
     self.rotation = rotation or self.rotation
+    
     return self
 end
 
