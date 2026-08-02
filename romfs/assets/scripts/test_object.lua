@@ -52,7 +52,7 @@ function Script:update()
     Screen.debugPrint(2, 20, string.format("Lua RAM: %.2f MB", collectgarbage("count") / 1024), Color.new(255, 255, 255), BOTTOM_SCREEN)
     
     if Input.getKeyDown(KEY_B) then
-        ScenesManager.loadScene(2)
+        Object.enabled = false
     end
 end
 return Object

@@ -10,6 +10,7 @@ Script.__index = Script
 --- It creates a new behaviour object and adds it to the runtime.
 function Script:new()
     self = setmetatable({}, Script)
+    self.enabled = true
     return self
 end
 

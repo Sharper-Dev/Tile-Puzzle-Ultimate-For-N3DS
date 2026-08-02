@@ -17,6 +17,7 @@ local ScenesManager = require("scenes.m2d_scenes_manager")
 function GameObject:new(name)
     self = setmetatable({}, GameObject)
     self.transform = Transform:new(self)
+    self.enabled = true
     self.components = {}
     self.name = name
     
@@ -25,6 +26,7 @@ end
 
 function GameObject:addComponent(component, params)
     local comp = require(componentsList[component]):new(params)
+    comp.gameObject = self
     table.insert(self.components, comp)
     
     return comp

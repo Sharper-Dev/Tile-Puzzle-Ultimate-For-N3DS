@@ -27,8 +27,12 @@ function CoreRuntime._loop()
     for _, scene in ipairs(ScenesManager.getActiveScenes()) do
         if scene.gameObjects ~= nil then
             for _, obj in ipairs(scene.gameObjects) do
-                for _, component in ipairs(obj.components) do
-                    component:update()
+                if obj.enabled then
+                    for _, component in ipairs(obj.components) do
+                        if component.enabled then
+                            component:update()
+                        end
+                    end
                 end
             end
         end
