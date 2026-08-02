@@ -40,16 +40,17 @@ end
 --- @param gameObject m2d_gameobject GameObject this transform belongs to.
 --- @return self transform
 function Transform:new(gameObject)
-    local this = setmetatable({}, Transform)
-    this.gameObject = gameObject
-    this.position = { x = 0, y = 0, z = 0 }
-    this.localPosition = { x = 0, y = 0, z = 0 }
-    this.rotation = 0
-    this.scale = { x = 1, y = 1 }
-    this.localScale = { x = 1, y = 1 }
-    this.parent = nil
-    this.children = {}
-    return this
+    self = setmetatable({}, Transform)
+    self.gameObject = gameObject
+    self.position = { x = 0, y = 0, z = 0 }
+    self.localPosition = { x = 0, y = 0, z = 0 }
+    self.rotation = 0
+    self.scale = { x = 1, y = 1 }
+    self.localScale = { x = 1, y = 1 }
+    self.parent = nil
+    self.children = {}
+    
+    return self
 end
 
 --- Sets the parent of this transform.
@@ -62,7 +63,9 @@ function Transform:setParent(transform)
         self.parent.children[tostring(self)] = nil
         self.position = localToWorld(self.parent, self)
     end
+    
     self.parent = transform
+    
     if transform then
         transform.children[tostring(self)] = self
         self.localPosition = worldToLocal(transform, self)
@@ -116,6 +119,7 @@ end
 function Transform:setScale(x, y)
     self.scale.x = x or self.scale.x
     self.scale.y = y or self.scale.y
+    
     return self
 end
 

@@ -5,10 +5,15 @@ local ScenesManager = require("scenes.m2d_scenes_manager")
 local Script = Object:addComponent("Script", {})
 local currentScene
 local Object2
+
 function Script:start()
     currentScene = ScenesManager.getActiveScenes()[1]
     Object2 = Object.findByName("2")
-    Object.transform:setPosition(0, 100, nil)
+    Object.transform:setPosition(50, 100, nil)
+    local obj1 = Object.instantiate("romfs:/assets/scripts/object3.lua")
+    local obj2 = Object.instantiate("romfs:/assets/scripts/object3.lua")
+    obj1.transform:setParent(Object.transform)
+    obj2.transform:setParent(obj1.transform)
 end
 
 function Script:update()
@@ -41,16 +46,13 @@ function Script:update()
         local previousPosition = Object.transform:getPosition().x
         previousPosition = previousPosition + 3
         Object.transform:setPosition(previousPosition)
-        end
-    if Input.getKeyDown(KEY_B) then
-        currentScene.gameObjects[#currentScene.gameObjects]:destroy()
     end
-    if Input.getKeyDown(KEY_Y) then
-        Object.instantiate("romfs:/assets/scripts/object3.lua")
-    end
+    
     Screen.debugPrint(100, 2, "DEBUG MODE", Color.new(255, 255, 255), BOTTOM_SCREEN)
-    for i, object in ipairs(currentScene:getHierarchy()) do
-        Screen.debugPrint(2, 20 * i, object.name, Color.new(255, 255, 255), BOTTOM_SCREEN)
+    Screen.debugPrint(2, 20, string.format("Lua RAM: %.2f MB", collectgarbage("count") / 1024), Color.new(255, 255, 255), BOTTOM_SCREEN)
+    
+    if Input.getKeyDown(KEY_B) then
+        ScenesManager.loadScene(2)
     end
 end
 return Object

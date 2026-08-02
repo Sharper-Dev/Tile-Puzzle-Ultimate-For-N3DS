@@ -4,4 +4,5 @@ local SampleScene = Scene:new()
 SampleScene:addGameObject(dofile("romfs:/assets/scripts/test_object.lua"))
 SampleScene:addGameObject(dofile("romfs:/assets/scripts/object2.lua"))
 SampleScene:addGameObject(dofile("romfs:/assets/scripts/object3.lua"))
+
 return SampleScene

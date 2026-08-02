@@ -1,5 +1,7 @@
 local Object2 = require("gameobject.m2d_gameobject"):new("2")
 local Script2 = Object2:addComponent("Script", {})
+local Input = require("input.m2d_input_system")
+local ScenesManager = require("scenes.m2d_scenes_manager")
 
 local Object1
 

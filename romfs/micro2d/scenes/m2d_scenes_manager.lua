@@ -12,8 +12,8 @@ function ScenesManager.loadScene(sceneIndex)
     local scenePath = M2D_SETTINGS.SCENES[sceneIndex]
     local scene = dofile(scenePath)
     table.insert(activeScenes, scene)
-    for _, obj in ipairs(scene.gameObjects) do
-        for _, component in ipairs(obj.components) do
+    for _, object in ipairs(scene.gameObjects) do
+        for _, component in ipairs(object.components) do
             component:start()
         end
     end

@@ -4,13 +4,13 @@
 --- @author Sharper Dev
 
 local Script = {}
+Script.__index = Script
 ------
 --- The constructor for the object behaviour.
 --- It creates a new behaviour object and adds it to the runtime.
 function Script:new()
-    local this = setmetatable({}, Script)
-    setmetatable(this, { __index = Script })
-    return this
+    self = setmetatable({}, Script)
+    return self
 end
 
 function Script:destroy()
