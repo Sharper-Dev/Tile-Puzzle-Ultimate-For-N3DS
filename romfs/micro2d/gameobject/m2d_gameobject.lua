@@ -1,6 +1,5 @@
 --- The GameObject.
 --- @module gameobject
---- @alias m2d_gameobject
 --- @author Sharper Dev
 
 local GameObject = {}
@@ -18,6 +17,13 @@ function GameObject:new(name)
     this.name = name
     setmetatable(this, {__index = GameObject})
     return this
+end
+
+function GameObject.instantiate(gameObjectPath)
+    local scene = SceneManager.getActiveScenes()[1]
+    local newObject = scene:addGameObject(dofile(gameObjectPath))
+    newObject.name = tostring(newObject)
+    return newObject
 end
 
 function GameObject.findByName(name)
@@ -39,6 +45,7 @@ function GameObject:destroy()
     for _, component in ipairs(self.components) do
         component:destroy()
     end
+    self.scene.gameObjects[self.index] = nil
 end
 
 return GameObject

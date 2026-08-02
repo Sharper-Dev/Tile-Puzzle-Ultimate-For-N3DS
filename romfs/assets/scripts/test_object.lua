@@ -1,12 +1,14 @@
 local Object = require("gameobject.m2d_gameobject"):new("1")
 
 local Input = require("input.m2d_input_system")
+local ScenesManager = require("scenes.m2d_scenes_manager")
 local Script = Object:addComponent("Script", {})
-
+local currentScene
 local Object2
 function Script:start()
+    currentScene = ScenesManager.getActiveScenes()[1]
     Object2 = Object.findByName("2")
-    Object.transform:setPosition(0, 100)
+    Object.transform:setPosition(0, 100, nil)
 end
 
 function Script:update()
@@ -41,20 +43,14 @@ function Script:update()
         Object.transform:setPosition(previousPosition)
         end
     if Input.getKeyDown(KEY_B) then
-        Object.transform:setParent(nil)
+        currentScene.gameObjects[#currentScene.gameObjects]:destroy()
     end
-    -- Screen.debugPrint(100, 2, "DEBUG MODE", Color.new(255, 255, 255), BOTTOM_SCREEN)
-    -- local x = Object.transform.position.x
-    -- local y = Object.transform.position.y
-    -- local z = Object.transform.position.z
-    -- Screen.debugPrint(2, 20, string.format("OBJ1: %s", Object.transform:getHierarchyString()), Color.new(255,255,255), BOTTOM_SCREEN)
-    -- Screen.debugPrint(2, 40, string.format("Position: %s, %s, %s", x, y, z), Color.new(255, 255, 255), BOTTOM_SCREEN)
-    -- x = Object.transform.localPosition.x
-    -- y = Object.transform.localPosition.y
-    -- z = Object.transform.localPosition.z
-    -- Screen.debugPrint(2, 60, string.format("Local Position: %s, %s, %s", x, y, z), Color.new(255, 255, 255),
-    --     BOTTOM_SCREEN)
-    -- x, y, z = Object.transform:getFinalPosition().x, Object.transform:getFinalPosition().y, Object.transform:getFinalPosition().z
-    -- Screen.debugPrint(2, 80, string.format("Final Position: %s, %s, %s", x, y, z), Color.new(255, 255, 255), BOTTOM_SCREEN)
+    if Input.getKeyDown(KEY_Y) then
+        Object.instantiate("romfs:/assets/scripts/object3.lua")
+    end
+    Screen.debugPrint(100, 2, "DEBUG MODE", Color.new(255, 255, 255), BOTTOM_SCREEN)
+    for i, object in ipairs(currentScene:getHierarchy()) do
+        Screen.debugPrint(2, 20 * i, object.name, Color.new(255, 255, 255), BOTTOM_SCREEN)
+    end
 end
 return Object

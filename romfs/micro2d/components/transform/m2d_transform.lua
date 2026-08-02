@@ -2,6 +2,8 @@
 --- @module components_transform
 --- @author Sharper Dev
 
+-- TODO: Maybe implement rotation and scale be affected by parent
+
 local Transform = {}
 Transform.__index = Transform
 
@@ -70,9 +72,9 @@ function Transform:setParent(transform)
 end
 
 --- Sets the position of this transform.
---- @param x number
---- @param y number
---- @param z number
+-- @param x number
+-- @param y number
+-- @param z number
 --- @return self transform
 function Transform:setPosition(x, y, z)
     if self.parent then
