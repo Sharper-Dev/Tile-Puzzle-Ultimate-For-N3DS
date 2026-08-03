@@ -7,7 +7,7 @@ RenderTask.__index = RenderTask
 
 function RenderTask:new(params)
     self = setmetatable({}, RenderTask)
-    self.layer = params.layer or 1
+    self.layer = params.layer or 0
     self.execute = params.execute
     self.enabled = (params.enabled == nil) and true or params.enabled
     

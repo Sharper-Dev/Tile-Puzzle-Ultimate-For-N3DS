@@ -8,20 +8,12 @@ local renderTasksTop = {}
 local renderTasksBottom = {}
 
 local function sortTasks(tasksTable)
-    local cleanTable = {}
-    for _, task in pairs(tasksTable) do
-        table.insert(cleanTable, task)
-    end
-    table.sort(cleanTable, function(a, b)
+    table.sort(tasksTable, function(a, b)
         return a.layer < b.layer
     end)
-    tasksTable = cleanTable
 end
 
 function Renderer.addRenderTask(task, screen)
-    if task.id == nil then
-        error("task.id cannot be nil")
-    end
     if screen == TOP_SCREEN then
         table.insert(renderTasksTop, task)
         sortTasks(renderTasksTop)

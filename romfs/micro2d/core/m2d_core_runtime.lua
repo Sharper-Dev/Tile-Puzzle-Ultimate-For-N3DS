@@ -37,8 +37,8 @@ function CoreRuntime._loop()
             end
         end
     end
-    --Renderer.drawTop()
-    --Renderer.drawBottom()
+    Renderer.drawTop()
+    Renderer.drawBottom()
     Screen.flip()
     
     if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then
