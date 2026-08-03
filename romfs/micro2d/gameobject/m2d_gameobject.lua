@@ -9,8 +9,8 @@ local Transform = require("components.transform.m2d_transform")
 
 local componentsList = {
     ["Script"] = "components.script.m2d_script",
-    --["Canvas"] = "components.ui.m2d_canvas",
-    --["Image"] = "components.ui.m2d_image"
+    ["Canvas"] = "components.ui.m2d_canvas",
+    ["Image"] = "components.ui.m2d_image"
 }
 local ScenesManager = require("scenes.m2d_scenes_manager")
 
@@ -24,8 +24,8 @@ function GameObject:new(name)
     return self
 end
 
-function GameObject:addComponent(component, params)
-    local comp = require(componentsList[component]):new(params)
+function GameObject:addComponent(component, userParam)
+    local comp = require(componentsList[component]):new(self, userParam)
     comp.gameObject = self
     table.insert(self.components, comp)
     
