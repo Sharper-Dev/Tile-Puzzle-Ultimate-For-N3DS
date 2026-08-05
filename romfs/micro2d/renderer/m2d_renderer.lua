@@ -46,9 +46,7 @@ end
 function Renderer.drawTop()
     Graphics.initBlend(TOP_SCREEN)
     for _, task in ipairs(renderTasksTop) do
-        if (task.enabled) then
-            task.execute()
-        end
+        task.execute()
     end
     Graphics.termBlend()
 end
@@ -56,9 +54,7 @@ end
 function Renderer.drawBottom()
     Graphics.initBlend(BOTTOM_SCREEN)
     for _, task in ipairs(renderTasksBottom) do
-        if (task.enabled) then
-            task.execute()
-        end
+        task.execute()
     end
     Graphics.termBlend()
 end

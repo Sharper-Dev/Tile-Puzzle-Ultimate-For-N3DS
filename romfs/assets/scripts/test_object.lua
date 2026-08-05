@@ -1,12 +1,17 @@
 local Object = require("gameobject.m2d_gameobject"):new("1")
-
 local Input = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
+
 local Script = Object:addComponent("Script", {})
+local Image = Object:addComponent("Image", "romfs:/assets/images/background_bottom.png")
+
 local currentScene
 local Object2
 
 function Script:start()
+    local canvas = Object.findByName("Canvas").canvas
+    Image:setCanvas(canvas)
+    
     -- currentScene = ScenesManager.getActiveScenes()[1]
     -- Object2 = Object.findByName("2")
     -- Object.transform:setPosition(50, 100, nil)
@@ -17,6 +22,9 @@ function Script:start()
 end
 
 function Script:update()
+    if Input.getKeyDown(KEY_L) then
+        Image.enabled = not Image.enabled
+    end
     -- if Input.getKeyDown(KEY_DRIGHT) then
     --     local previousPosition = Object.transform:getPosition().x
     --     previousPosition = previousPosition + 3

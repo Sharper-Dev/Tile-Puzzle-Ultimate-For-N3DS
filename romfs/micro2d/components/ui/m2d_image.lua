@@ -11,24 +11,28 @@ function Image:new(gameObject, userParam)
     self = setmetatable({}, Image)
     self.enabled = true
     self.gameObject = gameObject
-    if self.gameObject.canvas == nil then
-        error("gameObject must have a canvas")
-    end
-    self.canvas = self.gameObject.canvas
     Image:setImage(userParam)
     self.renderTask = RenderTask:new({
-        enabled = self.enabled,
         layer = self.gameObject.transform:getPosition().z,
         execute = function () return self:render() end
     })
-    
-    self.canvas:addElement(self)
     return self
 end
 
 function Image:start() end
 function Image:update() end
+
+function Image:setCanvas(canvas)
+    if self.canvas ~= nil then
+        self.canvas:delElement(self)
+    end
     
+    self.canvas = canvas
+    self.canvas:addElement(self)
+    
+    return self
+end
+
 function Image:setImage(img)
     if type(img) == "string" then
         self.image = Graphics.loadImage(img)
@@ -45,6 +49,8 @@ function Image:destroy()
 end
 
 function Image:render()
+    if not self.enabled then return end
+        
     local position = self.gameObject.transform:getPosition()
     Graphics.drawImage(position.x, position.y, self.image)
 end
