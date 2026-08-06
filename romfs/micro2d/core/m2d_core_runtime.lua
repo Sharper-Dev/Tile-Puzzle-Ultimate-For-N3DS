@@ -8,14 +8,16 @@ local ScenesManager = require("scenes.m2d_scenes_manager")
 local Renderer = require("renderer.m2d_renderer")
 
 ------
---- Called when the app starts.
+--- Called when the game starts.
+--- Initializes the graphics and loads the first scene.
 function CoreRuntime._start()
     Graphics.init()
     ScenesManager.loadScene(1)
 end
 
 ------
---- Called every frame.
+--- Called after the game starts and then every frame.
+--- Updates the input system, refreshes the screen, updates all components, and renders the active scenes.
 function CoreRuntime._loop()
     InputSystem.readInputs()
     
@@ -25,14 +27,10 @@ function CoreRuntime._loop()
     Screen.clear(TOP_SCREEN)
     Screen.clear(BOTTOM_SCREEN)
     for _, scene in ipairs(ScenesManager.getActiveScenes()) do
-        if scene.gameObjects ~= nil then
-            for _, obj in ipairs(scene.gameObjects) do
-                if obj.enabled then
-                    for _, component in ipairs(obj.components) do
-                        if component.enabled then
-                            component:update()
-                        end
-                    end
+        for _, obj in ipairs(scene.gameObjects or {}) do
+            for _, component in ipairs(obj.enabled and obj.components or {}) do
+                if component.enabled then
+                    component:update()
                 end
             end
         end
@@ -41,7 +39,7 @@ function CoreRuntime._loop()
     Renderer.drawBottom()
     Screen.flip()
     
-    if InputSystem.getKeyDown(KEY_HOME) or InputSystem.getKeyDown(KEY_POWER) then
+    if InputSystem.getKeyDown(KEY_POWER) then
         Graphics.term()
         System.exit()
     end

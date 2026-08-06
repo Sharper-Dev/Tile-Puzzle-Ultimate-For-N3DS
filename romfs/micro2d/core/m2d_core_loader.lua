@@ -1,8 +1,9 @@
 --- The core loader of Micro2D.
---- This module loads the runtime and starts the application. It not contains any public functions.
+--- This module loads the runtime and starts the application.
+---
+--- It not contains any public functions. See the core_runtime module.
 --- @module core_loader
 --- @author Sharper Dev
-
 package.path = package.path .. ";romfs:/micro2d/?.lua"
 
 require("m2d_settings")

@@ -2,7 +2,7 @@ local Object = require("gameobject.m2d_gameobject"):new("1")
 local Input = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
 
-local Script = Object:addComponent("Script", {})
+local Script = Object:addComponent("Script")
 local Image = Object:addComponent("Image", "romfs:/assets/images/background_bottom.png")
 
 local currentScene

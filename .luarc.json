@@ -73,6 +73,8 @@
     "luadoc-miss-module-name",
         "undefined-doc-name",
         "undefined-field",
-        "param-type-mismatch"
+        "param-type-mismatch",
+        "return-type-mismatch",
+        "inject-field"
   ]
 }

@@ -58,6 +58,8 @@ end
 --- If the paramter is nil, the parent will be removed.
 --- @param transform m2d_transform The transform to set as the parent.
 --- @return self transform
+--- @usage
+--- thisObject.transform:setParent(anotherObject.transform)
 function Transform:setParent(transform)
     if self.parent then
         self.parent.children[tostring(self)] = nil
@@ -79,6 +81,8 @@ end
 -- @param y number
 -- @param z number
 --- @return self transform
+--- @usage
+--- thisObject.transform:setPosition(0, 0, 0)
 function Transform:setPosition(x, y, z)
     if self.parent then
         self.localPosition.x = x or self.localPosition.x
@@ -95,6 +99,8 @@ end
 
 --- Returns the position of this transform.
 --- @return table {x, y, z}
+--- @usage
+--- local position = thisObject.transform:getPosition()
 function Transform:getPosition()
     if self.parent then
         return localToWorld(self.parent, self)
@@ -106,6 +112,8 @@ end
 --- Sets the rotation of this transform.
 --- @param rotation number
 --- @return self transform
+--- @usage
+--- thisObject.transform:setRotation(0)
 function Transform:setRotation(rotation)
     self.rotation = rotation or self.rotation
     
@@ -116,6 +124,8 @@ end
 --- @param x number
 --- @param y number
 --- @return self transform
+--- @usage
+--- thisObject.transform:setScale(1, 1)
 function Transform:setScale(x, y)
     self.scale.x = x or self.scale.x
     self.scale.y = y or self.scale.y
