@@ -53,7 +53,8 @@ function Image:setImage(imgPath)
     end
     
     self.image = Graphics.loadImage(imgPath)
-
+    self.imageWidth = Graphics.getImageWidth(self.image)
+    self.imageHeight = Graphics.getImageHeight(self.image)
     return self
 end
 
@@ -74,7 +75,9 @@ function Image:render()
     if not self.enabled then return end
 
     local position = self.gameObject.transform:getPosition()
-    Graphics.drawImage(position.x, position.y, self.image)
+    Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
+        self.gameObject.transform.rotation,
+        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image)
 end
 
 return Image
