@@ -1,11 +1,12 @@
 --- The UI Canvas to display elements on the screen.
---- @module ui_canvas
+--- @module components_ui_canvas
 --- @author Sharper Dev
 
 local Canvas = {}
 Canvas.__index = Canvas
 
 local Renderer = require("renderer.m2d_renderer")
+
 --- The Canvas Constructor.
 --- @param gameObject table The game object this canvas is attached to.
 --- @param userParam number TOP_SCREEN or BOTTOM_SCREEN (optional, default: TOP_SCREEN)

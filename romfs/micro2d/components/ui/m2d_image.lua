@@ -1,5 +1,5 @@
 --- The UI Image component to display an image on the canvas.
---- @module ui_image
+--- @module components_ui_image
 --- @author Sharper Dev
 
 local Image = {}
