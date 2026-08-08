@@ -11,7 +11,8 @@ local ScenesManager = require("scenes.m2d_scenes_manager")
 local componentsList = {
     ["Script"] = "components.script.m2d_script",
     ["Canvas"] = "components.ui.m2d_canvas",
-    ["Image"] = "components.ui.m2d_image"
+    ["Image"] = "components.ui.m2d_image",
+    ["Text"] = "components.ui.m2d_text"
 }
 
 --- The GameObject Constructor.
