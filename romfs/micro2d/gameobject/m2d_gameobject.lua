@@ -12,7 +12,8 @@ local componentsList = {
     ["Script"] = "components.script.m2d_script",
     ["Canvas"] = "components.ui.m2d_canvas",
     ["Image"] = "components.ui.m2d_image",
-    ["Text"] = "components.ui.m2d_text"
+    ["Text"] = "components.ui.m2d_text",
+    ["Sprite"] = "components.sprite.m2d_sprite",
 }
 
 --- The GameObject Constructor.

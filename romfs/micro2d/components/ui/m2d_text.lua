@@ -7,6 +7,7 @@ Text.__index = Text
 local RenderTask = require("renderer.m2d_render_task")
 local FontsManager = require("fonts.m2d_fonts_manager")
 local utf8 = require("utf8")
+
 --- The Text Constructor
 --- @param gameObject The game object this component is attached to.
 --- @param userParam The text content
