@@ -28,12 +28,13 @@ end
 function Sprite:start() end
 function Sprite:update() end
 
-function Sprite:setSpace(space)
-    if self.space == space then return self end
-    
-    Renderer.delRenderTask(self.renderTask, self.space)
-    Renderer.addRenderTask(self.renderTask, space)
-    self.space = space
+function Sprite:setScreen(screen)
+    if self.screen == screen then return self end
+    if self.screen ~= nil then
+        Renderer.removeRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
+    end
+    Renderer.addRenderTask(self.renderTask, screen, Renderer.SPACES.WORLD)
+    self.screen = screen
     return self
 end
 
@@ -66,6 +67,7 @@ function Sprite:render()
     if not self.enabled then return end
 
     local position = self.gameObject.transform:getPosition()
+    self.renderTask.layer = position.z
     Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
         self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.sprite)

@@ -26,7 +26,11 @@ function Script:start()
 end
 
 function Script:update()
-    
+    if Input.getKeyDown(KEY_X) then
+        local go = Object.instantiate("romfs:/assets/scripts/object2.lua")
+        go.transform:setPosition(50, 50, 0)
+        go.components[2]:setSprite("romfs:/assets/fonts/dogica_8px/dogica_8px.png")
+    end
     -- if Input.getKeyDown(KEY_DRIGHT) then
     --     local previousPosition = Object.transform:getPosition().x
     --     previousPosition = previousPosition + 3

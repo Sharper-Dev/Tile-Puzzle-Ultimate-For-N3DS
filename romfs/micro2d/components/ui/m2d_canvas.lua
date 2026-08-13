@@ -13,7 +13,7 @@ local Renderer = require("renderer.m2d_renderer")
 --- @return self canvas
 function Canvas:new(gameObject, userParam)
     self = setmetatable({}, Canvas)
-    self.space = userParam or TOP_SCREEN
+    self.screen = userParam or TOP_SCREEN
     self.enabled = true
     self.gameObject = gameObject
     self.gameObject.canvas = self
@@ -34,7 +34,7 @@ function Canvas:update() end
 --- canvas:addElement(image)
 function Canvas:addElement(element)
     table.insert(self.elements, element)
-    Renderer.addRenderTask(element.renderTask, self.space)
+    Renderer.addRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
 end
 --- Removes an element from the canvas.
 --- @param element table
@@ -44,7 +44,7 @@ function Canvas:delElement(element)
 	for i, e in ipairs(self.elements) do
 		if e == element then
 			table.remove(self.elements, i)
-			Renderer.delRenderTask(element.renderTask, self.space)
+			Renderer.removeRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
 			return
 		end
 	end

@@ -7,16 +7,21 @@ local Script = thisObject:addComponent("Script", {})
 local Sprite = thisObject:addComponent("Sprite", "romfs:/assets/images/background_bottom.png")
 
 function Script:start()
-    Sprite:setSpace(BOTTOM_SCREEN)
+    Sprite:setScreen(BOTTOM_SCREEN)
+    thisObject.transform:setPosition(nil, nil, 2)
 end
 
 function Script:update()
     if Input.getKeyDown(KEY_A) then
-        Sprite:setSpace(BOTTOM_SCREEN)
+        Sprite:setScreen(BOTTOM_SCREEN)
     end
     
     if Input.getKeyDown(KEY_B) then
-        Sprite:setSpace(TOP_SCREEN)
+        Sprite:setScreen(TOP_SCREEN)
+    end
+    
+    if Input.getKeyDown(KEY_DUP) then
+        thisObject.transform:setPosition(nil, nil, 3)
     end
 end
 
