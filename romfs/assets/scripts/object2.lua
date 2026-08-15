@@ -8,7 +8,7 @@ local Sprite = thisObject:addComponent("Sprite", "romfs:/assets/images/backgroun
 
 function Script:start()
     Sprite:setScreen(BOTTOM_SCREEN)
-    thisObject.transform:setPosition(nil, nil, 2)
+    thisObject.transform:setPosition(nil, nil, 0)
 end
 
 function Script:update()
@@ -22,6 +22,9 @@ function Script:update()
     
     if Input.getKeyDown(KEY_DUP) then
         thisObject.transform:setPosition(nil, nil, 3)
+    end
+    if Input.getKeyDown(KEY_DDOWN) then
+        thisObject.transform:setPosition(nil, nil, 0)
     end
 end
 

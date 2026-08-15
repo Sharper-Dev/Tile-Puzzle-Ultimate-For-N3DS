@@ -81,10 +81,13 @@ end
 --- Internal function to render the text.
 function Text:render()
     if not self.enabled then return end
+        
     local transform = self.gameObject.transform
     local position = transform:getPosition()
     local cursor = { x = position.x, y = position.y }
     local font = FontsManager.getFont(self.fontID)
+
+    self.renderTask.layer = position.z
 
     for _, lineContent in ipairs(self.contentLines) do
         for _, code in utf8.codes(lineContent) do
