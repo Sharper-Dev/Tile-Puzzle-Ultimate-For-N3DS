@@ -17,6 +17,7 @@ function Sprite:new(gameObject, userParam)
     self.enabled = true
     self.gameObject = gameObject
     self:setSprite(userParam) -- User parameter = image path
+    self:setColor(255, 255, 255)
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform:getPosition().z,
         execute = function() return self:render() end
@@ -36,6 +37,13 @@ function Sprite:setScreen(screen)
     Renderer.addRenderTask(self.renderTask, screen, Renderer.SPACES.WORLD)
     self.screen = screen
     return self
+end
+
+function Sprite:setColor(r, g, b, a)
+    if a == nil then a = 255 end
+	self.color = Color.new(r, g, b, a)
+
+	return self
 end
 
 function Sprite:setSprite(imgPath)
@@ -70,7 +78,7 @@ function Sprite:render()
     self.renderTask.layer = position.z
     Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
-        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.sprite)
+        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.sprite, self.color)
 end
 
 return Sprite

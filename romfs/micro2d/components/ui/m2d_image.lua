@@ -57,7 +57,12 @@ function Image:setImage(imgPath)
     self.imageHeight = Graphics.getImageHeight(self.image)
     return self
 end
+function Image:setColor(r, g, b, a)
+    if a == nil then a = 255 end
+	self.color = Color.new(r, g, b, a)
 
+	return self
+end
 --- Destroys the image and removes it from the canvas.
 --
 -- 
@@ -80,7 +85,7 @@ function Image:render()
     
     Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
-        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image)
+        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image, self.color)
 end
 
 return Image
