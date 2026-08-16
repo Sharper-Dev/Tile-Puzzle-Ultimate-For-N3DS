@@ -109,6 +109,18 @@ function Transform:getPosition()
     return self.position
 end
 
+function Transform:translate(x, y, z)
+    local position = self:getPosition()
+    
+    position.x = position.x + (x or 0)
+    position.y = position.y + (y or 0)
+    position.z = position.z + (z or 0)
+    
+    self:setPosition(position.x, position.y, position.z)
+    
+    return self
+end
+
 --- Sets the rotation of this transform.
 --- @param rotation number
 --- @return self transform

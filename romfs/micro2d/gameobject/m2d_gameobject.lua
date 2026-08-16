@@ -54,9 +54,15 @@ end
 --- local obj = GameObject.instantiate("path/to/GameObject.lua")
 function GameObject.instantiate(gameObjectPath)
     local scene = ScenesManager.getActiveScenes()[1]
-    local newObject = scene:addGameObject(dofile(gameObjectPath))
-
-    newObject.name = tostring(newObject)
+    local newObject
+    
+    if type(gameObjectPath) == "string" then
+        newObject = scene:addGameObject(dofile(gameObjectPath))
+        newObject.name = tostring(newObject)
+    else
+        newObject = scene:addGameObject(gameObjectPath)
+    end
+    
     for _, component in ipairs(newObject.components) do
         component:start()
     end

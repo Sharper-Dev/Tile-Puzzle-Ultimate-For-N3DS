@@ -6,12 +6,14 @@ local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
 local Renderer = require("renderer.m2d_renderer")
-
+local Debugger = require("debugger.m2d_debugger")
+local Time = require("time.m2d_time")
 ------
 --- Called when the game starts.
 --- Initializes the graphics and loads the first scene.
 function CoreRuntime._start()
     Graphics.init()
+    Time.init()    
     ScenesManager.loadScene(1)
 end
 
@@ -34,7 +36,9 @@ function CoreRuntime._loop()
                 end
             end
         end
-    end
+    end    
+    Debugger.update()
+    
     Renderer.drawTop()
     Renderer.drawBottom()
     Screen.flip()
@@ -43,6 +47,7 @@ function CoreRuntime._loop()
         Graphics.term()
         System.exit()
     end
+    Time.update()
 end
 
 return CoreRuntime
