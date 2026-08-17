@@ -43,7 +43,7 @@ function CoreRuntime._loop()
     Renderer.drawBottom()
     Screen.flip()
     
-    if InputSystem.getKeyDown(KEY_POWER) then
+    if InputSystem.getKey(KEY_POWER) then
         Graphics.term()
         System.exit()
     end

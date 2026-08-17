@@ -33,7 +33,7 @@ local function updateObjectInfo()
         local rotation = objectToDebug.transform.rotation
         local scale = objectToDebug.transform.scale
         objectInfoText:setContent(string.format(
-            "Debugging: %s\nPosition: (%d, %d, %d)\nRotation: %d\nScale: (%d, %d)",
+            "Debugging: %s\nPosition: (%.1f, %.1f, %.1f)\nRotation: %d\nScale: (%.1f, %.1f)",
             name, position.x, position.y, position.z, rotation, scale.x, scale.y))
     else
         objectInfoText:setContent("Not debugging object")
@@ -82,8 +82,6 @@ local function setupDebugger()
     runtimeInfoText:setFont("dogica")
     runtimeInfoText:setLineBreakDistance(13)
     updateRuntimeInfo()
-    
-    Debugger.debugObject(runtimeInfo)
 end
 
 

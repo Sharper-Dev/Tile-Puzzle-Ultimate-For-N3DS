@@ -2,7 +2,7 @@ local GameObject = require("gameobject.m2d_gameobject")
 local Debugger = require("debugger.m2d_debugger")
 local Time = require("time.m2d_time")
 
-local thisObject = GameObject:new("top_circles")
+local thisObject = GameObject:new("bottom_circles")
 local Script = thisObject:addComponent("Script", {})
 local Sprite = thisObject:addComponent("Sprite", "romfs:/assets/sprites/background/circles.png")
 
@@ -18,8 +18,8 @@ end
 
 function Script:start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
-    Sprite:setScreen(TOP_SCREEN)
-    Debugger.debugObject(thisObject)
+    
+    Sprite:setScreen(BOTTOM_SCREEN)
 end
 
 function Script:update()

@@ -1,12 +1,12 @@
 BasicInfo:
-  Title                   : "SH 3DS Info"
+  Title                   : "Tile Puzzle Ultimate for N3DS"
   CompanyCode             : "00"
-  ProductCode             : "CTR-S3I-LPPD"
+  ProductCode             : "CTR-TPU-LPPD"
   ContentType             : Application
   Logo                    : Nintendo # Nintendo / Licensed / Distributed / iQue / iQueForSystem
 
 TitleInfo:
-  UniqueId                : 0x53441
+  UniqueId                : 0x53442
   Category                : Application
   
 CardInfo:
