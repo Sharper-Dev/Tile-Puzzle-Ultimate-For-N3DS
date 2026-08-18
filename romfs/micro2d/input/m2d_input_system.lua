@@ -17,6 +17,8 @@ local upButtons = 0
 --- Reads the inputs from the controls and updates the input state.
 -- 
 --- This function should be called or it won't update the input state.
+--
+--- It is previously called every frame in the Core Runtime loop.
 --- @local
 function InputSystem.readInputs()
     previousInput = currentInput
