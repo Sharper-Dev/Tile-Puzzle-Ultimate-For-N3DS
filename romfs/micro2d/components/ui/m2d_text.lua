@@ -27,9 +27,6 @@ function Text:new(gameObject, userParam)
     return self
 end
 
-function Text:start() end
-function Text:update() end
-    
 --- Sets the canvas for this text component.
 --- @param canvas The canvas to set.
 --- @return The text component itself.

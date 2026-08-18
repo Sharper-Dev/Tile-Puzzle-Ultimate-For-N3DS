@@ -12,7 +12,7 @@ local RenderTask = require("renderer.m2d_render_task")
 --- @param userParam The image path to load.
 function Image:new(gameObject, userParam)
     self = setmetatable({}, Image)
-    
+
     self.enabled = true
     self.gameObject = gameObject
     self:setImage(userParam) -- User parameter = image path
@@ -20,12 +20,9 @@ function Image:new(gameObject, userParam)
         layer = self.gameObject.transform:getPosition().z,
         execute = function() return self:render() end
     })
-    
+
     return self
 end
-
-function Image:start() end
-function Image:update() end
 
 --- Sets the canvas to display the image on.
 --- @param canvas The canvas to set.

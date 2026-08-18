@@ -52,11 +52,7 @@ function CoreRuntime._loop()
     
     for _, scene in ipairs(ScenesManager.getActiveScenes()) do
         for _, obj in ipairs(scene.gameObjects or {}) do
-            for _, component in ipairs(obj.enabled and obj.components or {}) do
-                if component.enabled then
-                    component:update()
-                end
-            end
+            obj:callUpdate()
         end
     end
     Debugger.update()

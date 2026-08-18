@@ -22,9 +22,6 @@ function Canvas:new(gameObject, userParam)
     return self
 end
 
-function Canvas:start() end
-function Canvas:update() end
-
 --- Engine internal functions
 --- @section engine_internal
 

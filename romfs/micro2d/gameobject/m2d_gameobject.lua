@@ -27,6 +27,7 @@ function GameObject:new(name)
     self.transform = Transform:new(self)
     self.enabled = true
     self.components = {}
+    self.updateableComponents = {}
     self.name = name
 
     return self
@@ -43,9 +44,22 @@ function GameObject:addComponent(component, userParam)
     local comp = require(componentsList[component]):new(self, userParam)
     comp.gameObject = self
     table.insert(self.components, comp)
-    
+    if comp.update then
+        table.insert(self.updateableComponents, comp)
+    end
     return comp
 end 
+
+function GameObject:callUpdate()
+    if not self.enabled then return end
+
+	for i = 1, #self.updateableComponents do
+		local component = self.updateableComponents[i]
+		if component.enabled then
+			component:update()
+		end
+	end
+end
 
 --- Instantiates a GameObject from a given path.
 --- @param gameObjectPath The path to the GameObject file.

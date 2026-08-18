@@ -16,7 +16,9 @@ function ScenesManager.loadScene(sceneIndex)
     table.insert(activeScenes, scene)
     for _, object in ipairs(scene.gameObjects) do
         for _, component in ipairs(object.components) do
-            component:start()
+            if component.start then
+                component:start()
+            end
         end
     end
 end
