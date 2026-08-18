@@ -1,7 +1,6 @@
 local Debugger = {}
 local InputSystem = require("input.m2d_input_system")
 local GameObject = require("gameobject.m2d_gameobject")
-local FontsManager = require("fonts.m2d_fonts_manager")
 local Time = require("time.m2d_time")
 
 local isEnabled = false
@@ -42,7 +41,7 @@ end
 
 local function setupDebugger()
     isEnabled = true
-    FontsManager.loadFont("dogica", "romfs:/assets/fonts/dogica_8px")
+    
     runtimeUpdateTimer = Timer.new()
     
     canvasObject = GameObject.instantiate(GameObject:new("DEBUGGER_CANVAS"))
@@ -62,7 +61,7 @@ local function setupDebugger()
 
     local text = titleObject:addComponent("Text", "DEBUG MODE")
     text:setCanvas(canvas)
-    text:setFont("dogica")
+    text:setFont("default")
 
     objectInfo = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"))
     objectInfo.transform:setPosition(5, 196, 99)
@@ -70,7 +69,7 @@ local function setupDebugger()
 
     objectInfoText = objectInfo:addComponent("Text", "")
     objectInfoText:setCanvas(canvas)
-    objectInfoText:setFont("dogica")
+    objectInfoText:setFont("default")
     objectInfoText:setLineBreakDistance(13)
 
     runtimeInfo = GameObject.instantiate(GameObject:new("DEBUGGER_RUNTIME_INFO"))
@@ -79,7 +78,7 @@ local function setupDebugger()
 
     runtimeInfoText = runtimeInfo:addComponent("Text", "")
     runtimeInfoText:setCanvas(canvas)
-    runtimeInfoText:setFont("dogica")
+    runtimeInfoText:setFont("default")
     runtimeInfoText:setLineBreakDistance(13)
     updateRuntimeInfo()
 end
