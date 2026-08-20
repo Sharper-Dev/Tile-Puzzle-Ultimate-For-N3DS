@@ -17,16 +17,33 @@ local Time = require("time.m2d_time")
 --- Sometimes when the application starts, the first frame may be a weird texture artifact and this helps to clear it.
 local function preClean()
     local sceneTimer = Timer.new()
+    
+    Controls.disableScreen(TOP_SCREEN) -- I can't show these artifacts :D
+    Controls.disableScreen(BOTTOM_SCREEN)
+
     for _ = 1, 2 do
         Graphics.initBlend(TOP_SCREEN)
-        Graphics.fillRect(0, 400, 0, 320, Color.new(0, 0, 0))
+        Graphics.fillRect(0, 400, 0, 240, Color.new(0, 0, 0))
         Graphics.termBlend()
-        Screen.flip()
+        
+        Graphics.initBlend(BOTTOM_SCREEN)
+        Graphics.fillRect(0, 320, 0, 240, Color.new(0, 0, 0))
+        Graphics.termBlend()
+
+        Graphics.flip()
     end
+
     while Timer.getTime(sceneTimer) < 1000 do
         -- Wait
     end
     Timer.destroy(sceneTimer)
+    Controls.enableScreen(TOP_SCREEN)
+    Controls.enableScreen(BOTTOM_SCREEN)
+end
+
+local function endRuntime()
+    Graphics.term()
+    System.exit()
 end
 
 ------
@@ -34,8 +51,8 @@ end
 --- Initializes the graphics and loads the first scene.
 function CoreRuntime._start()
     Graphics.init()
-    Time.init()
     preClean()
+    Time.init()
     ScenesManager.loadScene(1)
 end
 
@@ -44,12 +61,7 @@ end
 --- Updates the input system, refreshes the screen, updates all components, and renders the active scenes.
 function CoreRuntime._loop()
     InputSystem.readInputs()
-    
-    Screen.refresh()
-    
-    Screen.clear(TOP_SCREEN)
-    Screen.clear(BOTTOM_SCREEN)
-    
+
     for _, scene in ipairs(ScenesManager.getActiveScenes()) do
         for _, obj in ipairs(scene.gameObjects or {}) do
             obj:callUpdate()
@@ -59,16 +71,13 @@ function CoreRuntime._loop()
 
     Renderer.drawTop()
     Renderer.drawBottom()
-    Screen.flip()
+    Graphics.flip()
 
     if InputSystem.getKey(KEY_POWER) then
-        Graphics.term()
-        System.exit()
+        endRuntime()
     end
-
-    Time.update()
     
-    Screen.waitVblankStart()
+    Time.update()
 end
 
 return CoreRuntime
