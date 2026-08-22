@@ -31,7 +31,9 @@ end
 --- canvas:addElement(image)
 function Canvas:addElement(element)
     table.insert(self.elements, element)
-    Renderer.addRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
+    if element.renderTask ~= nil then
+        Renderer.addRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
+    end
 end
 --- Removes an element from the canvas.
 --- @param element table
@@ -40,8 +42,10 @@ end
 function Canvas:delElement(element)
 	for i, e in ipairs(self.elements) do
 		if e == element then
-			table.remove(self.elements, i)
-			Renderer.removeRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
+            table.remove(self.elements, i)
+			if element.renderTask ~= nil then
+				Renderer.removeRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
+			end
 			return
 		end
 	end

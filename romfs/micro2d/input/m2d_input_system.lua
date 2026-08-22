@@ -98,7 +98,7 @@ end
 --- Gets the current touch position.
 --- @return integer X-Axis value.
 --- @return integer Y-Axis value.
---- @usage local touch = InputSystem.getTouch()
+--- @usage local x, y = InputSystem.getTouch()
 function InputSystem.getTouch()
 	return Controls.readTouch()
 end

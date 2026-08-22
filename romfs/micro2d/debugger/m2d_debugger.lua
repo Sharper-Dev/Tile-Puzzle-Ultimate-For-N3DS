@@ -4,7 +4,12 @@ local GameObject = require("gameobject.m2d_gameobject")
 local Time = require("time.m2d_time")
 
 local isEnabled = false
-local enableKey = KEY_START
+local enableCode = { KEY_DUP, KEY_DUP,
+    KEY_DDOWN, KEY_DDOWN,
+    KEY_DLEFT, KEY_DRIGHT,
+    KEY_DLEFT, KEY_DRIGHT,
+    KEY_B, KEY_A, KEY_START}
+local currentIndex = 1
 
 local canvasObject
 local titleObject
@@ -83,11 +88,30 @@ local function setupDebugger()
     updateRuntimeInfo()
 end
 
+local function detectCode()
+    local rawInput = InputSystem.getRawInput() & 0x0FFF
+    if rawInput == 0 or isEnabled then return end
+        
+    if currentIndex == #enableCode + 1 then
+        setupDebugger()
+        currentIndex = 1
+        return
+    end
+    
+    if InputSystem.getKeyDown(enableCode[currentIndex]) then
+        if rawInput == enableCode[currentIndex] then
+            currentIndex = currentIndex + 1
+        end
+        return
+    end
+    
+    if InputSystem.getKeyDown(rawInput) then
+        currentIndex = 1
+    end
+end
 
 function Debugger.update()
-    if InputSystem.getKeyDown(enableKey) and not isEnabled then
-        setupDebugger()
-    end
+    detectCode()
     
     if isEnabled then
         if InputSystem.getKeyDown(KEY_DUP) then

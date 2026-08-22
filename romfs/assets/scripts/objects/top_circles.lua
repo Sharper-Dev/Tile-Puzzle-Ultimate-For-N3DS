@@ -13,13 +13,13 @@ local finalPos = { x = 190, y = 86 }
 local speed = 0.5
 local counter = 0
 
-function Script:start()
+function Script.start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
     Sprite:setScreen(TOP_SCREEN)
     Debugger.debugObject(thisObject)
 end
 
-function Script:update()
+function Script.update()
     counter = counter + Time.deltaTime * speed
     
     local x = MathE.lerp(startPos.x, finalPos.x, math.min(counter, 1.0))
