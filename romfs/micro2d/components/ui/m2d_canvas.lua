@@ -43,12 +43,22 @@ function Canvas:delElement(element)
 	for i, e in ipairs(self.elements) do
 		if e == element then
             table.remove(self.elements, i)
-			if element.renderTask ~= nil then
-				Renderer.removeRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
-			end
+            if element.renderTask ~= nil then
+                Renderer.removeRenderTask(element.renderTask, self.screen, Renderer.SPACES.SCREEN)
+            end
 			return
 		end
 	end
+end
+
+function Canvas:switchScreen(screen)
+    if self.screen == screen then return end
+
+	for i = 1, #self.elements do
+		Renderer.removeRenderTask(self.elements[i].renderTask, self.screen, Renderer.SPACES.SCREEN)
+		Renderer.addRenderTask(self.elements[i].renderTask, screen, Renderer.SPACES.SCREEN)
+	end
+	self.screen = screen
 end
 
 return Canvas

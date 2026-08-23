@@ -78,7 +78,8 @@ end
 --- Internal function to render the text.
 function Text:render()
     if not self.enabled then return end
-        
+    if not self.canvas.enabled then return end
+
     local transform = self.gameObject.transform
     local position = transform:getPosition()
     local cursor = { x = position.x, y = position.y }

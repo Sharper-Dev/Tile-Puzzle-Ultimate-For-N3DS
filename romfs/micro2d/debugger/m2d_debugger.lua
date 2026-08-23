@@ -4,15 +4,33 @@ local GameObject = require("gameobject.m2d_gameobject")
 local Time = require("time.m2d_time")
 
 local isEnabled = false
+local hasSetup = false
+
 local enableCode = { KEY_DUP, KEY_DUP,
     KEY_DDOWN, KEY_DDOWN,
     KEY_DLEFT, KEY_DRIGHT,
     KEY_DLEFT, KEY_DRIGHT,
-    KEY_B, KEY_A, KEY_START}
+    KEY_B, KEY_A, KEY_START }
+
+local functionKey = KEY_R
+local disableStroke = {
+    hold = functionKey,
+    press = KEY_B,
+}
+local switchToTopStroke = {
+    hold = functionKey,
+    press = KEY_DUP,
+}
+local switchToBottomStroke = {
+    hold = functionKey,
+    press = KEY_DDOWN,
+}
+
 local currentIndex = 1
 
 local canvasObject
 local titleObject
+local topScreenOffset = 40
 
 local runtimeInfo
 local runtimeInfoText
@@ -54,12 +72,12 @@ local function setupDebugger()
     local canvas = canvasObject:addComponent("Canvas", BOTTOM_SCREEN)
 
     titleObject = GameObject.instantiate(GameObject:new("DEBUGGER_TITLE"))
-    titleObject.transform:setPosition(90, 10, 99)
+    titleObject.transform:setPosition(90, 10, 101)
     titleObject.transform:setScale(2, 2)
 
     local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"))
-    backgroundObject.transform:setPosition(160, 120, 98)
-
+    backgroundObject.transform:setPosition(160, 120, 100)
+    backgroundObject.transform:setScale(2)
     local backgroundImage = backgroundObject:addComponent("Image", "romfs:/micro2d/assets/images/bg_bottom.png")
     backgroundImage:setCanvas(canvas)
     backgroundImage:setColor(0, 0, 0)
@@ -69,7 +87,7 @@ local function setupDebugger()
     text:setFont("default")
 
     objectInfo = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"))
-    objectInfo.transform:setPosition(5, 196, 99)
+    objectInfo.transform:setPosition(5, 87, 101)
     objectInfo.transform:setScale(1, 1)
 
     objectInfoText = objectInfo:addComponent("Text", "")
@@ -78,7 +96,7 @@ local function setupDebugger()
     objectInfoText:setLineBreakDistance(13)
 
     runtimeInfo = GameObject.instantiate(GameObject:new("DEBUGGER_RUNTIME_INFO"))
-    runtimeInfo.transform:setPosition(5, 40, 99)
+    runtimeInfo.transform:setPosition(5, 40, 101)
     runtimeInfo.transform:setScale(1, 1)
 
     runtimeInfoText = runtimeInfo:addComponent("Text", "")
@@ -86,6 +104,26 @@ local function setupDebugger()
     runtimeInfoText:setFont("default")
     runtimeInfoText:setLineBreakDistance(13)
     updateRuntimeInfo()
+    Debugger.debugObject(objectInfo)
+end
+
+local function detectSwitch()
+	if InputSystem.getKey(switchToTopStroke.hold) then
+		if InputSystem.getKeyDown(switchToTopStroke.press) then
+            canvasObject.canvas:switchScreen(TOP_SCREEN)
+            titleObject.transform:translate(topScreenOffset)
+            runtimeInfo.transform:translate(topScreenOffset)
+            objectInfo.transform:translate(topScreenOffset)
+		end
+	end
+	if InputSystem.getKey(switchToBottomStroke.hold) then
+		if InputSystem.getKeyDown(switchToBottomStroke.press) then
+            canvasObject.canvas:switchScreen(BOTTOM_SCREEN)
+            titleObject.transform:translate(-topScreenOffset)
+            runtimeInfo.transform:translate(-topScreenOffset)
+            objectInfo.transform:translate(-topScreenOffset)
+		end
+	end
 end
 
 local function detectCode()
@@ -93,7 +131,13 @@ local function detectCode()
     if rawInput == 0 or isEnabled then return end
         
     if currentIndex == #enableCode + 1 then
-        setupDebugger()
+        if not hasSetup then
+            setupDebugger()
+            hasSetup = true
+        else
+            isEnabled = true
+            canvasObject.canvas.enabled = true
+        end
         currentIndex = 1
         return
     end
@@ -110,21 +154,38 @@ local function detectCode()
     end
 end
 
+local function detectDisableStroke()
+    if not isEnabled then return end
+        
+    if InputSystem.getKey(disableStroke.hold) then
+        if InputSystem.getKeyDown(disableStroke.press) then
+            isEnabled = false
+            canvasObject.canvas.enabled = false
+        end
+    end
+end
+
 function Debugger.update()
     detectCode()
-    
+    detectDisableStroke()
+    detectSwitch()
     if isEnabled then
-        if InputSystem.getKeyDown(KEY_DUP) then
-            objectToDebug.transform:translate(0, -1, 0)
-        end
-        if InputSystem.getKeyDown(KEY_DDOWN) then
-            objectToDebug.transform:translate(0, 1, 0)
-        end
-        if InputSystem.getKeyDown(KEY_DLEFT) then
-            objectToDebug.transform:translate(-1, 0, 0)
-        end
-        if InputSystem.getKeyDown(KEY_DRIGHT) then
-            objectToDebug.transform:translate(1, 0, 0)
+        if objectToDebug and not InputSystem.getKey(functionKey) then
+            if InputSystem.getKeyDown(KEY_DUP) then
+                objectToDebug.transform:translate(0, -1)
+            end
+            if InputSystem.getKeyDown(KEY_DDOWN) then
+                objectToDebug.transform:translate(0, 1)
+            end
+            if InputSystem.getKeyDown(KEY_DLEFT) then
+                objectToDebug.transform:translate(-1, 0)
+            end
+            if InputSystem.getKeyDown(KEY_DRIGHT) then
+                objectToDebug.transform:translate(1, 0)
+            end
+            if InputSystem.getKeyDown(KEY_A) then
+                objectToDebug.transform.localPosition.z = 0
+            end
         end
         
         updateObjectInfo()

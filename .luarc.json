@@ -67,7 +67,11 @@
     "Camera",
     "Sound",
     "JPGV",
-    "Render"
+    "Render",
+        "KEY_DOWN",
+        "KEY_UP",
+        "KEY_LEFT",
+        "KEY_RIGHT"
   ],
   "diagnostics.disable": [
     "luadoc-miss-module-name",

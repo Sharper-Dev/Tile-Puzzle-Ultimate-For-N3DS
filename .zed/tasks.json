@@ -20,4 +20,11 @@
     "allow_concurrent_runs": false,
     "reveal": "always",
   },
+  {
+    "label": "Open HTTP Server",
+    "command": "./http-server.bat",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+  }
 ]

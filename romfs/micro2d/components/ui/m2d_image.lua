@@ -75,7 +75,8 @@ end
 --- It is called automatically by the render task, in m2d_renderer.
 function Image:render()
     if not self.enabled then return end
-
+    if not self.canvas.enabled then return end
+        
     local position = self.gameObject.transform:getPosition()
 
     self.renderTask.layer = position.z

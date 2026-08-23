@@ -103,7 +103,8 @@ end
 --- local position = thisObject.transform:getPosition()
 function Transform:getPosition()
     if self.parent then
-        return localToWorld(self.parent, self)
+        --return localToWorld(self.parent, self)
+        return { x = self.localPosition.x, y = self.localPosition.y, z = self.localPosition.z }
     end
 
     return self.position

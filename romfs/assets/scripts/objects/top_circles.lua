@@ -16,7 +16,6 @@ local counter = 0
 function Script.start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
     Sprite:setScreen(TOP_SCREEN)
-    Debugger.debugObject(thisObject)
 end
 
 function Script.update()
