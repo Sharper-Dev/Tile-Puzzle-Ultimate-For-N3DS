@@ -7,12 +7,11 @@ Scene.__index = Scene
 
 --- The Scene Constructor.
 --- @return Scene
---- @usage local scene = Scene:new()
-function Scene:new()
+--- @usage local scene = Scene:new("my_scene")
+function Scene:new(name)
     self = setmetatable({}, Scene)
     self.gameObjects = {}
-    self.hierarchy = {}
-    
+    self.name = name
     return self
 end
 --- Adds a game object to the scene.
@@ -25,17 +24,6 @@ function Scene:addGameObject(gameObject)
     gameObject.index = #self.gameObjects
     
     return gameObject
-end
---- To remove later
-function Scene:getHierarchy()
-    local hierarchy = {}
-    for i, gameObject in ipairs(self.gameObjects) do
-        table.insert(hierarchy, gameObject)
-        for j, child in pairs(gameObject.transform.children) do
-            table.insert(hierarchy, child.gameObject)
-        end
-    end
-    return hierarchy
 end
 
 --- Unloads the scene, destroying all game objects.
