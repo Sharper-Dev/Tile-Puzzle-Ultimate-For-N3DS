@@ -20,7 +20,7 @@ function Text:new(gameObject, userParam)
     self.color = Color.new(255, 255, 255)
     self.lineBreakDistance = 20
     self.renderTask = RenderTask:new({
-        layer = self.gameObject.transform:getPosition().z,
+        layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
     })
 
@@ -81,7 +81,7 @@ function Text:render()
     if not self.canvas.enabled then return end
 
     local transform = self.gameObject.transform
-    local position = transform:getPosition()
+    local position = transform.position
     local cursor = { x = position.x, y = position.y }
     local font = FontsManager.getFont(self.fontID)
 

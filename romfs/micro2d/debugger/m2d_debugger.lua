@@ -51,7 +51,7 @@ end
 local function updateObjectInfo()
     if objectToDebug then
         local name = objectToDebug.name
-        local position = objectToDebug.transform:getPosition()
+        local position = objectToDebug.transform.position
         local rotation = objectToDebug.transform.rotation
         local scale = objectToDebug.transform.scale
         objectInfoText:setContent(string.format(

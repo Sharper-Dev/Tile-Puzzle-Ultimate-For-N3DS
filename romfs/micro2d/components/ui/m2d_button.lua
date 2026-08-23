@@ -32,6 +32,12 @@ function Button:setCanvas(canvas)
 
     return self
 end
+
+function Button.onDown() end
+function Button.onHold() end
+function Button.onOut() end
+function Button.onUp() end
+    
 function Button:update()
     if not self.enabled then return end
         

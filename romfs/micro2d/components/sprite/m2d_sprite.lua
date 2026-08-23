@@ -19,7 +19,7 @@ function Sprite:new(gameObject, userParam)
     self:setSprite(userParam) -- User parameter = image path
     self:setColor(255, 255, 255)
     self.renderTask = RenderTask:new({
-        layer = self.gameObject.transform:getPosition().z,
+        layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
     })
     
@@ -74,7 +74,7 @@ end
 function Sprite:render()
     if not self.enabled then return end
 
-    local position = self.gameObject.transform:getPosition()
+    local position = self.gameObject.transform.position
     self.renderTask.layer = position.z
     Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
