@@ -20,7 +20,7 @@ local switchToTopKey = KEY_DUP
 local switchToBottomKey = KEY_DDOWN
 local switchObjectToNextKey = KEY_DRIGHT
 local switchObjectToPrevKey = KEY_DLEFT
-
+local quickStepKey = KEY_R
 local currentIndex = 1
 local currentScreen = BOTTOM_SCREEN
 local currentObjectIndex = 1
@@ -110,7 +110,7 @@ local function setupDebugger()
     hintsObject = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"))
     hintsObject.transform:setPosition(205, 40, 101)
     
-    local hintsText = hintsObject:addComponent("Text", "L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nL + B: Quit")
+    local hintsText = hintsObject:addComponent("Text", "L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
     hintsText:setLineBreakDistance(13)
     hintsText:setCanvas(canvas)
     hintsText:setFont("default")
@@ -197,17 +197,18 @@ function Debugger.update()
     detectFunction()
     if isEnabled then
         if objectToDebug and not InputSystem.getKey(functionKey) then
+            local step = (InputSystem.getKey(quickStepKey)) and 10 or 1
             if InputSystem.getKeyDown(KEY_DUP) then
-                objectToDebug.transform:translate(0, -1)
+                objectToDebug.transform:translate(0, -step)
             end
             if InputSystem.getKeyDown(KEY_DDOWN) then
-                objectToDebug.transform:translate(0, 1)
+                objectToDebug.transform:translate(0, step)
             end
             if InputSystem.getKeyDown(KEY_DLEFT) then
-                objectToDebug.transform:translate(-1, 0)
+                objectToDebug.transform:translate(-step, 0)
             end
             if InputSystem.getKeyDown(KEY_DRIGHT) then
-                objectToDebug.transform:translate(1, 0)
+                objectToDebug.transform:translate(step, 0)
             end
         end
         
@@ -219,7 +220,9 @@ function Debugger.update()
         end
     end
 end
-
+function Debugger.isEnabled()
+	return isEnabled
+end
 function Debugger.debugObject(obj)
     objectToDebug = obj
 end

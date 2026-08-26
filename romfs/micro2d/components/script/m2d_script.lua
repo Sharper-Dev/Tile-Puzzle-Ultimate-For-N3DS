@@ -14,7 +14,8 @@ function Script:new()
 end
 
 function Script:destroy()
-	self = nil
+    self.enabled = nil
+    self = nil
 end
 ------
 --- Virtual method called when the object is instantiated.

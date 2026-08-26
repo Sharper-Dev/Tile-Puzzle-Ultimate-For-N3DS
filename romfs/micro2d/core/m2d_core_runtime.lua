@@ -10,6 +10,8 @@ local Renderer = require("renderer.m2d_renderer")
 local Debugger = require("debugger.m2d_debugger")
 local Time = require("time.m2d_time")
 
+local scenesToUnload = {}
+
 --- Pre-clean the screen by filling it with black.
 --
 --- When the application starts, this is called to clear the top screen.
@@ -46,6 +48,18 @@ local function endRuntime()
     System.exit()
 end
 
+local function checkScenesToUnload()
+    for i = #scenesToUnload, 1, -1 do
+        local scene = scenesToUnload[i]
+        scene:unload()
+        table.remove(scenesToUnload, i)
+    end
+end
+
+function CoreRuntime.requestUnload(scene)
+    table.insert(scenesToUnload, scene)
+end
+
 ------
 --- Called when the game starts.
 --- Initializes the graphics and loads the first scene.
@@ -61,10 +75,10 @@ end
 --- Updates the input system, refreshes the screen, updates all components, and renders the active scenes.
 function CoreRuntime._loop()
     InputSystem.readInputs()
-
-    for _, scene in ipairs(ScenesManager.getActiveScenes()) do
-        for _, obj in ipairs(scene.gameObjects or {}) do
-            obj:callUpdate()
+    local activeScenes = ScenesManager.getActiveScenes()
+    for i = 1, #activeScenes do
+        for j = 1, #activeScenes[i].gameObjects do
+            activeScenes[i].gameObjects[j]:callUpdate()
         end
     end
     Debugger.update()
@@ -78,6 +92,7 @@ function CoreRuntime._loop()
     end
     
     Time.update()
+    checkScenesToUnload()
 end
 
 return CoreRuntime

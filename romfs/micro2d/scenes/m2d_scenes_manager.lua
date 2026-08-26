@@ -4,6 +4,7 @@
 
 local ScenesManager = {}
 local activeScenes = {}
+
 --- Loads a scene by index, unloading any active scenes first.
 --- @param sceneIndex The index of the scene to load.
 --- @usage ScenesManager.loadScene(1)
@@ -22,15 +23,20 @@ function ScenesManager.loadScene(sceneIndex)
         end
     end
 end
+
 --- Unloads a scene by index, destroying all game objects.
 --- @param sceneIndex The index of the scene to unload.
 --- @usage ScenesManager.unloadScene(1)
 function ScenesManager.unloadScene(sceneIndex)
     if activeScenes[sceneIndex] then
-        activeScenes[sceneIndex]:unload()
+        local Runtime = require("core.m2d_core_runtime")
+        activeScenes[sceneIndex]:setupUnload()
+        Runtime.requestUnload(activeScenes[sceneIndex])
         table.remove(activeScenes, sceneIndex)
     end
+    collectgarbage("collect")
 end
+
 --- Returns the active scenes.
 --- @return The active scenes.
 --- @usage local scenes = ScenesManager.getActiveScenes()

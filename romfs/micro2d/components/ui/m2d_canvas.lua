@@ -40,7 +40,7 @@ end
 --- @usage
 --- canvas:delElement(image)
 function Canvas:delElement(element)
-	for i, e in ipairs(self.elements) do
+	for i, e in ipairs(self.elements or {}) do
 		if e == element then
             table.remove(self.elements, i)
             if element.renderTask ~= nil then
@@ -61,4 +61,12 @@ function Canvas:switchScreen(screen)
 	self.screen = screen
 end
 
+function Canvas:destroy()
+    for i = 1, #self.elements do
+        Canvas:delElement(self.elements[i])
+    end
+    self.gameObject.canvas = nil
+    self.gameObject = nil
+	self = nil
+end
 return Canvas

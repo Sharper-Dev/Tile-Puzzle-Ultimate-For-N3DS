@@ -13,7 +13,7 @@ local Renderer = require("renderer.m2d_renderer")
 --- @param userParam The sprite path to load.
 function Sprite:new(gameObject, userParam)
     self = setmetatable({}, Sprite)
-    
+
     self.enabled = true
     self.gameObject = gameObject
     self:setSprite(userParam) -- User parameter = image path
@@ -22,12 +22,9 @@ function Sprite:new(gameObject, userParam)
         layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
     })
-    
+
     return self
 end
-
-function Sprite:start() end
-function Sprite:update() end
 
 function Sprite:setScreen(screen)
     if self.screen == screen then return self end
@@ -64,6 +61,10 @@ end
 --- It is called automatically when occurs a scene switch.
 function Sprite:destroy()
     Graphics.freeImage(self.sprite)
+    Renderer.removeRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
+    self.gameObject = nil
+    self.renderTask = nil
+    self.enabled = nil
     self = nil
 end
 

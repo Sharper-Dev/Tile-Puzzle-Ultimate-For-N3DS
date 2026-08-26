@@ -26,13 +26,27 @@ function Scene:addGameObject(gameObject)
     return gameObject
 end
 
+function Scene:setupUnload()
+    for i = 1, #self.gameObjects do
+        self.gameObjects[i].enabled = false
+    end
+end
+
 --- Unloads the scene, destroying all game objects.
 --- This function is called when a scene transitions to another scene.
 function Scene:unload()
-    for _, gameObject in ipairs(self.gameObjects) do
-        gameObject:destroy()
+    for i = 1, #self.gameObjects do
+        self.gameObjects[i]:destroy()
     end
-	
-	self.gameObjects = nil
+    for i = 1, #self.gameObjects do
+        for j = 1, #self.gameObjects[i].components do
+            setmetatable(self.gameObjects[i].components[j], nil)
+            self.gameObjects[i].components[j] = nil
+        end
+        setmetatable(self.gameObjects[i], nil)
+        self.gameObjects[i] = nil
+    end
+    self.gameObjects = nil
+	self = nil
 end
 return Scene

@@ -103,11 +103,17 @@ end
 --- Destroys the GameObject.
 --- Removes all components and destroys the GameObject.
 function GameObject:destroy()
-    for _, component in ipairs(self.components) do
-        component:destroy()
+    self.enabled = false
+    for i = 1, #self.components do
+        if self.components[i].destroy then
+            self.components[i]:destroy()
+        end
     end
-
-    self.scene.gameObjects[self.index] = nil
+    self.transform.gameObject = nil
+    self.transform = nil
+    self.enabled = nil
+    self.updateableComponents = nil
+    self = nil
 end
 
 return GameObject

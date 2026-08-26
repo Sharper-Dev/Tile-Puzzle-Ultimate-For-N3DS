@@ -10,7 +10,7 @@ local Settings = {}
 --- @usage Settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
 Settings.SCENES = {}
 
-Settings.SCENES[1] = "romfs:/assets/scripts/scenes/game_scene.lua"
-Settings.SCENES[2] = "romfs:/assets/scripts/scenes/scene2.lua"
+Settings.SCENES[1] = "romfs:/assets/scripts/scenes/menu_scene.lua"
+Settings.SCENES[2] = "romfs:/assets/scripts/scenes/game_scene.lua"
 
 _G.M2D_SETTINGS = Settings
