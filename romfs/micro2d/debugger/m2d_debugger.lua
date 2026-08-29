@@ -73,15 +73,15 @@ local function setupDebugger()
 
     runtimeUpdateTimer = Timer.new()
 
-    canvasObject = GameObject.instantiate(GameObject:new("DEBUGGER_CANVAS"))
+    canvasObject = GameObject.instantiate(GameObject:new("DEBUGGER_CANVAS"), true)
     canvasObject.transform:setPosition(0, 0, 99)
     local canvas = canvasObject:addComponent("Canvas", currentScreen)
 
-    titleObject = GameObject.instantiate(GameObject:new("DEBUGGER_TITLE"))
+    titleObject = GameObject.instantiate(GameObject:new("DEBUGGER_TITLE"), true)
     titleObject.transform:setPosition(90, 10, 101)
     titleObject.transform:setScale(2, 2)
 
-    local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"))
+    local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"), true)
     backgroundObject.transform:setPosition(160, 120, 100)
     backgroundObject.transform:setScale(2)
     
@@ -93,7 +93,7 @@ local function setupDebugger()
     text:setCanvas(canvas)
     text:setFont("default")
 
-    objectInfo = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"))
+    objectInfo = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"), true)
     objectInfo.transform:setPosition(5, 97, 101)
     objectInfo.transform:setScale(1, 1)
 
@@ -102,7 +102,7 @@ local function setupDebugger()
     objectInfoText:setFont("default")
     objectInfoText:setLineBreakDistance(13)
 
-    runtimeInfo = GameObject.instantiate(GameObject:new("DEBUGGER_RUNTIME_INFO"))
+    runtimeInfo = GameObject.instantiate(GameObject:new("DEBUGGER_RUNTIME_INFO"), true)
     runtimeInfo.transform:setPosition(5, 40, 101)
     runtimeInfo.transform:setScale(1, 1)
 
@@ -111,7 +111,7 @@ local function setupDebugger()
     runtimeInfoText:setFont("default")
     runtimeInfoText:setLineBreakDistance(13)
     
-    hintsObject = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"))
+    hintsObject = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"), true)
     hintsObject.transform:setPosition(205, 40, 101)
     
     local hintsText = hintsObject:addComponent("Text", "L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
@@ -119,7 +119,7 @@ local function setupDebugger()
     hintsText:setCanvas(canvas)
     hintsText:setFont("default")
 
-    consoleObject = GameObject.instantiate(GameObject:new("DEBUGGER_CONSOLE"))
+    consoleObject = GameObject.instantiate(GameObject:new("DEBUGGER_CONSOLE"), true)
     consoleObject.transform:setPosition(5, 200, 101)
     
     consoleText = consoleObject:addComponent("Text", "")
@@ -153,6 +153,7 @@ local function switchDebugScreen(screen)
     runtimeInfo.transform:translate(offset)
     objectInfo.transform:translate(offset)
     hintsObject.transform:translate(offset)
+    consoleObject.transform:translate(offset)
 end
 
 local function detectFunction()

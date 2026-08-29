@@ -14,6 +14,6 @@ function Script.start()
 end
 
 function Button.onClick()
-    ScenesManager.loadScene(1)
+    ScenesManager.loadScene(2)
 end
 return thisObject

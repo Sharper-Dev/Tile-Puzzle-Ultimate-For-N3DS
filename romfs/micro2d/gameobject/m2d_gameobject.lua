@@ -67,8 +67,9 @@ end
 --- @return The instantiated GameObject.
 --- @usage
 --- local obj = GameObject.instantiate("path/to/GameObject.lua")
-function GameObject.instantiate(gameObjectPath)
-    local scene = ScenesManager.getActiveScenes()[1]
+function GameObject.instantiate(gameObjectPath, isUniversal)
+    local scene = (isUniversal and ScenesManager.getUniversalScene() or ScenesManager.getActiveScenes()[1])
+
     local newObject
     
     if type(gameObjectPath) == "string" then

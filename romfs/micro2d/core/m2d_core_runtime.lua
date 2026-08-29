@@ -53,6 +53,7 @@ local function checkScenesToUnload()
         local scene = scenesToUnload[i]
         scene:unload()
         table.remove(scenesToUnload, i)
+        Debugger.debugObject(nil)
     end
 end
 
@@ -67,6 +68,7 @@ function CoreRuntime._start()
     Graphics.init()
     preClean()
     Time.init()
+    ScenesManager.loadUniversalScene()
     ScenesManager.loadScene(1)
 end
 
