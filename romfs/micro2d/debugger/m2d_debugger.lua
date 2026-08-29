@@ -33,6 +33,10 @@ local topScreenOffset = 40
 local runtimeInfo
 local runtimeInfoText
 
+local consoleObject
+local consoleText
+local consoleMessages = {"-", "-", "-", "-"}
+
 local runtimeUpdateDelay = 0.5
 local runtimeUpdateTimer
 
@@ -114,7 +118,15 @@ local function setupDebugger()
     hintsText:setLineBreakDistance(13)
     hintsText:setCanvas(canvas)
     hintsText:setFont("default")
+
+    consoleObject = GameObject.instantiate(GameObject:new("DEBUGGER_CONSOLE"))
+    consoleObject.transform:setPosition(5, 200, 101)
     
+    consoleText = consoleObject:addComponent("Text", "")
+    consoleText:setLineBreakDistance(12)
+    consoleText:setCanvas(canvas)
+    consoleText:setFont("default")
+    Debugger.msg("Debugger initialized")
     updateRuntimeInfo()
     Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[currentObjectIndex])
 end
@@ -190,6 +202,20 @@ local function detectCode()
     if InputSystem.getKeyDown(rawInput) then
         currentIndex = 1
     end
+end
+
+function Debugger.msg(msg)
+    if not isEnabled then return end
+    
+	table.insert(consoleMessages, msg)
+    if #consoleMessages > 4 then
+        table.remove(consoleMessages, 1)
+    end
+    local content = ""
+    for i = 1, #consoleMessages do
+        content = content .. consoleMessages[i] .. "\n"
+    end
+    consoleText:setContent(content)
 end
 
 function Debugger.update()

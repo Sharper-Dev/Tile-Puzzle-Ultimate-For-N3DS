@@ -67,6 +67,9 @@ end
 function Image:destroy()
     Graphics.freeImage(self.image)
     self.canvas:delElement(self)
+    self.gameObject = nil
+    self.renderTask = nil
+    self.enabled = nil
     self = nil
 end
 --- Render function containing the draw logic.

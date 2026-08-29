@@ -1,5 +1,6 @@
 local GameObject = require("gameobject.m2d_gameobject")
 local Debugger = require("debugger.m2d_debugger")
+local InputSystem = require("input.m2d_input_system")
 local Time = require("time.m2d_time")
 local MathE = require("extender.math.m2d_math")
 
@@ -29,6 +30,12 @@ function Script:update()
     thisObject.transform:setPosition(x, y)
     if counter >= 1.0 then
         counter = 0
+    end
+    if InputSystem.getKeyDown(KEY_A) then
+        Debugger.msg("Key A pressed")
+    end
+    if InputSystem.getKeyDown(KEY_B) then
+        Debugger.msg("Key B pressed")
     end
 end
 return thisObject
