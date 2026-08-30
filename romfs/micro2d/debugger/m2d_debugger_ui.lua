@@ -1,0 +1,71 @@
+local DebuggerUI = {}
+
+local GameObject = require("gameobject.m2d_gameobject")
+
+local currentScreen = BOTTOM_SCREEN
+
+local topScreenOffset = 40
+
+DebuggerUI.objects = {}
+DebuggerUI.texts = {}
+
+function DebuggerUI.createUI()
+    DebuggerUI.objects["DEBUGGER_CANVAS"] = GameObject.instantiate(GameObject:new("DEBUGGER_CANVAS"), true)
+    DebuggerUI.objects["DEBUGGER_CANVAS"].transform:setPosition(0, 0, 99)
+
+    local canvas = DebuggerUI.objects["DEBUGGER_CANVAS"]:addComponent("Canvas", currentScreen)
+
+    DebuggerUI.objects["DEBUGGER_TITLE"] = GameObject.instantiate(GameObject:new("DEBUGGER_TITLE"), true)
+    DebuggerUI.objects["DEBUGGER_TITLE"].transform:setPosition(90, 10, 101):setScale(2, 2)
+    DebuggerUI.objects["DEBUGGER_TITLE"]:addComponent("Text", "DEBUG MODE"):setCanvas(canvas)
+
+    local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"), true)
+
+    backgroundObject.transform:setPosition(160, 120, 100):setScale(2)
+    backgroundObject:addComponent("Image", "romfs:/micro2d/assets/images/bg_bottom.png"):setCanvas(canvas):setColor(0, 0,
+        0)
+
+    DebuggerUI.objects["DEBUGGER_OBJECT_INFO"] = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"), true)
+    DebuggerUI.objects["DEBUGGER_OBJECT_INFO"].transform:setPosition(5, 97, 101)
+
+    DebuggerUI.texts["DEBUGGER_OBJECT_INFO"] = DebuggerUI.objects["DEBUGGER_OBJECT_INFO"]:addComponent("Text", "")
+        :setCanvas(canvas)
+        :setLineBreakDistance(13)
+
+    DebuggerUI.objects["DEBUGGER_RUNTIME_INFO"] = GameObject.instantiate(GameObject:new("DEBUGGER_RUNTIME_INFO"), true)
+    DebuggerUI.objects["DEBUGGER_RUNTIME_INFO"].transform:setPosition(5, 40, 101)
+
+    DebuggerUI.texts["DEBUGGER_RUNTIME_INFO"] = DebuggerUI.objects["DEBUGGER_RUNTIME_INFO"]:addComponent("Text", "")
+        :setCanvas(canvas)
+        :setLineBreakDistance(13)
+
+    DebuggerUI.objects["DEBUGGER_HINTS"] = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"), true)
+    DebuggerUI.objects["DEBUGGER_HINTS"].transform:setPosition(205, 40, 101)
+
+    DebuggerUI.texts["DEBUGGER_HINTS"] = DebuggerUI.objects["DEBUGGER_HINTS"]:addComponent("Text",
+            "L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
+        :setLineBreakDistance(13)
+        :setCanvas(canvas)
+
+    DebuggerUI.objects["DEBUGGER_CONSOLE"] = GameObject.instantiate(GameObject:new("DEBUGGER_CONSOLE"), true)
+    DebuggerUI.objects["DEBUGGER_CONSOLE"].transform:setPosition(5, 200, 101)
+
+    DebuggerUI.texts["DEBUGGER_CONSOLE"] = DebuggerUI.objects["DEBUGGER_CONSOLE"]:addComponent("Text", "")
+        :setLineBreakDistance(12)
+        :setCanvas(canvas)
+end
+
+function DebuggerUI.switchDebugScreen(screen)
+    if screen == currentScreen then return end
+    currentScreen = screen
+
+    DebuggerUI.objects["DEBUGGER_CANVAS"].canvas:switchScreen(screen)
+    local offset = screen == TOP_SCREEN and topScreenOffset or -topScreenOffset
+    DebuggerUI.objects["DEBUGGER_TITLE"].transform:translate(offset)
+    DebuggerUI.objects["DEBUGGER_RUNTIME_INFO"].transform:translate(offset)
+    DebuggerUI.objects["DEBUGGER_OBJECT_INFO"].transform:translate(offset)
+    DebuggerUI.objects["DEBUGGER_HINTS"].transform:translate(offset)
+    DebuggerUI.objects["DEBUGGER_CONSOLE"].transform:translate(offset)
+end
+
+return DebuggerUI

@@ -17,6 +17,7 @@ function Text:new(gameObject, userParam)
     self.enabled = true
     self.gameObject = gameObject
     self:setContent(userParam)
+    self:setFont("default")
     self.color = Color.new(255, 255, 255)
     self.lineBreakDistance = 20
     self.renderTask = RenderTask:new({
@@ -52,6 +53,7 @@ function Text:setContent(content)
     for line in content:gmatch("[^\r\n]+") do
         table.insert(self.contentLines, line)
     end
+    return self
 end
 
 --- Returns the content of this text component.
@@ -66,6 +68,7 @@ end
 --- @usage myText:setFont("ComicSans")
 function Text:setFont(fontID)
     self.fontID = fontID
+    return self
 end
 
 --- Sets the line break distance of this text component.
@@ -73,6 +76,7 @@ end
 --- @usage myText:setLineBreakDistance(10)
 function Text:setLineBreakDistance(value)
     self.lineBreakDistance = value
+    return self
 end
 
 --- Internal function to render the text.
