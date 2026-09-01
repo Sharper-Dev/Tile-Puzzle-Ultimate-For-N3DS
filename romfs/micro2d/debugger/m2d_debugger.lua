@@ -1,22 +1,12 @@
 local Debugger = {}
 
-local InputSystem = require("input.m2d_input_system")
 local Time = require("time.m2d_time")
 local ScenesManager = require("scenes.m2d_scenes_manager")
-
 local Enabler = require("debugger.m2d_debugger_enabler")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
+local Functions = require("debugger.m2d_debugger_functions")
 
 local isEnabled = false
-
-local functionKey = KEY_L
-local disableKey = KEY_B
-local switchToTopKey = KEY_DUP
-local switchToBottomKey = KEY_DDOWN
-local switchObjectToNextKey = KEY_DRIGHT
-local switchObjectToPrevKey = KEY_DLEFT
-local quickStepKey = KEY_R
-local currentObjectIndex = 1
 
 local consoleMessages = {"-", "-", "-", "-"}
 
@@ -24,6 +14,8 @@ local runtimeUpdateDelay = 0.5
 local runtimeUpdateTimer
 
 local objectToDebug
+
+Debugger.currentObjectIndex = 1
 
 local function updateRuntimeInfo()
     local fps = math.floor(1 / Time.deltaTime)
@@ -49,51 +41,12 @@ local function updateObjectInfo()
     end
 end
 
-
-local function switchObject(isForward)
-    if not isEnabled then return end
-
-    local objectCount = #ScenesManager.getActiveScenes()[1].gameObjects
-
-    if isForward then
-        currentObjectIndex = (currentObjectIndex + 1) % objectCount
-    else
-        currentObjectIndex = (currentObjectIndex - 1) % objectCount
-    end
-
-    if currentObjectIndex < 1 then currentObjectIndex = objectCount end
-
-    Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[currentObjectIndex])
-end
-
-
-local function detectFunction()
-    if not isEnabled then return end
-
-	if InputSystem.getKey(functionKey) then
-        if InputSystem.getKeyDown(switchToTopKey) then
-            DebuggerUI.switchDebugScreen(TOP_SCREEN)
-        elseif InputSystem.getKeyDown(switchToBottomKey) then
-            DebuggerUI.switchDebugScreen(BOTTOM_SCREEN)
-        end
-        if InputSystem.getKeyDown(disableKey) then
-            isEnabled = false
-            DebuggerUI.objects["DEBUGGER_CANVAS"].enabled = false
-        end
-        if InputSystem.getKeyDown(switchObjectToNextKey) then
-            switchObject(true)
-        elseif InputSystem.getKeyDown(switchObjectToPrevKey) then
-            switchObject(false)
-        end
-	end
-end
-
 function Debugger.setupDebugger()
     runtimeUpdateTimer = Timer.new()
     isEnabled = true
     DebuggerUI.createUI()
     updateRuntimeInfo()
-    Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[currentObjectIndex])
+    Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[Debugger.currentObjectIndex])
     Debugger.msg("Debugger initialized")
 end
 
@@ -117,26 +70,10 @@ end
 
 function Debugger.update()
     Enabler.detectCode()
-    detectFunction()
+    Functions.detectFunction()
     if isEnabled then
-        if objectToDebug and not InputSystem.getKey(functionKey) then
-            local step = (InputSystem.getKey(quickStepKey)) and 10 or 1
-            if InputSystem.getKeyDown(KEY_DUP) then
-                objectToDebug.transform:translate(0, -step)
-            end
-            if InputSystem.getKeyDown(KEY_DDOWN) then
-                objectToDebug.transform:translate(0, step)
-            end
-            if InputSystem.getKeyDown(KEY_DLEFT) then
-                objectToDebug.transform:translate(-step, 0)
-            end
-            if InputSystem.getKeyDown(KEY_DRIGHT) then
-                objectToDebug.transform:translate(step, 0)
-            end
-        end
-
+        Functions.detectMove()
         updateObjectInfo()
-
         if Timer.getTime(runtimeUpdateTimer) / 1000 >= runtimeUpdateDelay then
             updateRuntimeInfo()
             Timer.reset(runtimeUpdateTimer)
@@ -154,6 +91,10 @@ end
 
 function Debugger.debugObject(obj)
     objectToDebug = obj
+end
+
+function Debugger.getDebugObject()
+    return objectToDebug
 end
 
 return Debugger
