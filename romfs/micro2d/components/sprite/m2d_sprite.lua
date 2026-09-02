@@ -10,13 +10,11 @@ local Renderer = require("renderer.m2d_renderer")
 
 --- The Sprite Constructor.
 --- @param gameObject The game object this component is attached to.
---- @param userParam The sprite path to load.
-function Sprite:new(gameObject, userParam)
+function Sprite:new(gameObject)
     self = setmetatable({}, Sprite)
 
     self.enabled = true
     self.gameObject = gameObject
-    self:setSprite(userParam) -- User parameter = image path
     self:setColor(255, 255, 255)
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
@@ -47,11 +45,11 @@ function Sprite:setSprite(imgPath)
     if self.sprite ~= nil then
         Graphics.freeImage(self.sprite)
     end
-    
+
     self.sprite = Graphics.loadImage(imgPath)
     self.imageWidth = Graphics.getImageWidth(self.sprite)
     self.imageHeight = Graphics.getImageHeight(self.sprite)
-    
+
     return self
 end
 

@@ -10,7 +10,7 @@ local InputSystem = require("input.m2d_input_system")
 local RenderTask = require("renderer.m2d_render_task")
 local Debugger = require("debugger.m2d_debugger")
 
-function Button:new(gameObject, userParam)
+function Button:new(gameObject)
     self = setmetatable({}, Button)
 
     self.enabled = true
@@ -32,10 +32,10 @@ function Button:setCanvas(canvas)
 
     return self
 end
-    
+
 function Button:update()
     if not self.enabled then return end
-        
+
     if InputSystem.getKey(KEY_TOUCH) then
         local x, y = InputSystem.getTouch()
         local isInside = MathE.checkAABBPoint(self.gameObject.transform.position.x, self.gameObject.transform.position.y, self.width,
@@ -59,7 +59,7 @@ function Button:update()
                 self.onClick()
             end
         end
-        
+
         self.hasTouch = false
     end
 end
@@ -74,7 +74,7 @@ end
 
 function Button:render()
     if not Debugger.isEnabled() then return end
-    
+
 	local position = self.gameObject.transform.position
 	Graphics.fillEmptyRect(position.x, self.width + position.x, position.y, self.height + position.y, Color.new(0, 255, 0))
 end
@@ -82,12 +82,14 @@ end
 function Button:setSize(width, height)
     self.width = width
     self.height = height
-    
+
     return self
 end
 
-function Button:setImage(imageComponent)
+function Button:setImageComponent(imageComponent)
     self.imageComponent = imageComponent
+    self:setSize(imageComponent.imageWidth, imageComponent.imageHeight)
+    imageComponent:setCanvas(self.canvas)
 end
 
 function Button:setTextComponent(text)

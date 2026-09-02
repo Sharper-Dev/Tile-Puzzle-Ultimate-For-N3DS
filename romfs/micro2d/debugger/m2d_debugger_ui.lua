@@ -14,21 +14,26 @@ function DebuggerUI.createUI()
     DebuggerUI.objects["DEBUGGER_CANVAS"].transform:setPosition(0, 0, 99)
 
     local canvas = DebuggerUI.objects["DEBUGGER_CANVAS"]:addComponent("Canvas", currentScreen)
+    canvas:switchScreen(currentScreen)
 
     DebuggerUI.objects["DEBUGGER_TITLE"] = GameObject.instantiate(GameObject:new("DEBUGGER_TITLE"), true)
     DebuggerUI.objects["DEBUGGER_TITLE"].transform:setPosition(90, 10, 101):setScale(2, 2)
-    DebuggerUI.objects["DEBUGGER_TITLE"]:addComponent("Text", "DEBUG MODE"):setCanvas(canvas)
+    DebuggerUI.objects["DEBUGGER_TITLE"]:addComponent("Text")
+        :setContent("DEBUG MODE")
+        :setCanvas(canvas)
 
     local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"), true)
 
     backgroundObject.transform:setPosition(160, 120, 100):setScale(2)
-    backgroundObject:addComponent("Image", "romfs:/micro2d/assets/images/bg_bottom.png"):setCanvas(canvas):setColor(0, 0,
-        0)
+    backgroundObject:addComponent("Image")
+        :setImage("romfs:/micro2d/assets/images/bg_bottom.png")
+        :setCanvas(canvas)
+        :setColor(0, 0, 0)
 
     DebuggerUI.objects["DEBUGGER_OBJECT_INFO"] = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"), true)
     DebuggerUI.objects["DEBUGGER_OBJECT_INFO"].transform:setPosition(5, 97, 101)
 
-    DebuggerUI.texts["DEBUGGER_OBJECT_INFO"] = DebuggerUI.objects["DEBUGGER_OBJECT_INFO"]:addComponent("Text", "")
+    DebuggerUI.texts["DEBUGGER_OBJECT_INFO"] = DebuggerUI.objects["DEBUGGER_OBJECT_INFO"]:addComponent("Text")
         :setCanvas(canvas)
         :setLineBreakDistance(13)
 
@@ -42,8 +47,8 @@ function DebuggerUI.createUI()
     DebuggerUI.objects["DEBUGGER_HINTS"] = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"), true)
     DebuggerUI.objects["DEBUGGER_HINTS"].transform:setPosition(205, 40, 101)
 
-    DebuggerUI.texts["DEBUGGER_HINTS"] = DebuggerUI.objects["DEBUGGER_HINTS"]:addComponent("Text",
-            "L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
+    DebuggerUI.texts["DEBUGGER_HINTS"] = DebuggerUI.objects["DEBUGGER_HINTS"]:addComponent("Text")
+        :setContent("L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
         :setLineBreakDistance(13)
         :setCanvas(canvas)
 

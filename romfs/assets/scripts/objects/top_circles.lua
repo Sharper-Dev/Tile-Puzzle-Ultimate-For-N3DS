@@ -4,8 +4,8 @@ local Time = require("time.m2d_time")
 local MathE = require("extender.math.m2d_math")
 
 local thisObject = GameObject:new("top_circles")
-local Script = thisObject:addComponent("Script", {})
-local Sprite = thisObject:addComponent("Sprite", "romfs:/assets/sprites/background/circles.png")
+local Script = thisObject:addComponent("Script")
+local Sprite = thisObject:addComponent("Sprite")
 
 local startPos = { x = 216, y = 137 }
 local finalPos = { x = 190, y = 86 }
@@ -15,6 +15,7 @@ local counter = 0
 
 function Script.start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
+    Sprite:setSprite("romfs:/assets/sprites/background/circles.png")
     Sprite:setScreen(TOP_SCREEN)
 end
 

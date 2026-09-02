@@ -36,20 +36,19 @@ end
 
 --- Adds a component to the GameObject.
 --- @param component The component to add.
---- @param userParam The user parameter for the component. (some params are optional)
 --- @return The added component.
 --- @usage
 --- local obj = GameObject:new("MyObject")
 --- obj:addComponent("Script")
-function GameObject:addComponent(component, userParam)
-    local comp = require(componentsList[component]):new(self, userParam)
+function GameObject:addComponent(component)
+    local comp = require(componentsList[component]):new(self)
     comp.gameObject = self
     table.insert(self.components, comp)
     if comp.update then
         table.insert(self.updateableComponents, comp)
     end
     return comp
-end 
+end
 
 function GameObject:callUpdate()
     if not self.enabled then return end

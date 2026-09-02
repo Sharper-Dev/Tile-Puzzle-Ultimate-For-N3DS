@@ -5,8 +5,8 @@ local Time = require("time.m2d_time")
 local MathE = require("extender.math.m2d_math")
 
 local thisObject = GameObject:new("bottom_circles")
-local Script = thisObject:addComponent("Script", {})
-local Sprite = thisObject:addComponent("Sprite", "romfs:/assets/sprites/background/circles.png")
+local Script = thisObject:addComponent("Script")
+local Sprite = thisObject:addComponent("Sprite")
 
 local startPos = { x = 216, y = 137 }
 local finalPos = { x = 190, y = 86 }
@@ -17,25 +17,19 @@ local counter = 0
 
 function Script:start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
-    
+    Sprite:setSprite("romfs:/assets/sprites/background/circles.png")
     Sprite:setScreen(BOTTOM_SCREEN)
 end
 
 function Script:update()
     counter = counter + Time.deltaTime * speed
-    
+
     local x = MathE.lerp(startPos.x, finalPos.x, math.min(counter, 1.0))
     local y = MathE.lerp(startPos.y, finalPos.y, math.min(counter, 1.0))
-    
+
     thisObject.transform:setPosition(x, y)
     if counter >= 1.0 then
         counter = 0
-    end
-    if InputSystem.getKeyDown(KEY_A) then
-        Debugger.msg("Key A pressed")
-    end
-    if InputSystem.getKeyDown(KEY_B) then
-        Debugger.msg("Key B pressed")
     end
 end
 return thisObject

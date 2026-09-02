@@ -10,13 +10,12 @@ local utf8 = require("utf8")
 
 --- The Text Constructor
 --- @param gameObject The game object this component is attached to.
---- @param userParam The text content
-function Text:new(gameObject, userParam)
+function Text:new(gameObject)
     self = setmetatable({}, Text)
 
     self.enabled = true
     self.gameObject = gameObject
-    self:setContent(userParam)
+    self:setContent("")
     self:setFont("default")
     self.color = Color.new(255, 255, 255)
     self.lineBreakDistance = 20
@@ -99,11 +98,11 @@ function Text:render()
                     math.floor(cursor.y) + charInfo.yoffset * transform.scale.y,
                     charInfo.x, charInfo.y, charInfo.width, charInfo.height,
                     transform.rotation, transform.scale.x, transform.scale.y, font.sheet)
-                
+
                 cursor.x = cursor.x + charInfo.xadvance * transform.scale.x
             end
         end
-        
+
         cursor.y = cursor.y + self.lineBreakDistance
         cursor.x = position.x
     end

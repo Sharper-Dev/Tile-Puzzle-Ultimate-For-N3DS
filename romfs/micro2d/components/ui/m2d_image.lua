@@ -9,13 +9,12 @@ local RenderTask = require("renderer.m2d_render_task")
 
 --- The Image Constructor.
 --- @param gameObject The game object this component is attached to.
---- @param userParam The image path to load.
-function Image:new(gameObject, userParam)
+function Image:new(gameObject)
     self = setmetatable({}, Image)
 
     self.enabled = true
     self.gameObject = gameObject
-    self:setImage(userParam) -- User parameter = image path
+    self:setColor(255, 255, 255)
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
@@ -48,7 +47,7 @@ function Image:setImage(imgPath)
     if self.image ~= nil then
         Graphics.freeImage(self.image)
     end
-    
+
     self.image = Graphics.loadImage(imgPath)
     self.imageWidth = Graphics.getImageWidth(self.image)
     self.imageHeight = Graphics.getImageHeight(self.image)
@@ -79,10 +78,11 @@ end
 function Image:render()
     if not self.enabled then return end
     if not self.canvas.enabled then return end
-        
+    if self.image == nil then return end
+
     local position = self.gameObject.transform.position
     self.renderTask.layer = position.z
-    
+
     Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
         self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image, self.color)

@@ -9,11 +9,10 @@ local Renderer = require("renderer.m2d_renderer")
 
 --- The Canvas Constructor.
 --- @param gameObject table The game object this canvas is attached to.
---- @param userParam number TOP_SCREEN or BOTTOM_SCREEN (optional, default: TOP_SCREEN)
 --- @return self canvas
-function Canvas:new(gameObject, userParam)
+function Canvas:new(gameObject)
     self = setmetatable({}, Canvas)
-    self.screen = userParam or TOP_SCREEN
+    self.screen = TOP_SCREEN
     self.enabled = true
     self.gameObject = gameObject
     self.gameObject.canvas = self
@@ -67,6 +66,7 @@ function Canvas:destroy()
     end
     self.gameObject.canvas = nil
     self.gameObject = nil
-	self = nil
+    self = nil
 end
+
 return Canvas
