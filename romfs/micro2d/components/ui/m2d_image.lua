@@ -13,6 +13,7 @@ function Image:new(gameObject)
     self = setmetatable({}, Image)
 
     self.enabled = true
+    self.name = "Image"
     self.gameObject = gameObject
     self:setColor(255, 255, 255)
     self.pivot = 0

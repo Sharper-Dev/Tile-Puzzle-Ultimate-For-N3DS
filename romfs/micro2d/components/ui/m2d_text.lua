@@ -14,6 +14,7 @@ function Text:new(gameObject)
     self = setmetatable({}, Text)
 
     self.enabled = true
+    self.name = "Text"
     self.gameObject = gameObject
     self.size = { w = 0, h = 0 }
     self.cursorOffset = { x = 0, y = 0 }

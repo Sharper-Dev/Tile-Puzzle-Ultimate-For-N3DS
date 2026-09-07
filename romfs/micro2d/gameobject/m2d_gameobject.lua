@@ -50,6 +50,16 @@ function GameObject:addComponent(component)
     return comp
 end
 
+function GameObject:getComponent(componentName)
+    for i = 1, #self.components do
+        local component = self.components[i]
+        if component.name == componentName then
+            return component
+        end
+    end
+    return nil
+end
+
 function GameObject:callUpdate()
     if not self.enabled then return end
 

@@ -4,7 +4,7 @@ local ScenesManager = require("scenes.m2d_scenes_manager")
 local thisObject = GameObject:new("play_button")
 local Script = thisObject:addComponent("Script")
 local Button = thisObject:addComponent("Button")
-local Image = thisObject:addComponent("Image")
+thisObject:addComponent("Image")
 local textObject
 local textComponent
 local textOffset = { x = 50, y = 25 }
@@ -12,6 +12,7 @@ local textOffset = { x = 50, y = 25 }
 function Script.start()
     thisObject.transform:setPosition(90, 50, 0)
     textObject = GameObject.instantiate(GameObject:new("play_text"))
+    local Image = thisObject:getComponent("Image")
     local canvasObject = GameObject.findByName("Canvas")
 
     textObject.transform:setPosition(nil, nil, thisObject.transform.position.z + 1)

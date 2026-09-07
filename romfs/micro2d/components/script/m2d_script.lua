@@ -9,6 +9,7 @@ Script.__index = Script
 --- The constructor for the script.
 function Script:new()
     self = setmetatable({}, Script)
+    self.name = "Script"
     self.enabled = true
     return self
 end

@@ -14,6 +14,7 @@ function Sprite:new(gameObject)
     self = setmetatable({}, Sprite)
 
     self.enabled = true
+    self.name = "Sprite"
     self.gameObject = gameObject
     self:setColor(255, 255, 255)
     self.renderTask = RenderTask:new({

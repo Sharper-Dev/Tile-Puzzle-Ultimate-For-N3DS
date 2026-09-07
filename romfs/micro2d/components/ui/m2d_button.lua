@@ -14,6 +14,7 @@ function Button:new(gameObject)
     self = setmetatable({}, Button)
 
     self.enabled = true
+    self.name = "Button"
     self.gameObject = gameObject
     self.hasTouch = false
     self:setSize(10, 10)
