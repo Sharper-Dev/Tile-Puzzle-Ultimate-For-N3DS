@@ -43,7 +43,7 @@ local function preClean()
     Controls.enableScreen(BOTTOM_SCREEN)
 end
 
-local function endRuntime()
+function CoreRuntime.endRuntime()
     Graphics.term()
     System.exit()
 end

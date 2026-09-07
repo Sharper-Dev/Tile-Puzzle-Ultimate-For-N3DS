@@ -1,11 +1,21 @@
 local uiButton = require("ui_button")
-local prefabInstance = uiButton:new("quit_button")
-local thisObject = prefabInstance.gameObject
+local Runtime = require("core.m2d_core_runtime")
 
-function prefabInstance.script:start()
-    prefabInstance:start()
-    thisObject.transform:setPosition(90, 80)
-    thisObject.textComponent:setContent("Quit")
+local thisObject = uiButton.buildButton("quit_button", "Quit")
+
+local script = thisObject:getComponent("Script")
+local button = thisObject:getComponent("Button")
+
+local baseStart = script.start
+
+function script.start()
+    baseStart()
+    thisObject.textOffset = { x = 50, y = 25 }
+    thisObject.transform:setPosition(90, 120, 1)
+end
+
+function button.onClick()
+    Runtime:endRuntime()
 end
 
 return thisObject
