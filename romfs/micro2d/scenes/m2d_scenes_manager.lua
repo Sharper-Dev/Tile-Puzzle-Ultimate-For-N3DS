@@ -49,9 +49,12 @@ function ScenesManager.unloadScene(sceneIndex)
         local Runtime = require("core.m2d_core_runtime")
         activeScenes[sceneIndex]:setupUnload()
         Runtime.requestUnload(activeScenes[sceneIndex])
-        table.remove(activeScenes, sceneIndex)
     end
     collectgarbage("collect")
+end
+
+function ScenesManager.removeSceneFromTable(index)
+    table.remove(activeScenes, index)
 end
 
 --- Returns the active scenes.

@@ -27,7 +27,7 @@ local function preClean()
         Graphics.initBlend(TOP_SCREEN)
         Graphics.fillRect(0, 400, 0, 240, Color.new(0, 0, 0))
         Graphics.termBlend()
-        
+
         Graphics.initBlend(BOTTOM_SCREEN)
         Graphics.fillRect(0, 320, 0, 240, Color.new(0, 0, 0))
         Graphics.termBlend()
@@ -53,6 +53,7 @@ local function checkScenesToUnload()
         local scene = scenesToUnload[i]
         scene:unload()
         table.remove(scenesToUnload, i)
+        ScenesManager.removeSceneFromTable(1)
         Debugger.debugObject(nil)
     end
 end
@@ -92,7 +93,7 @@ function CoreRuntime._loop()
     if InputSystem.getKey(KEY_POWER) then
         endRuntime()
     end
-    
+
     Time.update()
     checkScenesToUnload()
 end

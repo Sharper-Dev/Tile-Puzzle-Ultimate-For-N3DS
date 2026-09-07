@@ -23,10 +23,12 @@ function Button:new(gameObject)
     })
     return self
 end
+
 function Button:setCanvas(canvas)
     if self.canvas ~= nil then
         self.canvas:delElement(self)
     end
+
     self.canvas = canvas
     self.canvas:addElement(self)
 
@@ -36,6 +38,10 @@ end
 function Button:update()
     if not self.enabled then return end
 
+    if self.imageComponent then
+        self.imageComponent.gameObject.transform:setPosition(self.gameObject.transform.position.x,
+            self.gameObject.transform.position.y)
+    end
     if InputSystem.getKey(KEY_TOUCH) then
         local x, y = InputSystem.getTouch()
         local isInside = MathE.checkAABBPoint(self.gameObject.transform.position.x, self.gameObject.transform.position.y, self.width,
@@ -66,6 +72,8 @@ end
 
 function Button:destroy()
     self.canvas:delElement(self)
+    self.textComponent = nil
+    self.imageComponent = nil
     self.gameObject = nil
     self.hasTouch = nil
     self.renderTask = nil
@@ -92,8 +100,9 @@ function Button:setImageComponent(imageComponent)
     imageComponent:setCanvas(self.canvas)
 end
 
-function Button:setTextComponent(text)
-    self.textComponent = text
+function Button:setTextComponent(textComponent)
+    self.textComponent = textComponent
+    textComponent:setCanvas(self.canvas)
 end
 
 function Button.onDown() end

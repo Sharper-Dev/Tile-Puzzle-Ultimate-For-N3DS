@@ -7,6 +7,8 @@
 package.path = package.path .. ";romfs:/micro2d/?.lua"
 
 require("m2d_settings")
+package.path = package.path .. ";" .. M2D_SETTINGS.PREFABS_PATH .. "?.lua"
+
 require("fonts.m2d_fonts_manager").loadFont("default", "romfs:/micro2d/assets/fonts/dogica_8px")
 local m2d_runtime = require("core.m2d_core_runtime")
 

@@ -15,6 +15,8 @@ function Text:new(gameObject)
 
     self.enabled = true
     self.gameObject = gameObject
+    self.size = { w = 0, h = 0 }
+    self.cursorOffset = { x = 0, y = 0 }
     self:setContent("")
     self:setFont("default")
     self.color = Color.new(255, 255, 255)
@@ -85,9 +87,9 @@ function Text:render()
 
     local transform = self.gameObject.transform
     local position = transform.position
-    local cursor = { x = position.x, y = position.y }
+    local cursor = { x = position.x + self.cursorOffset.x, y = position.y + self.cursorOffset.y }
     local font = FontsManager.getFont(self.fontID)
-
+    local totalSize = { w = 0, h = 0 }
     self.renderTask.layer = position.z
 
     for _, lineContent in ipairs(self.contentLines) do
@@ -106,6 +108,8 @@ function Text:render()
         cursor.y = cursor.y + self.lineBreakDistance
         cursor.x = position.x
     end
+
+    self.size = totalSize
 end
 
 --- Destroys this text component.

@@ -15,6 +15,7 @@ function Image:new(gameObject)
     self.enabled = true
     self.gameObject = gameObject
     self:setColor(255, 255, 255)
+    self.pivot = 0
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
@@ -82,8 +83,10 @@ function Image:render()
 
     local position = self.gameObject.transform.position
     self.renderTask.layer = position.z
+    local pivotX = self.imageWidth * self.pivot
+    local pivotY = self.imageHeight * self.pivot
 
-    Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
+    Graphics.drawImageExtended(position.x + pivotX, position.y + pivotY, 0, 0, self.imageWidth, self.imageHeight,
         self.gameObject.transform.rotation,
         self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image, self.color)
 end

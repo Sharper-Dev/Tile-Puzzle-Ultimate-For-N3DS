@@ -4,6 +4,7 @@
 
 local Settings = {}
 
+Settings.PREFABS_PATH = "romfs:/assets/scripts/prefabs/"
 --- The scenes list to store the paths of the scene scripts.
 --
 --- You must specify the path to the scene script. So you can load it later by its index.

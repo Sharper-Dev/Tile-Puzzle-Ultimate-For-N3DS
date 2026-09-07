@@ -70,14 +70,14 @@ function GameObject.instantiate(gameObjectPath, isUniversal)
     local scene = (isUniversal and ScenesManager.getUniversalScene() or ScenesManager.getActiveScenes()[1])
 
     local newObject
-    
+
     if type(gameObjectPath) == "string" then
         newObject = scene:addGameObject(dofile(gameObjectPath))
         newObject.name = tostring(newObject)
     else
         newObject = scene:addGameObject(gameObjectPath)
     end
-    
+
     for _, component in ipairs(newObject.components) do
         component:start()
     end
@@ -104,6 +104,11 @@ end
 --- Removes all components and destroys the GameObject.
 function GameObject:destroy()
     self.enabled = false
+
+    if self.onDestroy then
+        self:onDestroy()
+    end
+
     for i = 1, #self.components do
         if self.components[i].destroy then
             self.components[i]:destroy()

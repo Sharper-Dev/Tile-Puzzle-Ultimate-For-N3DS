@@ -22,7 +22,7 @@ function Scene:addGameObject(gameObject)
     table.insert(self.gameObjects, gameObject)
     gameObject.scene = self
     gameObject.index = #self.gameObjects
-    
+
     return gameObject
 end
 
