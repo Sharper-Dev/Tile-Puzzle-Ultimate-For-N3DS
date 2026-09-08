@@ -9,5 +9,6 @@ thisScene:addGameObject(dofile("romfs:/assets/scripts/objects/bottom_circles.lua
 thisScene:addGameObject(dofile("romfs:/assets/scripts/objects/menu_canvas.lua"))
 thisScene:addGameObject(dofile("romfs:/assets/scripts/objects/play_button.lua"))
 thisScene:addGameObject(dofile("romfs:/assets/scripts/objects/quit_button.lua"))
+thisScene:addGameObject(dofile("romfs:/assets/scripts/objects/top_title.lua"))
 
 return thisScene

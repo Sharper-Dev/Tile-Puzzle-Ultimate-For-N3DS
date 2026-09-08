@@ -91,7 +91,7 @@ function CoreRuntime._loop()
     Graphics.flip()
 
     if InputSystem.getKey(KEY_POWER) then
-        endRuntime()
+        CoreRuntime.endRuntime()
     end
 
     Time.update()
