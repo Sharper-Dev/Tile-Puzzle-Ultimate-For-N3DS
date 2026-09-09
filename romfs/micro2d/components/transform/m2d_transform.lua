@@ -17,7 +17,7 @@ function Transform:new(gameObject)
     self.position = { x = 0, y = 0, z = 0 }
     self.rotation = 0
     self.scale = { x = 1, y = 1 }
-    
+
     return self
 end
 
@@ -53,7 +53,7 @@ function Transform:translate(x, y, z)
     self.position.x = self.position.x + (x or 0)
     self.position.y = self.position.y + (y or 0)
     self.position.z = self.position.z + (z or 0)
-    
+
     return self
 end
 

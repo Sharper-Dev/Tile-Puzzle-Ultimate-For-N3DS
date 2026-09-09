@@ -1,3 +1,7 @@
+--- Debugger UI module for the Micro2D debugger.
+--- @module debugger_ui
+--- @author Sharper Dev
+
 local DebuggerUI = {}
 
 local GameObject = require("gameobject.m2d_gameobject")

@@ -1,3 +1,7 @@
+--- Debugger module containing functions for the Micro2D debugger.
+--- @module debugger_functions
+--- @author Sharper Dev
+
 local Functions = {}
 local InputSystem = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")

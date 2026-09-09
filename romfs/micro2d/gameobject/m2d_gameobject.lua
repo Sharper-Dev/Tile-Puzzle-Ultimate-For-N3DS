@@ -60,6 +60,7 @@ function GameObject:getComponent(componentName)
     return nil
 end
 
+--- Calls the update method of all updateable components.
 function GameObject:callUpdate()
     if not self.enabled then return end
 
@@ -73,6 +74,7 @@ end
 
 --- Instantiates a GameObject from a given path.
 --- @param gameObjectPath The path to the GameObject file.
+--- @param isUniversal Whether the GameObject should be added to the universal scene.
 --- @return The instantiated GameObject.
 --- @usage
 --- local obj = GameObject.instantiate("path/to/GameObject.lua")

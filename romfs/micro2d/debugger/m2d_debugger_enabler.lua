@@ -1,3 +1,7 @@
+--- Module for enabling the Micro2D debugger.
+--- @module debugger_enabler
+--- @author Sharper Dev
+
 local Enabler = {}
 
 local InputSystem = require("input.m2d_input_system")

@@ -1,3 +1,7 @@
+--- Debugger module for the Micro2D engine.
+--- @module debugger
+--- @author Sharper Dev
+
 local Debugger = {}
 
 local Time = require("time.m2d_time")

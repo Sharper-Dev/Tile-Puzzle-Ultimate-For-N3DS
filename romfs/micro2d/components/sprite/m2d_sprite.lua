@@ -16,7 +16,7 @@ function Sprite:new(gameObject)
     self.enabled = true
     self.name = "Sprite"
     self.gameObject = gameObject
-    self:setColor(255, 255, 255)
+    self:setColor(255, 255, 255, nil)
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
         execute = function() return self:render() end
@@ -25,6 +25,11 @@ function Sprite:new(gameObject)
     return self
 end
 
+--- Sets the screen for the sprite rendering.
+--
+--- @param screen The screen to set.
+--- @return The sprite instance.
+--- @usage sprite:setScreen(TOP_SCREEN) 
 function Sprite:setScreen(screen)
     if self.screen == screen then return self end
     if self.screen ~= nil then
@@ -35,13 +40,25 @@ function Sprite:setScreen(screen)
     return self
 end
 
+--- Sets the color of the sprite.
+--
+--- @param r number RED Value
+--- @param g number GREEN Value
+--- @param b number BLUE Value
+--- @param a number ALPHA Value (default: 255)
+--- @return sprite The sprite instance.
+--- @usage sprite:setColor(255, 0, 0)
 function Sprite:setColor(r, g, b, a)
     if a == nil then a = 255 end
-	self.color = Color.new(r, g, b, a)
+    self.color = Color.new(r, g, b, a)
 
-	return self
+    return self
 end
 
+--- Sets the sprite of the sprite component.
+--
+--- @param imgPath string The path to the sprite image.
+--- @return sprite The sprite instance.
 function Sprite:setSprite(imgPath)
     if self.sprite ~= nil then
         Graphics.freeImage(self.sprite)
