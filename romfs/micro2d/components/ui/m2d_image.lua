@@ -15,7 +15,7 @@ function Image:new(gameObject)
     self.enabled = true
     self.name = "Image"
     self.gameObject = gameObject
-    self:setColor(255, 255, 255)
+    self:setColor(255, 255, 255, nil)
     self.pivot = 0
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
@@ -26,8 +26,8 @@ function Image:new(gameObject)
 end
 
 --- Sets the canvas to display the image on.
---- @param canvas The canvas to set.
---- @return The image instance.
+--- @param canvas table The canvas to set.
+--- @return self image instance.
 --- @usage
 --- image:setCanvas(canvas)
 function Image:setCanvas(canvas)
@@ -40,9 +40,10 @@ function Image:setCanvas(canvas)
 
     return self
 end
+
 --- Sets the image to display on the canvas.
---- @param imgPath The image path to load.
---- @return The image instance.
+--- @param imgPath string The image path to load.
+--- @return self image instance.
 --- @usage
 --- image:setImage(imgPath)
 function Image:setImage(imgPath)
@@ -55,12 +56,22 @@ function Image:setImage(imgPath)
     self.imageHeight = Graphics.getImageHeight(self.image)
     return self
 end
+
+--- Sets the color of the image.
+--- @param r number The red value.
+--- @param g number The green value.
+--- @param b number The blue value.
+--- @param a number The alpha value.
+--- @return self image instance.
+--- @usage
+--- image:setColor(r, g, b, a)
 function Image:setColor(r, g, b, a)
     if a == nil then a = 255 end
 	self.color = Color.new(r, g, b, a)
 
 	return self
 end
+
 --- Destroys the image and removes it from the canvas.
 --
 -- 
@@ -73,6 +84,7 @@ function Image:destroy()
     self.enabled = nil
     self = nil
 end
+
 --- Render function containing the draw logic.
 --
 -- 

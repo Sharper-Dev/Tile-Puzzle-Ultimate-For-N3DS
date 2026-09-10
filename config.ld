@@ -14,5 +14,7 @@ file = {
     "./romfs/micro2d/input",
     "./romfs/micro2d/renderer",
     "./romfs/micro2d/time",
+    "./romfs/micro2d/extender/math",
+    "./romfs/micro2d/scenes",
     "./romfs/micro2d/m2d_settings.lua",
 }

@@ -43,11 +43,13 @@ local function preClean()
     Controls.enableScreen(BOTTOM_SCREEN)
 end
 
+--- Ends runtime and returns to HOME Menu.
 function CoreRuntime.endRuntime()
     Graphics.term()
     System.exit()
 end
 
+--- Internal function to check and unload scenes to unload.
 local function checkScenesToUnload()
     for i = #scenesToUnload, 1, -1 do
         local scene = scenesToUnload[i]
@@ -58,6 +60,7 @@ local function checkScenesToUnload()
     end
 end
 
+--- Internal function to request unload of a scene.
 function CoreRuntime.requestUnload(scene)
     table.insert(scenesToUnload, scene)
 end

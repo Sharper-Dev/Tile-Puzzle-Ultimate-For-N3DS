@@ -26,6 +26,7 @@ function Scene:addGameObject(gameObject)
     return gameObject
 end
 
+--- Internal function to set up unload behavior for the scene.
 function Scene:setupUnload()
     for i = 1, #self.gameObjects do
         self.gameObjects[i].enabled = false

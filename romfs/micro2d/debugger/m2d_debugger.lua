@@ -21,6 +21,7 @@ local objectToDebug
 
 Debugger.currentObjectIndex = 1
 
+--- Internal function to update the runtime info.
 local function updateRuntimeInfo()
     local fps = math.floor(1 / Time.deltaTime)
     DebuggerUI.texts["DEBUGGER_RUNTIME_INFO"]:setContent(string.format("Lua RAM Usage: %.2f MB\nFPS: %d\nDelta Time: %.3fs\nCurrent scene: %s",
@@ -30,6 +31,7 @@ local function updateRuntimeInfo()
         ScenesManager.getActiveScenes()[1].name))
 end
 
+--- Internal function to update the object info.
 local function updateObjectInfo()
     if objectToDebug then
         local name = objectToDebug.name
@@ -45,6 +47,7 @@ local function updateObjectInfo()
     end
 end
 
+--- Internal function to set up the debugger UI when the sequence code is activated.
 function Debugger.setupDebugger()
     runtimeUpdateTimer = Timer.new()
     isEnabled = true
@@ -54,6 +57,9 @@ function Debugger.setupDebugger()
     Debugger.msg("Debugger initialized")
 end
 
+--- Sends a message to the debugger console.
+--- @param msg string The message to send.
+--- @usage Debugger.msg("My message")
 function Debugger.msg(msg)
     if not isEnabled then return end
 
@@ -71,7 +77,7 @@ function Debugger.msg(msg)
 
     DebuggerUI.texts["DEBUGGER_CONSOLE"]:setContent(content)
 end
-
+--- Internal function that updates the debugger state each frame.
 function Debugger.update()
     Enabler.detectCode()
     Functions.detectFunction()
@@ -85,18 +91,26 @@ function Debugger.update()
     end
 end
 
+--- Returns whether the debugger is currently enabled.
+--- @return boolean
 function Debugger.isEnabled()
     return isEnabled
 end
 
+--- Sets whether the debugger is enabled.
+--- @param value boolean
 function Debugger.setEnable(value)
     isEnabled = value
 end
 
+--- Sets the object to debug.
+--- @param obj GameObject The object to debug.
 function Debugger.debugObject(obj)
     objectToDebug = obj
 end
 
+--- Returns the object currently being debugged.
+--- @return GameObject
 function Debugger.getDebugObject()
     return objectToDebug
 end

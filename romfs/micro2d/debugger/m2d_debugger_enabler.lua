@@ -7,13 +7,18 @@ local Enabler = {}
 local InputSystem = require("input.m2d_input_system")
 
 local hasSetup = false
+--- The code sequence to enable the debugger.
+--
+--- Default sequence is the Konami code.
 local enableCode = { KEY_DUP, KEY_DUP,
     KEY_DDOWN, KEY_DDOWN,
     KEY_DLEFT, KEY_DRIGHT,
     KEY_DLEFT, KEY_DRIGHT,
     KEY_B, KEY_A, KEY_START }
+
 local currentCodeIndex = 1
 
+--- Detects the code sequence to enable the debugger.
 function Enabler.detectCode()
     local rawInput = InputSystem.getRawInput() & 0x0FFF
     local Debugger = require("debugger.m2d_debugger")
@@ -37,7 +42,7 @@ function Enabler.detectCode()
         end
         return
     end
-    
+
     if InputSystem.getKeyDown(rawInput) then
         currentCodeIndex = 1
     end

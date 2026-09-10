@@ -25,10 +25,12 @@ function ScenesManager.loadScene(sceneIndex)
     end
 end
 
+--- Returns the universal scene.
 function ScenesManager.getUniversalScene()
     return universalScene
 end
 
+--- Internal function to load the universal scene.
 function ScenesManager.loadUniversalScene()
 	universalScene = dofile("romfs:/micro2d/scenes/m2d_universal_scene.lua")
 	for i = 1, #universalScene.gameObjects do

@@ -23,7 +23,7 @@ function RenderTask:new(params)
     self.layer = params.layer or 0
     self.previousLayer = self.layer
     self.execute = params.execute
-    
+
     return self
 end
 

@@ -21,6 +21,20 @@ function Canvas:new(gameObject)
     return self
 end
 
+--- Switches the screen of the canvas.
+--- @param screen number
+--- @usage
+--- canvas:switchScreen(BOTTOM_SCREEN)
+function Canvas:switchScreen(screen)
+    if self.screen == screen then return end
+
+    for i = 1, #self.elements do
+        Renderer.removeRenderTask(self.elements[i].renderTask, self.screen, Renderer.SPACES.SCREEN)
+        Renderer.addRenderTask(self.elements[i].renderTask, screen, Renderer.SPACES.SCREEN)
+    end
+    self.screen = screen
+end
+
 --- Engine internal functions
 --- @section engine_internal
 
@@ -48,16 +62,6 @@ function Canvas:delElement(element)
 			return
 		end
 	end
-end
-
-function Canvas:switchScreen(screen)
-    if self.screen == screen then return end
-
-	for i = 1, #self.elements do
-		Renderer.removeRenderTask(self.elements[i].renderTask, self.screen, Renderer.SPACES.SCREEN)
-		Renderer.addRenderTask(self.elements[i].renderTask, screen, Renderer.SPACES.SCREEN)
-	end
-	self.screen = screen
 end
 
 function Canvas:destroy()

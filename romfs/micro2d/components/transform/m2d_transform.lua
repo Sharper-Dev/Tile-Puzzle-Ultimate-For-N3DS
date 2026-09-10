@@ -49,6 +49,13 @@ function Transform:setScale(x, y)
     return self
 end
 
+--- Translates this transform.
+--- @param x number
+--- @param y number
+--- @param z number
+--- @return self transform
+--- @usage
+--- thisObject.transform:translate(0, 0, 0)
 function Transform:translate(x, y, z)
     self.position.x = self.position.x + (x or 0)
     self.position.y = self.position.y + (y or 0)

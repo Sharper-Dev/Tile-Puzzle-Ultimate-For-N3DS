@@ -50,6 +50,13 @@ function GameObject:addComponent(component)
     return comp
 end
 
+--- Returns the component with the specified name.
+--- @param componentName The name of the component to find.
+--- @return component, nil if not found.
+--- @usage
+--- local obj = GameObject:new("MyObject")
+--- obj:addComponent("Script")
+--- local script = obj:getComponent("Script")
 function GameObject:getComponent(componentName)
     for i = 1, #self.components do
         local component = self.components[i]

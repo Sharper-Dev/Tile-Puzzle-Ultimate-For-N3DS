@@ -42,10 +42,10 @@ end
 
 --- Sets the color of the sprite.
 --
---- @param r number RED Value
---- @param g number GREEN Value
---- @param b number BLUE Value
---- @param a number ALPHA Value (default: 255)
+--- @param r number red value
+--- @param g number green value
+--- @param b number blue value
+--- @param a number alpha value (default: 255)
 --- @return sprite The sprite instance.
 --- @usage sprite:setColor(255, 0, 0)
 function Sprite:setColor(r, g, b, a)
