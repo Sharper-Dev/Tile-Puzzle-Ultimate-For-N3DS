@@ -13,7 +13,7 @@ function Builder.buildButton(name, content)
     local textComponent
 
     scriptComponent.start = function()
-        textObject = GameObject.instantiate(GameObject:new(name .. "_text"))
+        textObject = GameObject.instantiate(GameObject:new(name .. "_text"), nil)
         local canvasObject = GameObject.findByName("Canvas")
 
         textObject.transform:setPosition(nil, nil, buttonObject.transform.position.z + 1)

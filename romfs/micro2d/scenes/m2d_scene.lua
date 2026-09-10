@@ -14,6 +14,7 @@ function Scene:new(name)
     self.name = name
     return self
 end
+
 --- Adds a game object to the scene.
 --- @param gameObject GameObject
 --- @return GameObject
