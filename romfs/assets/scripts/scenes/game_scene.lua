@@ -6,5 +6,6 @@ thisScene:addGameObject(dofile("romfs:/assets/scripts/general/ui/top_background.
 thisScene:addGameObject(dofile("romfs:/assets/scripts/general/ui/bottom_background.lua"))
 thisScene:addGameObject(dofile("romfs:/assets/scripts/general/ui/top_circles.lua"))
 thisScene:addGameObject(dofile("romfs:/assets/scripts/general/ui/bottom_circles.lua"))
+thisScene:addGameObject(dofile("romfs:/assets/scripts/game/board/board_object.lua"))
 
 return thisScene

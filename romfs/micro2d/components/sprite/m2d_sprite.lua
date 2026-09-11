@@ -16,6 +16,8 @@ function Sprite:new(gameObject)
     self.enabled = true
     self.name = "Sprite"
     self.gameObject = gameObject
+    self.imageWidth = 128
+    self.imageHeight = 128
     self:setColor(255, 255, 255, nil)
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
@@ -93,9 +95,13 @@ function Sprite:render()
 
     local position = self.gameObject.transform.position
     self.renderTask.layer = position.z
-    Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
-        self.gameObject.transform.rotation,
-        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.sprite, self.color)
+    if self.sprite then
+        Graphics.drawImageExtended(position.x, position.y, 0, 0, self.imageWidth, self.imageHeight,
+            self.gameObject.transform.rotation,
+            self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.sprite, self.color)
+    else
+        Graphics.fillRect(position.x, position.x + self.imageWidth, position.y, position.y + self.imageHeight, self.color)
+    end
 end
 
 return Sprite
