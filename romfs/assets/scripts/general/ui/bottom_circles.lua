@@ -1,6 +1,4 @@
 local GameObject = require("gameobject.m2d_gameobject")
-local Debugger = require("debugger.m2d_debugger")
-local InputSystem = require("input.m2d_input_system")
 local Time = require("time.m2d_time")
 local MathE = require("extender.math.m2d_math")
 
@@ -32,4 +30,5 @@ function Script:update()
         counter = 0
     end
 end
+
 return thisObject

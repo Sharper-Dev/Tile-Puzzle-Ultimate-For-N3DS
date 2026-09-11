@@ -21,10 +21,10 @@ end
 
 function Script.update()
     counter = counter + Time.deltaTime * speed
-    
+
     local x = MathE.lerp(startPos.x, finalPos.x, math.min(counter, 1.0))
     local y = MathE.lerp(startPos.y, finalPos.y, math.min(counter, 1.0))
-    
+
     thisObject.transform:setPosition(x, y)
     if counter >= 1.0 then
         counter = 0

@@ -15,7 +15,7 @@ function script.start()
 end
 
 function button.onClick()
-    Runtime:endRuntime()
+    Runtime.endRuntime()
 end
 
 return thisObject
