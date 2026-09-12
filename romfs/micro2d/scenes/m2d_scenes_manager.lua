@@ -4,6 +4,8 @@
 
 local ScenesManager = {}
 local activeScenes = {}
+local readyScenes = {}
+
 local universalScene
 
 --- Loads a scene by index, unloading any active scenes first.
@@ -13,16 +15,25 @@ function ScenesManager.loadScene(sceneIndex)
     for i, _ in ipairs(activeScenes) do
         ScenesManager.unloadScene(i)
     end
+
     local scenePath = M2D_SETTINGS.SCENES[sceneIndex]
     local scene = dofile(scenePath)
     table.insert(activeScenes, scene)
-    for _, object in ipairs(scene.gameObjects) do
-        for _, component in ipairs(object.components) do
-            if component.start then
-                component:start()
+    table.insert(readyScenes, scene)
+end
+
+function ScenesManager.startReadyScenes()
+    for i = 1, #readyScenes do
+        local scene = readyScenes[i]
+        for _, object in ipairs(scene.gameObjects) do
+            for _, component in ipairs(object.components) do
+                if component.start then
+                    component:start()
+                end
             end
         end
     end
+    readyScenes = {}
 end
 
 --- Returns the universal scene.

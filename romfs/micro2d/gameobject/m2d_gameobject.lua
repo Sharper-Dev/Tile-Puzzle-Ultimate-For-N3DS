@@ -14,6 +14,7 @@ local componentsList = {
     ["Image"] = "components.ui.m2d_image",
     ["Text"] = "components.ui.m2d_text",
     ["Sprite"] = "components.sprite.m2d_sprite",
+    ["MultiSprite"] = "components.sprite.m2d_multisprite",
     ["Button"] = "components.ui.m2d_button",
 }
 
@@ -97,8 +98,10 @@ function GameObject.instantiate(gameObjectPath, isUniversal)
         newObject = scene:addGameObject(gameObjectPath)
     end
 
-    for _, component in ipairs(newObject.components) do
-        component:start()
+    for i = 1, #newObject.components do
+        if newObject.components[i].start then
+            newObject.components[i]:start()
+        end
     end
 
     return newObject

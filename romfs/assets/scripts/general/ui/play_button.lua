@@ -1,5 +1,5 @@
 local ScenesManager = require("scenes.m2d_scenes_manager")
-local uiButton = require("ui_button")
+local uiButton = require("prefabs.ui_button")
 
 local thisObject = uiButton.buildButton("play_button", "Play")
 local script = thisObject:getComponent("Script")
@@ -11,6 +11,7 @@ function script.start()
     baseStart()
     thisObject.textOffset = { x = 50, y = 25 }
     thisObject.transform:setPosition(90, 50, 1)
+    ---ScenesManager.loadScene(2)
 end
 
 function button.onClick()

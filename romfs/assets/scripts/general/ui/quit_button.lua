@@ -1,4 +1,4 @@
-local uiButton = require("ui_button")
+local uiButton = require("prefabs.ui_button")
 local Runtime = require("core.m2d_core_runtime")
 
 local thisObject = uiButton.buildButton("quit_button", "Quit")

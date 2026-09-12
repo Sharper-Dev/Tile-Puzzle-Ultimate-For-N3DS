@@ -57,6 +57,7 @@ local function checkScenesToUnload()
         table.remove(scenesToUnload, i)
         ScenesManager.removeSceneFromTable(1)
         Debugger.debugObject(nil)
+        ScenesManager.startReadyScenes()
     end
 end
 
@@ -74,6 +75,7 @@ function CoreRuntime._start()
     Time.init()
     ScenesManager.loadUniversalScene()
     ScenesManager.loadScene(1)
+    ScenesManager.startReadyScenes()
 end
 
 ------

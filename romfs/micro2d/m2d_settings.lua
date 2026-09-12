@@ -1,10 +1,13 @@
 --- The module containing the Micro2D engine settings.
---- @module Settings
+--- @module settings
 --- @author Sharper Dev
 
 local Settings = {}
 
-Settings.PREFABS_PATH = "romfs:/assets/scripts/prefabs/"
+--- The path to the scripts directory. So you can use `require()` to load scripts from this directory.
+--- @usage Settings.SCRIPTS_PATH = "romfs:/assets/scripts/"
+Settings.SCRIPTS_PATH = "romfs:/assets/scripts/"
+
 --- The scenes list to store the paths of the scene scripts.
 --
 --- You must specify the path to the scene script. So you can load it later by its index.
