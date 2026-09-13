@@ -6,6 +6,7 @@ local Image = {}
 Image.__index = Image
 
 local RenderTask = require("renderer.m2d_render_task")
+local ImagesBank = require("banks.images.m2d_images_bank")
 
 --- The Image Constructor.
 --- @param gameObject The game object this component is attached to.
@@ -16,6 +17,8 @@ function Image:new(gameObject)
     self.name = "Image"
     self.gameObject = gameObject
     self:setColor(255, 255, 255, nil)
+    self.imageWidth = 400
+    self.imageHeight = 240
     self.pivot = 0
     self.renderTask = RenderTask:new({
         layer = self.gameObject.transform.position.z,
@@ -47,11 +50,8 @@ end
 --- @usage
 --- image:setImage(imgPath)
 function Image:setImage(imgPath)
-    if self.image ~= nil then
-        Graphics.freeImage(self.image)
-    end
-
-    self.image = Graphics.loadImage(imgPath)
+    self.image = ImagesBank.loadImage(imgPath)
+    self.imagePath = imgPath
     self.imageWidth = Graphics.getImageWidth(self.image)
     self.imageHeight = Graphics.getImageHeight(self.image)
     return self
@@ -77,7 +77,7 @@ end
 -- 
 --- It is called automatically when occurs a scene switch.
 function Image:destroy()
-    Graphics.freeImage(self.image)
+    ImagesBank.unloadImage(self.imagePath)
     self.canvas:delElement(self)
     self.gameObject = nil
     self.renderTask = nil
@@ -92,16 +92,19 @@ end
 function Image:render()
     if not self.enabled then return end
     if not self.canvas.enabled then return end
-    if self.image == nil then return end
 
     local position = self.gameObject.transform.position
     self.renderTask.layer = position.z
     local pivotX = self.imageWidth * self.pivot
     local pivotY = self.imageHeight * self.pivot
 
-    Graphics.drawImageExtended(position.x + pivotX, position.y + pivotY, 0, 0, self.imageWidth, self.imageHeight,
-        self.gameObject.transform.rotation,
-        self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image, self.color)
+    if self.image then
+        Graphics.drawImageExtended(position.x + pivotX, position.y + pivotY, 0, 0, self.imageWidth, self.imageHeight,
+            self.gameObject.transform.rotation,
+            self.gameObject.transform.scale.x, self.gameObject.transform.scale.y, self.image, self.color)
+    else
+        Graphics.fillRect(position.x, position.x + self.imageWidth, position.y, position.y + self.imageHeight, self.color)
+    end
 end
 
 return Image

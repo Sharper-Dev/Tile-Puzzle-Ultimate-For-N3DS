@@ -7,6 +7,7 @@ Sprite.__index = Sprite
 
 local RenderTask = require("renderer.m2d_render_task")
 local Renderer = require("renderer.m2d_renderer")
+local ImagesBank = require("banks.images.m2d_images_bank")
 
 --- The Sprite Constructor.
 --- @param gameObject The game object this component is attached to.
@@ -62,11 +63,8 @@ end
 --- @param imgPath string The path to the sprite image.
 --- @return sprite The sprite instance.
 function Sprite:setSprite(imgPath)
-    if self.sprite ~= nil then
-        Graphics.freeImage(self.sprite)
-    end
-
-    self.sprite = Graphics.loadImage(imgPath)
+    self.sprite = ImagesBank.loadImage(imgPath)
+    self.spritePath = imgPath
     self.imageWidth = Graphics.getImageWidth(self.sprite)
     self.imageHeight = Graphics.getImageHeight(self.sprite)
 
@@ -78,7 +76,7 @@ end
 -- 
 --- It is called automatically when occurs a scene switch.
 function Sprite:destroy()
-    Graphics.freeImage(self.sprite)
+    ImagesBank.unloadImage(self.spritePath)
     Renderer.removeRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
     self.gameObject = nil
     self.renderTask = nil

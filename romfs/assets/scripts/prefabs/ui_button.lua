@@ -25,7 +25,6 @@ function Builder.buildButton(name, content)
 
         imageComponent:setImage("romfs:/assets/sprites/buttons/button_large.png")
         imageComponent.pivot = 0.5
-
         buttonComponent:setCanvas(canvasObject.canvas)
         buttonComponent:setImageComponent(imageComponent)
     end

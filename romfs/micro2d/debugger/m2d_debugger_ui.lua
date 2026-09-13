@@ -29,12 +29,10 @@ function DebuggerUI.createUI()
 
     local backgroundObject = GameObject.instantiate(GameObject:new("DEBUGGER_BACKGROUND"), true)
 
-    backgroundObject.transform:setPosition(160, 120, 100):setScale(2)
+    backgroundObject.transform:setPosition(0, 0, 100):setScale(2)
     backgroundObject:addComponent("Image")
-        :setImage("romfs:/micro2d/assets/images/bg_bottom.png")
         :setCanvas(canvas)
         :setColor(0, 0, 0)
-
     DebuggerUI.objects["DEBUGGER_OBJECT_INFO"] = GameObject.instantiate(GameObject:new("DEBUGGER_OBJECT_INFO"), true)
     DebuggerUI.objects["DEBUGGER_OBJECT_INFO"].transform:setPosition(5, 97, 101)
 
