@@ -7,7 +7,7 @@ local Sprite = thisObject:addComponent("Sprite")
 
 local startPosition = { x = 200, y = 120 }
 local amplitude = 5
-local frequency = 2
+local frequency = 3
 local counter = 0
 local counterLimit = 2 * math.pi
 
