@@ -17,6 +17,7 @@ function Script:start()
     thisObject.transform:setPosition(startPos.x, startPos.y, 1)
     Sprite:setSprite("romfs:/assets/sprites/background/circles.png")
     Sprite:setScreen(BOTTOM_SCREEN)
+    Sprite:setColor(254, 245, 213)
 end
 
 function Script:update()
