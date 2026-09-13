@@ -1,8 +1,8 @@
 --- Manages fonts for the Micro2D engine.
---- The Fonts Manager works with Bitmap Fonts, previously converted to Lua table and a PNG sheet.
+--- The Fonts Bank works with Bitmap Fonts, previously converted to Lua table and a PNG sheet.
 --
 --- You can use my own tool called [BMFont2Lua](https://github.com/Sharper-Dev/BMFont2Lua) to convert your own BMFonts JSON files to Lua table.
---- @module fonts_bank
+--- @module bank_fonts
 --- @author Sharper Dev
 --- 
 local FontsBank = {}

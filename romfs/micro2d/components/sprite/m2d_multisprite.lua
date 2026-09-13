@@ -1,3 +1,11 @@
+--- Allows you to render multiple sprites from a single texture, using a cell cursor to select which sprite to render.
+--
+--
+--- It contains the same fields as the `Sprite` component.
+--- @see components_sprite
+--- @module components_multisprite
+--- @author Sharper Dev
+
 local Sprite = require("components.sprite.m2d_sprite")
 
 local MultiSprite = {}
@@ -8,8 +16,17 @@ function MultiSprite:new(gameObject)
     self = Sprite.new(self, gameObject)
     setmetatable(self, MultiSprite)
     self.name = "MultiSprite"
+
+    --- The size of each cell in the sprite sheet.
+    --- @field x integer The width of each cell.
+    --- @field y integer The height of each cell.
     self.cellSize = { x = 16, y = 16 }
+
+    --- The current cell cursor position.
+    --- @field x integer The x position of the cell cursor.
+    --- @field y integer The y position of the cell cursor.
     self.cellCursor = { x = 0, y = 0 }
+
     return self
 end
 

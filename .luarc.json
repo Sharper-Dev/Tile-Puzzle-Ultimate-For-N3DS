@@ -79,6 +79,7 @@
         "undefined-field",
         "param-type-mismatch",
         "return-type-mismatch",
-        "inject-field"
+        "inject-field",
+        "doc-field-no-class"
   ]
 }
