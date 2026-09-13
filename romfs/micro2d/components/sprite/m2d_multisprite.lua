@@ -1,5 +1,4 @@
 local Sprite = require("components.sprite.m2d_sprite")
-local RenderTask = require("renderer.m2d_render_task")
 
 local MultiSprite = {}
 setmetatable(MultiSprite, { __index = Sprite })

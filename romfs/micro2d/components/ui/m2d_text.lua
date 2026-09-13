@@ -5,7 +5,7 @@ local Text = {}
 Text.__index = Text
 
 local RenderTask = require("renderer.m2d_render_task")
-local FontsManager = require("fonts.m2d_fonts_manager")
+local FontsBank = require("banks.fonts.m2d_fonts_bank")
 local utf8 = require("utf8")
 
 --- The Text Constructor
@@ -89,7 +89,7 @@ function Text:render()
     local transform = self.gameObject.transform
     local position = transform.position
     local cursor = { x = position.x + self.cursorOffset.x, y = position.y + self.cursorOffset.y }
-    local font = FontsManager.getFont(self.fontID)
+    local font = FontsBank.getFont(self.fontID)
     local totalSize = { w = 0, h = 0 }
     self.renderTask.layer = position.z
 
