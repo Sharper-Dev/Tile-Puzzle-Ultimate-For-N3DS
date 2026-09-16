@@ -16,6 +16,7 @@ local componentsList = {
     ["Sprite"] = "components.sprite.m2d_sprite",
     ["MultiSprite"] = "components.sprite.m2d_multisprite",
     ["Button"] = "components.ui.m2d_button",
+    ["BoxCollider"] = "components.collider.m2d_box_collider",
 }
 
 --- The GameObject Constructor.

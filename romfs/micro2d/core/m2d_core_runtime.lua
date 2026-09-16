@@ -6,6 +6,7 @@ local CoreRuntime = {}
 
 local InputSystem = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
+local CollisionEngine = require("collision.m2d_collision_engine")
 local Renderer = require("renderer.m2d_renderer")
 local Debugger = require("debugger.m2d_debugger")
 local Time = require("time.m2d_time")
@@ -83,6 +84,7 @@ end
 --- Updates the input system, refreshes the screen, updates all components, and renders the active scenes.
 function CoreRuntime._loop()
     InputSystem.readInputs()
+    CollisionEngine.processCollisions()
     local activeScenes = ScenesManager.getActiveScenes()
     for i = 1, #activeScenes do
         for j = 1, #activeScenes[i].gameObjects do
