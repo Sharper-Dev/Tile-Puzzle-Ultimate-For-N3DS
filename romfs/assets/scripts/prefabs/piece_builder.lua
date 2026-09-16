@@ -13,12 +13,13 @@ function PieceBuilder.createPiece(name, spritePath)
     sprite.cellCursor.y = 0
 
     local boxCollider = pieceObject:addComponent("BoxCollider")
-    boxCollider:setSize(85, 85)
+    boxCollider:setSize(62, 62)
+    boxCollider:setOffset(-30, -30)
     boxCollider.onTouchDown = function(self)
-        Debugger.msg("down!")
+        Debugger.msg("down! I am " .. self.gameObject.name)
     end
     boxCollider.onTouchUp = function(self)
-        Debugger.msg("up!")
+        Debugger.msg("up! I am " .. self.gameObject.name)
     end
     return pieceObject
 end

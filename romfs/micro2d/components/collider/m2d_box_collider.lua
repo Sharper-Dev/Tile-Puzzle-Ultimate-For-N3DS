@@ -5,6 +5,9 @@
 local BoxCollider = {}
 BoxCollider.__index = BoxCollider
 local CollisionEngine = require("collision.m2d_collision_engine")
+local Debugger = require("debugger.m2d_debugger")
+local Renderer = require("renderer.m2d_renderer")
+local RenderTask = require("renderer.m2d_render_task")
 
 function BoxCollider:new(gameObject)
     self = setmetatable({}, BoxCollider)
@@ -15,7 +18,23 @@ function BoxCollider:new(gameObject)
     self:setSize(10, 10)
     self:setOffset(0, 0)
     CollisionEngine.insertCollider(1, self)
+    self.renderTask = RenderTask:new({
+        layer = 1,
+        execute = function() self:render() end
+    })
+    Renderer.addRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
     return self
+end
+
+function BoxCollider:render()
+    if not Debugger.isEnabled() then return end
+
+    local positionx = self.gameObject.transform.position.x
+    local positiony = self.gameObject.transform.position.y
+    positionx = positionx + self.xoffset
+    positiony = positiony + self.yoffset
+    Graphics.fillEmptyRect(positionx, self.width + positionx, positiony, self.height + positiony,
+        Color.new(0, 255, 0))
 end
 
 function BoxCollider:setSize(width, height)

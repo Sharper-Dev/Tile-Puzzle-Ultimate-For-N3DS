@@ -20,13 +20,14 @@ end
 local function processTouch(boxCollider)
     if not boxCollider.enabled then return end
 
-    local colliderPosition = boxCollider.gameObject.transform.position
-    colliderPosition.x = colliderPosition.x + boxCollider.xoffset
-    colliderPosition.y = colliderPosition.y + boxCollider.yoffset
+    local colliderPositionx = boxCollider.gameObject.transform.position.x
+    local colliderPositiony = boxCollider.gameObject.transform.position.y
+    colliderPositionx = colliderPositionx + boxCollider.xoffset
+    colliderPositiony = colliderPositiony + boxCollider.yoffset
 
     if InputSystem.getKey(KEY_TOUCH) then
         local x, y = InputSystem.getTouch()
-        local isInside = MathE.checkAABBPoint(colliderPosition.x, colliderPosition.y, boxCollider.width,
+        local isInside = MathE.checkAABBPoint(colliderPositionx, colliderPositiony, boxCollider.width,
             boxCollider.height, x, y)
         if isInside and InputSystem.getKeyDown(KEY_TOUCH) then
             boxCollider:onTouchDown()
