@@ -1,22 +1,23 @@
 --- Manages collisions between objects in the game.
---- @module collision_engine
+--- @module systems_collision
 --- @author Sharper Dev
 
 local MathE = require("extender.math.m2d_math")
 local InputSystem = require("input.m2d_input_system")
 
-local CollisionEngine = {}
+local CollisionSystem = {}
 
 local collisionLayers = {}
 
-function CollisionEngine.insertCollider(layer, boxCollider)
+function CollisionSystem.registerCollider(layer, boxCollider)
     collisionLayers[layer] = collisionLayers[layer] or {}
     collisionLayers[layer][tostring(boxCollider)] = boxCollider
 end
 
-function CollisionEngine.removeCollider(layer, boxCollider)
+function CollisionSystem.unregisterCollider(layer, boxCollider)
     collisionLayers[layer][tostring(boxCollider)] = nil
 end
+
 local function processTouch(boxCollider)
     if not boxCollider.enabled then return end
 
@@ -44,7 +45,7 @@ local function processTouch(boxCollider)
     end
 end
 
-function CollisionEngine.processCollisions()
+function CollisionSystem.processCollisions()
 	for i = 1, #collisionLayers do
 		local layer = collisionLayers[i]
 		for _, boxCollider in pairs(layer) do
@@ -53,4 +54,4 @@ function CollisionEngine.processCollisions()
 	end
 end
 
-return CollisionEngine
+return CollisionSystem

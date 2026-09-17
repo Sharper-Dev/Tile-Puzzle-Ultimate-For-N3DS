@@ -4,7 +4,7 @@
 
 local BoxCollider = {}
 BoxCollider.__index = BoxCollider
-local CollisionEngine = require("collision.m2d_collision_engine")
+local CollisionSystem = require("systems.collision.m2d_collision_system")
 local Debugger = require("debugger.m2d_debugger")
 local Renderer = require("renderer.m2d_renderer")
 local RenderTask = require("renderer.m2d_render_task")
@@ -17,7 +17,7 @@ function BoxCollider:new(gameObject)
     self.gameObject = gameObject
     self:setSize(10, 10)
     self:setOffset(0, 0)
-    CollisionEngine.insertCollider(1, self)
+    CollisionSystem.registerCollider(1, self)
     self.renderTask = RenderTask:new({
         layer = 1,
         execute = function() self:render() end
