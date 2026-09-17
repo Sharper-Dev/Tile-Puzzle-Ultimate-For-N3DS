@@ -1,6 +1,6 @@
 --- The main renderer module.
 --- It works with RenderTasks queue to render the game.
---- @module renderer
+--- @module systems_renderer
 --- @author Sharper Dev
 
 local Renderer = {}
@@ -59,8 +59,8 @@ end
 --- @param task The task to add.
 --- @param screen The screen to add the task to.
 --- @param space The space to add the task to.
---- @usage Renderer.addRenderTask(task, TOP_SCREEN, Renderer.SPACES.WORLD)
-function Renderer.addRenderTask(task, screen, space)
+--- @usage Renderer.registerRenderTask(task, TOP_SCREEN, Renderer.SPACES.WORLD)
+function Renderer.registerRenderTask(task, screen, space)
     local tasksTable = tasksPointer[screen][space]
     for i = 1, #tasksTable do
         if tasksTable[i].layer > task.layer then
@@ -68,7 +68,7 @@ function Renderer.addRenderTask(task, screen, space)
             return
         end
     end
-    
+
     table.insert(tasksTable, task)
 end
 
@@ -76,8 +76,8 @@ end
 --- @param task The task to remove.
 --- @param screen The screen to remove the task from.
 --- @param space The space to remove the task from.
---- @usage Renderer.removeRenderTask(task, TOP_SCREEN, Renderer.SPACES.WORLD)
-function Renderer.removeRenderTask(task, screen, space)
+--- @usage Renderer.unregisterRenderTask(task, TOP_SCREEN, Renderer.SPACES.WORLD)
+function Renderer.unregisterRenderTask(task, screen, space)
     local tasksTable = tasksPointer[screen][space]
     for i = #tasksTable, 1, -1 do
         if tasksTable[i] == task then
@@ -92,20 +92,20 @@ end
 function Renderer.drawTop()
     checkLayers(TOP_SCREEN, Renderer.SPACES.WORLD)
     checkLayers(TOP_SCREEN, Renderer.SPACES.SCREEN)
-    
+
     local topTasks = tasksPointer[TOP_SCREEN][Renderer.SPACES.WORLD]
 
     Graphics.initBlend(TOP_SCREEN)
-    
+
     for i = 1, #topTasks do
         topTasks[i].execute()
     end
-    
+
     topTasks = tasksPointer[TOP_SCREEN][Renderer.SPACES.SCREEN]
 
     for i = 1, #topTasks do
         topTasks[i].execute()
-    end  
+    end 
 
     Graphics.termBlend()
 end
@@ -115,15 +115,15 @@ end
 function Renderer.drawBottom()
     checkLayers(BOTTOM_SCREEN, Renderer.SPACES.WORLD)
     checkLayers(BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
-    
+
     local bottomTasks = tasksPointer[BOTTOM_SCREEN][Renderer.SPACES.WORLD]
-   
+
     Graphics.initBlend(BOTTOM_SCREEN)
-    
+
     for i = 1, #bottomTasks do
         bottomTasks[i].execute()
     end
-    
+
     bottomTasks = tasksPointer[BOTTOM_SCREEN][Renderer.SPACES.SCREEN]
 
     for i = 1, #bottomTasks do

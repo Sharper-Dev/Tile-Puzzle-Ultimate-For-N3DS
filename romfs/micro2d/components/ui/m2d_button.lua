@@ -7,7 +7,7 @@ Button.__index = Button
 
 local MathE = require("extender.math.m2d_math")
 local InputSystem = require("input.m2d_input_system")
-local RenderTask = require("renderer.m2d_render_task")
+local RenderTask = require("systems.renderer.m2d_render_task")
 local Debugger = require("debugger.m2d_debugger")
 
 --- The Button constructor.

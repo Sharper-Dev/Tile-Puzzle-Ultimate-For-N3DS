@@ -1,5 +1,5 @@
 --- The render task module.
---- @module renderer_render_task
+--- @module systems_rendertask
 --- @author Sharper Dev
 
 local RenderTask = {}

@@ -6,8 +6,8 @@ local BoxCollider = {}
 BoxCollider.__index = BoxCollider
 local CollisionSystem = require("systems.collision.m2d_collision_system")
 local Debugger = require("debugger.m2d_debugger")
-local Renderer = require("renderer.m2d_renderer")
-local RenderTask = require("renderer.m2d_render_task")
+local Renderer = require("systems.renderer.m2d_renderer")
+local RenderTask = require("systems.renderer.m2d_render_task")
 
 function BoxCollider:new(gameObject)
     self = setmetatable({}, BoxCollider)
@@ -22,7 +22,7 @@ function BoxCollider:new(gameObject)
         layer = 1,
         execute = function() self:render() end
     })
-    Renderer.addRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
+    Renderer.registerRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
     return self
 end
 

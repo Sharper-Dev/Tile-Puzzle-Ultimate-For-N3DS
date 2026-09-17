@@ -7,7 +7,7 @@ local CoreRuntime = {}
 local InputSystem = require("input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
 local CollisionSystem = require("systems.collision.m2d_collision_system")
-local Renderer = require("renderer.m2d_renderer")
+local Renderer = require("systems.renderer.m2d_renderer")
 local Debugger = require("debugger.m2d_debugger")
 local Time = require("time.m2d_time")
 
@@ -20,7 +20,7 @@ local scenesToUnload = {}
 --- Sometimes when the application starts, the first frame may be a weird texture artifact and this helps to clear it.
 local function preClean()
     local sceneTimer = Timer.new()
-    
+
     Controls.disableScreen(TOP_SCREEN) -- I can't show these artifacts :D
     Controls.disableScreen(BOTTOM_SCREEN)
 

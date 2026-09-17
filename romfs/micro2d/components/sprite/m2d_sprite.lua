@@ -5,8 +5,8 @@
 local Sprite = {}
 Sprite.__index = Sprite
 
-local RenderTask = require("renderer.m2d_render_task")
-local Renderer = require("renderer.m2d_renderer")
+local RenderTask = require("systems.renderer.m2d_render_task")
+local Renderer = require("systems.renderer.m2d_renderer")
 local ImagesBank = require("banks.images.m2d_images_bank")
 
 --- The Sprite Constructor.
@@ -36,9 +36,9 @@ end
 function Sprite:setScreen(screen)
     if self.screen == screen then return self end
     if self.screen ~= nil then
-        Renderer.removeRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
+        Renderer.unregisterRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
     end
-    Renderer.addRenderTask(self.renderTask, screen, Renderer.SPACES.WORLD)
+    Renderer.registerRenderTask(self.renderTask, screen, Renderer.SPACES.WORLD)
     self.screen = screen
     return self
 end
@@ -77,7 +77,7 @@ end
 --- It is called automatically when occurs a scene switch.
 function Sprite:destroy()
     ImagesBank.unloadImage(self.spritePath)
-    Renderer.removeRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
+    Renderer.unregisterRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
     self.gameObject = nil
     self.renderTask = nil
     self.enabled = nil

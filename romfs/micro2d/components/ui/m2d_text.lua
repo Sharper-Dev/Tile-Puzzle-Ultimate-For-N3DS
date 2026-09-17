@@ -4,7 +4,7 @@
 local Text = {}
 Text.__index = Text
 
-local RenderTask = require("renderer.m2d_render_task")
+local RenderTask = require("systems.renderer.m2d_render_task")
 local FontsBank = require("banks.fonts.m2d_fonts_bank")
 local utf8 = require("utf8")
 

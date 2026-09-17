@@ -5,7 +5,7 @@
 local Image = {}
 Image.__index = Image
 
-local RenderTask = require("renderer.m2d_render_task")
+local RenderTask = require("systems.renderer.m2d_render_task")
 local ImagesBank = require("banks.images.m2d_images_bank")
 
 --- The Image Constructor.
