@@ -6,7 +6,7 @@ local GameObject = {}
 GameObject.__index = GameObject
 
 local Transform = require("components.transform.m2d_transform")
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local ScenesManager = require("systems.scenes.m2d_scenes_system")
 
 local componentsList = {
     ["Script"] = "components.script.m2d_script",

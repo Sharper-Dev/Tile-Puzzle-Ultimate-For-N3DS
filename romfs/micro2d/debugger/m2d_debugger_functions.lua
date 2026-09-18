@@ -4,7 +4,7 @@
 
 local Functions = {}
 local InputSystem = require("systems.input.m2d_input_system")
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local ScenesManager = require("systems.scenes.m2d_scenes_system")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
 
 --- The key used to trigger debugger functions. | Default: KEY_L

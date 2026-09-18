@@ -1,8 +1,8 @@
---- The Scenes Manager module manages the loading and unloading of scenes in the game.
---- @module scenes_manager
+--- Manages the loading and unloading of scenes in the game.
+--- @module systems_scenes
 --- @author Sharper Dev
 
-local ScenesManager = {}
+local ScenesSystem = {}
 local activeScenes = {}
 local readyScenes = {}
 
@@ -10,10 +10,10 @@ local universalScene
 
 --- Loads a scene by index, unloading any active scenes first.
 --- @param sceneIndex The index of the scene to load.
---- @usage ScenesManager.loadScene(1)
-function ScenesManager.loadScene(sceneIndex)
+--- @usage ScenesSystem.loadScene(1)
+function ScenesSystem.loadScene(sceneIndex)
     for i, _ in ipairs(activeScenes) do
-        ScenesManager.unloadScene(i)
+        ScenesSystem.unloadScene(i)
     end
 
     local scenePath = M2D_SETTINGS.SCENES[sceneIndex]
@@ -22,7 +22,7 @@ function ScenesManager.loadScene(sceneIndex)
     table.insert(readyScenes, scene)
 end
 
-function ScenesManager.startReadyScenes()
+function ScenesSystem.startReadyScenes()
     for i = 1, #readyScenes do
         local scene = readyScenes[i]
         for _, object in ipairs(scene.gameObjects) do
@@ -37,13 +37,13 @@ function ScenesManager.startReadyScenes()
 end
 
 --- Returns the universal scene.
-function ScenesManager.getUniversalScene()
+function ScenesSystem.getUniversalScene()
     return universalScene
 end
 
 --- Internal function to load the universal scene.
-function ScenesManager.loadUniversalScene()
-	universalScene = dofile("romfs:/micro2d/scenes/m2d_universal_scene.lua")
+function ScenesSystem.loadUniversalScene()
+	universalScene = dofile("romfs:/micro2d/assets/scenes/m2d_universal_scene.lua")
 	for i = 1, #universalScene.gameObjects do
 		local object = universalScene.gameObjects[i]
 		for _, component in ipairs(object.components) do
@@ -56,8 +56,8 @@ end
 
 --- Unloads a scene by index, destroying all game objects.
 --- @param sceneIndex The index of the scene to unload.
---- @usage ScenesManager.unloadScene(1)
-function ScenesManager.unloadScene(sceneIndex)
+--- @usage ScenesSystem.unloadScene(1)
+function ScenesSystem.unloadScene(sceneIndex)
     if activeScenes[sceneIndex] then
         local Runtime = require("core.m2d_core_runtime")
         activeScenes[sceneIndex]:setupUnload()
@@ -66,15 +66,15 @@ function ScenesManager.unloadScene(sceneIndex)
     collectgarbage("collect")
 end
 
-function ScenesManager.removeSceneFromTable(index)
+function ScenesSystem.removeSceneFromTable(index)
     table.remove(activeScenes, index)
 end
 
 --- Returns the active scenes.
 --- @return The active scenes.
---- @usage local scenes = ScenesManager.getActiveScenes()
-function ScenesManager.getActiveScenes()
+--- @usage local scenes = ScenesSystem.getActiveScenes()
+function ScenesSystem.getActiveScenes()
     return activeScenes
 end
 
-return ScenesManager
+return ScenesSystem

@@ -5,7 +5,7 @@
 local Debugger = {}
 
 local Time = require("time.m2d_time")
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local ScenesManager = require("systems.scenes.m2d_scenes_system")
 local Enabler = require("debugger.m2d_debugger_enabler")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
 local Functions = require("debugger.m2d_debugger_functions")

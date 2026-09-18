@@ -1,4 +1,4 @@
-local Scene = require("scenes.m2d_scene")
+local Scene = require("systems.scenes.m2d_scene")
 
 local thisScene = Scene:new("menu_scene")
 

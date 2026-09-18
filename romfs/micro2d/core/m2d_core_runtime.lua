@@ -5,7 +5,7 @@
 local CoreRuntime = {}
 
 local InputSystem = require("systems.input.m2d_input_system")
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local ScenesManager = require("systems.scenes.m2d_scenes_system")
 local CollisionSystem = require("systems.collision.m2d_collision_system")
 local Renderer = require("systems.renderer.m2d_renderer")
 local Debugger = require("debugger.m2d_debugger")

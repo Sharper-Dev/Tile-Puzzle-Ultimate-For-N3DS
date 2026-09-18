@@ -1,4 +1,4 @@
-local ScenesManager = require("scenes.m2d_scenes_manager")
+local ScenesManager = require("systems.scenes.m2d_scenes_system")
 local uiButton = require("prefabs.ui_button")
 
 local thisObject = uiButton.buildButton("play_button", "Play")
