@@ -11,7 +11,6 @@ file = {
     "./romfs/micro2d/core",
     "./romfs/micro2d/debugger",
     "./romfs/micro2d/gameobject",
-    "./romfs/micro2d/input",
     "./romfs/micro2d/time",
     "./romfs/micro2d/systems",    
     "./romfs/micro2d/extender/math",

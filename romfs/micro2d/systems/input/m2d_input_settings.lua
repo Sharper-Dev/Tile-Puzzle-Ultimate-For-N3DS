@@ -1,5 +1,5 @@
 --- Input system settings.
---- @module input_settings
+--- @module systems_input_settings
 --- @author Sharper Dev
 
 local InputSettings = {}
@@ -45,14 +45,14 @@ function InputSettings.getCStickDeadZone()
     return cStickDeadZone
 end
 
---- Movements
---- @section movements
+--- Tilting
+--- @section tilting
 
 ------
---- Enables or disables the movement controls (gyroscope and accelerometer).
+--- Enables or disables the tilting controls (gyroscope and accelerometer).
 --- @param state boolean Whether to enable or disable the controls.
---- @usage InputSettings.setMovementsState(true)
-function InputSettings.setMovementsState(state)
+--- @usage InputSettings.setTiltingState(true)
+function InputSettings.setTiltingState(state)
     if state then
         Controls.enableGyro(state)
         Controls.enableAccel(state)

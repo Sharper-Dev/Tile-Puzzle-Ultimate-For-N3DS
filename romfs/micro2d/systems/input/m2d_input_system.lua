@@ -1,9 +1,9 @@
 --- Input system as a wrapper around Lua Player Plus Controls Module.
---- @module input_system
+--- @module systems_input
 --- @author Sharper Dev
 
 local InputSystem = {}
-local InputSettings = require("input.m2d_input_settings")
+local InputSettings = require("systems.input.m2d_input_settings")
 
 local previousInput = 0
 local currentInput = 0
@@ -103,8 +103,8 @@ function InputSystem.getTouch()
 	return Controls.readTouch()
 end
 
---- Reading Movements
---- @section reading_movements
+--- Reading Tilting
+--- @section reading_tilting
 
 ------
 --- Gets the current gyroscope values.

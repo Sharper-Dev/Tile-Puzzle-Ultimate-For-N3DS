@@ -4,7 +4,7 @@
 
 local Enabler = {}
 
-local InputSystem = require("input.m2d_input_system")
+local InputSystem = require("systems.input.m2d_input_system")
 
 local hasSetup = false
 --- The code sequence to enable the debugger.

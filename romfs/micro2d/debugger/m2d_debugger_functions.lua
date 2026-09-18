@@ -3,7 +3,7 @@
 --- @author Sharper Dev
 
 local Functions = {}
-local InputSystem = require("input.m2d_input_system")
+local InputSystem = require("systems.input.m2d_input_system")
 local ScenesManager = require("scenes.m2d_scenes_manager")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
 
