@@ -76,7 +76,6 @@ end
 -- 
 --- It is called automatically when occurs a scene switch.
 function Sprite:destroy()
-    ImagesBank.unloadImage(self.spritePath)
     Renderer.unregisterRenderTask(self.renderTask, self.screen, Renderer.SPACES.WORLD)
     self.gameObject = nil
     self.renderTask = nil

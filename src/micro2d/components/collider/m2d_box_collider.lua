@@ -37,6 +37,15 @@ function BoxCollider:render()
         Color.new(0, 255, 0))
 end
 
+function BoxCollider:destroy()
+    CollisionSystem.unregisterCollider(1, self)
+    Renderer.unregisterRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
+	self.gameObject = nil
+    self.renderTask = nil
+    self.enabled = nil
+    self = nil
+end
+
 function BoxCollider:setSize(width, height)
     self.width = width
     self.height = height
