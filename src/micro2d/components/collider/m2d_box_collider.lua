@@ -17,6 +17,7 @@ function BoxCollider:new(gameObject)
     self.gameObject = gameObject
     self:setSize(10, 10)
     self:setOffset(0, 0)
+    self.enteredCollisions = {}
     CollisionSystem.registerCollider(1, self)
     self.renderTask = RenderTask:new({
         layer = 1,
@@ -56,9 +57,9 @@ function BoxCollider:setOffset(x, y)
     self.yoffset = y
 end
 
--- function BoxCollider:onCollisionEnter(gameObject) end
--- function BoxCollider:onCollisionStay(gameObject) end
--- function BoxCollider:onCollisionExit(gameObject) end
+function BoxCollider:onCollisionEnter(collider) end
+function BoxCollider:onCollisionStay(collider) end
+function BoxCollider:onCollisionExit(collider) end
 
 function BoxCollider:onTouchDown() end
 function BoxCollider:onTouchStay() end
