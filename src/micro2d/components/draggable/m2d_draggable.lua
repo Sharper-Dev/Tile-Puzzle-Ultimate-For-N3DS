@@ -34,38 +34,22 @@ local function onTouchUp(self)
     self:onDragEnd()
 end
 
-function Draggable:update()
-    if self.isDragging then
-        self:onDragging()
-    end
-end
-
-function Draggable:onDragStart()
-    local pieceLayer = self.gameObject.transform.position.z
-    local pieceScalex = self.gameObject.transform.scale.x
-    local pieceScaley = self.gameObject.transform.scale.y
-    self.gameObject.transform:setPosition(nil, nil, pieceLayer + 1)
-    self.gameObject.transform:setScale(pieceScalex + 0.2, pieceScaley + 0.2)
-end
-
-function Draggable:onDragging()
-    local x, y = InputSystem.getTouch()
-
-    self.gameObject.transform:setPosition(x, y)
-end
-
-function Draggable:onDragEnd()
-    self.dragging = false
-    local pieceLayer = self.gameObject.transform.position.z
-    local pieceScalex = self.gameObject.transform.scale.x
-    local pieceScaley = self.gameObject.transform.scale.y
-    self.gameObject.transform:setPosition(nil, nil, pieceLayer - 1)
-    self.gameObject.transform:setScale(pieceScalex - 0.2, pieceScaley - 0.2)
-end
-
 function Draggable:registerFunctions()
     self.boxCollider.onTouchDown = function() onTouchDown(self) end
     self.boxCollider.onTouchUp = function() onTouchUp(self) end
 end
+
+function Draggable:update()
+    if self.isDragging then
+        local x, y = InputSystem.getTouch()
+        self.gameObject.transform:setPosition(x, y)
+
+        self:onDragging()
+    end
+end
+
+function Draggable:onDragStart() end
+function Draggable:onDragging() end
+function Draggable:onDragEnd() end
 
 return Draggable

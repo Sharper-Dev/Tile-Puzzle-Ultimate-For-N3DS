@@ -1,7 +1,6 @@
 local PieceBuilder = {}
 local GameObject = require("gameobject.m2d_gameobject")
 local Debugger = require("debugger.m2d_debugger")
-local InputSystem = require("systems.input.m2d_input_system")
 
 function PieceBuilder.createPiece(name, spritePath)
     local pieceObject = GameObject:new(name)
@@ -21,6 +20,22 @@ function PieceBuilder.createPiece(name, spritePath)
         Debugger.msg("collision enter: " .. self.gameObject.name .. " vs " .. collider.gameObject.name)
     end
     local draggable = pieceObject:addComponent("Draggable")
+
+    draggable.onDragStart = function(self)
+        local pieceLayer = self.gameObject.transform.position.z
+        local pieceScalex = self.gameObject.transform.scale.x
+        local pieceScaley = self.gameObject.transform.scale.y
+        self.gameObject.transform:setPosition(nil, nil, pieceLayer + 1)
+        self.gameObject.transform:setScale(pieceScalex + 0.2, pieceScaley + 0.2)
+    end
+
+    draggable.onDragEnd = function(self)
+        local pieceLayer = self.gameObject.transform.position.z
+        local pieceScalex = self.gameObject.transform.scale.x
+        local pieceScaley = self.gameObject.transform.scale.y
+        self.gameObject.transform:setPosition(nil, nil, pieceLayer - 1)
+        self.gameObject.transform:setScale(pieceScalex - 0.2, pieceScaley - 0.2)
+    end
 
     return pieceObject
 end
