@@ -16,8 +16,11 @@ local loadedFonts = {}
 --- @return table The loaded font data.
 --- @usage local myFont = FontsBank.loadFont("myFont", "romfs/micro2d/fonts/myFont")
 function FontsBank.loadFont(id, fontPath)
-    local fontName = fontPath:match("[^/]+$")
+    if loadedFonts[id] then
+        return loadedFonts[id]
+    end
 
+    local fontName = fontPath:match("[^/]+$")
     loadedFonts[id] = {
         data = dofile(fontPath .. "/" .. fontName .. ".lua"),
         sheet = Graphics.loadImage(fontPath .. "/" .. fontName .. ".png")

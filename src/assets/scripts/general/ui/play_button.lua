@@ -9,7 +9,7 @@ local baseStart = script.start
 
 function script.start()
     baseStart()
-    thisObject.textOffset = { x = 50, y = 25 }
+    thisObject.textOffset = { x = 62, y = 23 }
     thisObject.transform:setPosition(90, 50, 1)
     ---ScenesManager.loadScene(2)
 end

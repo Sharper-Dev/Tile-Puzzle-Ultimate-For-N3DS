@@ -16,12 +16,15 @@ function PieceBuilder.createPiece(name, spritePath)
     local boxCollider = pieceObject:addComponent("BoxCollider")
     boxCollider:setSize(62, 62)
     boxCollider:setOffset(-30, -30)
-    
+
     boxCollider.onTouchDown = function(self)
         Debugger.msg("down! I am " .. self.gameObject.name)
         self.dragging = true
         local pieceLayer = self.gameObject.transform.position.z
+        local pieceScalex = self.gameObject.transform.scale.x
+        local pieceScaley = self.gameObject.transform.scale.y
         self.gameObject.transform:setPosition(nil, nil, pieceLayer + 1)
+        self.gameObject.transform:setScale(pieceScalex + 0.2, pieceScaley + 0.2)
     end
 
     boxCollider.onTouchStay = function(self)
@@ -34,7 +37,10 @@ function PieceBuilder.createPiece(name, spritePath)
     boxCollider.onTouchUp = function(self)
         self.dragging = false
         local pieceLayer = self.gameObject.transform.position.z
+        local pieceScalex = self.gameObject.transform.scale.x
+        local pieceScaley = self.gameObject.transform.scale.y
         self.gameObject.transform:setPosition(nil, nil, pieceLayer - 1)
+        self.gameObject.transform:setScale(pieceScalex - 0.2, pieceScaley - 0.2)
     end
     return pieceObject
 end
