@@ -4,9 +4,9 @@
 
 local Settings = {}
 
---- The path to the scripts directory. So you can use `require()` to load scripts from this directory.
---- @usage Settings.SCRIPTS_PATH = "romfs:/assets/scripts/"
-Settings.SCRIPTS_PATH = "romfs:/assets/scripts/"
+--- The path to the game assets directory. So you can use `require()` to load scripts from this directory.
+--- @usage Settings.ASSETS_PATH = "romfs:/assets/"
+Settings.ASSETS_PATH = "romfs:/assets/"
 
 --- The scenes list to store the paths of the scene scripts.
 --
@@ -14,7 +14,7 @@ Settings.SCRIPTS_PATH = "romfs:/assets/scripts/"
 --- @usage Settings.SCENES[1] = "romfs:/assets/scripts/scenes/sample_scene.lua"
 Settings.SCENES = {}
 
-Settings.SCENES[1] = "romfs:/assets/scripts/scenes/menu_scene.lua"
-Settings.SCENES[2] = "romfs:/assets/scripts/scenes/game_scene.lua"
+Settings.SCENES[1] = "romfs:/assets/scenes/menu_scene.lua"
+Settings.SCENES[2] = "romfs:/assets/scenes/game_scene.lua"
 
 _G.M2D_SETTINGS = Settings

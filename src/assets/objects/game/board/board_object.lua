@@ -14,7 +14,7 @@ function Script.start()
             if i == 3 and j == 3 then
                 break
             end
-            local pieceObject = GameObject.instantiate(dofile("romfs:/assets/scripts/game/piece/piece.lua"))
+            local pieceObject = GameObject.instantiate(dofile("romfs:/assets/objects/game/piece/piece.lua"))
             pieceObject.transform:setPosition(92 + (j - 1) * distance, 51 + (i - 1) * distance, 3)
             pieceObject.transform:setScale(0.73, 0.73)
             pieceObject.name = "piece_" .. i .. "_" .. j

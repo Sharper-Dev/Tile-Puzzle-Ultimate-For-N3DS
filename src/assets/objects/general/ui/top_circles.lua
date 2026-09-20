@@ -1,5 +1,4 @@
 local GameObject = require("gameobject.m2d_gameobject")
-local Debugger = require("debugger.m2d_debugger")
 local Time = require("time.m2d_time")
 local MathE = require("extender.math.m2d_math")
 

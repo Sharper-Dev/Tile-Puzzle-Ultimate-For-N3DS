@@ -47,13 +47,13 @@ function DebuggerUI.createUI()
         :setCanvas(canvas)
         :setLineBreakDistance(13)
 
-    DebuggerUI.objects["DEBUGGER_HINTS"] = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"), true)
-    DebuggerUI.objects["DEBUGGER_HINTS"].transform:setPosition(205, 40, 101)
+    -- DebuggerUI.objects["DEBUGGER_HINTS"] = GameObject.instantiate(GameObject:new("DEBUGGER_HINTS"), true)
+    -- DebuggerUI.objects["DEBUGGER_HINTS"].transform:setPosition(205, 40, 101)
 
-    DebuggerUI.texts["DEBUGGER_HINTS"] = DebuggerUI.objects["DEBUGGER_HINTS"]:addComponent("Text")
-        :setContent("L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
-        :setLineBreakDistance(13)
-        :setCanvas(canvas)
+    -- DebuggerUI.texts["DEBUGGER_HINTS"] = DebuggerUI.objects["DEBUGGER_HINTS"]:addComponent("Text")
+    --     :setContent("L + UP:\nTo top screen\nL + DOWN:\nTo bottom screen\nL + Right/Left:\nSwitch object\nR + Right/Left:\nQuick step\nL + B: Quit")
+    --     :setLineBreakDistance(13)
+    --     :setCanvas(canvas)
 
     DebuggerUI.objects["DEBUGGER_CONSOLE"] = GameObject.instantiate(GameObject:new("DEBUGGER_CONSOLE"), true)
     DebuggerUI.objects["DEBUGGER_CONSOLE"].transform:setPosition(5, 200, 101)
@@ -75,7 +75,7 @@ function DebuggerUI.switchDebugScreen(screen)
     DebuggerUI.objects["DEBUGGER_TITLE"].transform:translate(offset)
     DebuggerUI.objects["DEBUGGER_RUNTIME_INFO"].transform:translate(offset)
     DebuggerUI.objects["DEBUGGER_OBJECT_INFO"].transform:translate(offset)
-    DebuggerUI.objects["DEBUGGER_HINTS"].transform:translate(offset)
+    --DebuggerUI.objects["DEBUGGER_HINTS"].transform:translate(offset)
     DebuggerUI.objects["DEBUGGER_CONSOLE"].transform:translate(offset)
 end
 

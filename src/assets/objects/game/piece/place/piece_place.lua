@@ -1,4 +1,4 @@
-local PiecePlaceBuilder = require("prefabs.piece_place_builder")
+local PiecePlaceBuilder = require("scripts.builders.piece_place_builder")
 
 local thisObject = PiecePlaceBuilder.createPlace("place")
 
