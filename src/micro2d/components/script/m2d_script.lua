@@ -16,6 +16,8 @@ end
 
 function Script:destroy()
     self.enabled = nil
+    self.start = nil
+    self.update = nil
     self = nil
 end
 ------
