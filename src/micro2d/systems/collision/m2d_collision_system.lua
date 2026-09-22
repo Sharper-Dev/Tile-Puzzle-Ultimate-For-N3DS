@@ -39,6 +39,11 @@ end
 local function processColliders(boxCollider1, boxCollider2)
     if boxCollider1 == boxCollider2 then return end
 
+    for i = 1, #boxCollider1.ignoreMetaLayers do
+        if boxCollider1.ignoreMetaLayers[i] == boxCollider2.metaCollisionLayer then
+            return
+        end
+    end
     local colliderPositionx1 = boxCollider1.gameObject.transform.position.x
     local colliderPositiony1 = boxCollider1.gameObject.transform.position.y
     colliderPositionx1 = colliderPositionx1 + boxCollider1.xoffset

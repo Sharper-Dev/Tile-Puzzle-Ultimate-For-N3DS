@@ -1,26 +1,38 @@
 local Script = {}
 local GameObject = require("gameobject.m2d_gameobject")
 
+local function generate(isPiece, path)
+    local distance = 68
+    local name = (isPiece) and "piece_" or "place_"
+
+    for i = 1, 3 do
+        for j = 1, 3 do
+            if i == 3 and j == 3 and isPiece then
+                break
+            end
+            local object = GameObject.instantiate(dofile(path))
+            object.transform:setPosition(92 + (j - 1) * distance, 51 + (i - 1) * distance, 3)
+            object.transform:setScale(0.73, 0.73)
+            object.name = name .. i .. "_" .. j
+            if isPiece then
+                local sprite = object:getComponent("MultiSprite")
+                sprite.cellCursor = { x = j - 1, y = i - 1 }
+            else
+                local sprite = object:getComponent("Sprite")
+                sprite:setColor(0, 0, 0, 0)
+            end
+        end
+    end
+end
+
 function Script:start()
     self.transform:setPosition(160, 120, 2)
 
     local Sprite = self:getComponent("Sprite")
     Sprite:setSprite("romfs:/assets/sprites/board/board.png")
     Sprite:setScreen(BOTTOM_SCREEN)
-    local distance = 68
-    for i = 1, 3 do
-        for j = 1, 3 do
-            if i == 3 and j == 3 then
-                break
-            end
-            local pieceObject = GameObject.instantiate(dofile("romfs:/assets/objects/game/piece/piece.lua"))
-            pieceObject.transform:setPosition(92 + (j - 1) * distance, 51 + (i - 1) * distance, 3)
-            pieceObject.transform:setScale(0.73, 0.73)
-            pieceObject.name = "piece_" .. i .. "_" .. j
-            local sprite = pieceObject:getComponent("MultiSprite")
-            sprite.cellCursor = { x = j - 1, y = i - 1 }
-        end
-    end
+    generate(false, "romfs:/assets/objects/game/piece/place/piece_place.lua")
+    generate(true, "romfs:/assets/objects/game/piece/piece.lua")
 end
 
 return Script

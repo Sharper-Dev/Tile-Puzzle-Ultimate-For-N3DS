@@ -18,13 +18,39 @@ function BoxCollider:new(gameObject)
     self:setSize(10, 10)
     self:setOffset(0, 0)
     self.enteredCollisions = {}
-    CollisionSystem.registerCollider(1, self)
+    self.ignoreMetaLayers = {}
+    self.collisionLayer = 1
+    self.metaCollisionLayer = 1
+    CollisionSystem.registerCollider(self.collisionLayer, self)
     self.renderTask = RenderTask:new({
         layer = 1,
         execute = function() self:render() end
     })
     Renderer.registerRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
     return self
+end
+
+function BoxCollider:setLayer(layer)
+    CollisionSystem.registerCollider(layer, self)
+    CollisionSystem.unregisterCollider(self.collisionLayer, self)
+    self.collisionLayer = layer
+end
+
+function BoxCollider:setMetaLayer(layer)
+    self.metaCollisionLayer = layer
+end
+
+function BoxCollider:insertIgnoreMetaLayer(metaLayer)
+    table.insert(self.ignoreMetaLayers, metaLayer)
+end
+
+function BoxCollider:removeIgnoreMetaLayer(metaLayer)
+    for i, layer in ipairs(self.ignoreMetaLayers) do
+        if layer == metaLayer then
+            table.remove(self.ignoreMetaLayers, i)
+            return
+        end
+    end
 end
 
 function BoxCollider:render()
@@ -39,7 +65,7 @@ function BoxCollider:render()
 end
 
 function BoxCollider:destroy()
-    CollisionSystem.unregisterCollider(1, self)
+    CollisionSystem.unregisterCollider(self.collisionLayer, self)
     Renderer.unregisterRenderTask(self.renderTask, BOTTOM_SCREEN, Renderer.SPACES.SCREEN)
 	self.gameObject = nil
     self.renderTask = nil

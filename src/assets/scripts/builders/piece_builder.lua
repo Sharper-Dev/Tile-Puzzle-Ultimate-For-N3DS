@@ -15,10 +15,11 @@ function PieceBuilder.createPiece(name, spritePath)
     local boxCollider = pieceObject:addComponent("BoxCollider")
     boxCollider:setSize(62, 62)
     boxCollider:setOffset(-30, -30)
-
+    boxCollider:insertIgnoreMetaLayer(1)
     boxCollider.onCollisionEnter = function(self, collider)
-        Debugger.msg("collision enter: " .. self.gameObject.name .. " vs " .. collider.gameObject.name)
+        Debugger.msg("PLACE: " .. collider.gameObject.name)
     end
+
     local draggable = pieceObject:addComponent("Draggable")
 
     draggable.onDragStart = function(self)
