@@ -5,7 +5,7 @@
 local Debugger = {}
 
 local Time = require("time.m2d_time")
-local ScenesManager = require("systems.scenes.m2d_scenes_system")
+local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 local Enabler = require("debugger.m2d_debugger_enabler")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
 local Functions = require("debugger.m2d_debugger_functions")
@@ -28,7 +28,7 @@ local function updateRuntimeInfo()
         collectgarbage("count") / 1024,
         fps,
         Time.deltaTime,
-        ScenesManager.getActiveScenes()[1].name))
+        ScenesSystem.getActiveScenes()[1].name))
 end
 
 --- Internal function to update the object info.
@@ -53,7 +53,7 @@ function Debugger.setupDebugger()
     isEnabled = true
     DebuggerUI.createUI()
     updateRuntimeInfo()
-    Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[Debugger.currentObjectIndex])
+    Debugger.debugObject(ScenesSystem.getActiveScenes()[1].gameObjects[Debugger.currentObjectIndex])
     Debugger.msg("Debugger initialized")
 end
 

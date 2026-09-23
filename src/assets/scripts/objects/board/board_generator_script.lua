@@ -1,6 +1,9 @@
 local Script = {}
 local GameObject = require("gameobject.m2d_gameobject")
 
+local pieces = {}
+local places = {}
+
 local function generate(isPiece, path)
     local distance = 68
     local name = (isPiece) and "piece_" or "place_"
@@ -11,15 +14,19 @@ local function generate(isPiece, path)
                 break
             end
             local object = GameObject.instantiate(dofile(path))
-            object.transform:setPosition(92 + (j - 1) * distance, 51 + (i - 1) * distance, 3)
             object.transform:setScale(0.73, 0.73)
             object.name = name .. i .. "_" .. j
+
             if isPiece then
+                object.transform:setPosition(0, 0)
                 local sprite = object:getComponent("MultiSprite")
                 sprite.cellCursor = { x = j - 1, y = i - 1 }
+                table.insert(pieces, object)
             else
-                local sprite = object:getComponent("Sprite")
-                sprite:setColor(0, 0, 0, 0)
+                object.transform:setPosition(92 + (j - 1) * distance, 51 + (i - 1) * distance, 3)
+                object.row = i
+                object.column = j
+                table.insert(places, object)
             end
         end
     end
@@ -33,6 +40,10 @@ function Script:start()
     Sprite:setScreen(BOTTOM_SCREEN)
     generate(false, "romfs:/assets/objects/game/piece/place/piece_place.lua")
     generate(true, "romfs:/assets/objects/game/piece/piece.lua")
+
+    for i = 1, #pieces do
+        pieces[i]:placePiece(places[i])
+    end
 end
 
 return Script

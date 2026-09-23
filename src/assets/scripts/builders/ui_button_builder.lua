@@ -31,9 +31,11 @@ function Builder.buildButton(name, content)
         buttonComponent:setImageComponent(imageComponent)
     end
     scriptComponent.update = function()
+        if not textObject then return end
         textObject.transform:setPosition(buttonObject.transform.position.x + buttonObject.textOffset.x,
             buttonObject.transform.position.y + buttonObject.textOffset.y, buttonObject.transform.position.z + 1)
     end
+
     return buttonObject
 end
 return Builder

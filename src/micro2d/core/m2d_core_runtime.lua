@@ -5,7 +5,7 @@
 local CoreRuntime = {}
 
 local InputSystem = require("systems.input.m2d_input_system")
-local ScenesManager = require("systems.scenes.m2d_scenes_system")
+local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 local CollisionSystem = require("systems.collision.m2d_collision_system")
 local Renderer = require("systems.renderer.m2d_renderer")
 local Debugger = require("debugger.m2d_debugger")
@@ -56,9 +56,9 @@ local function checkScenesToUnload()
         local scene = scenesToUnload[i]
         scene:unload()
         table.remove(scenesToUnload, i)
-        ScenesManager.removeSceneFromTable(1)
+        ScenesSystem.removeSceneFromTable(1)
         Debugger.debugObject(nil)
-        ScenesManager.startReadyScenes()
+        ScenesSystem.startReadyScenes()
     end
 end
 
@@ -74,9 +74,9 @@ function CoreRuntime._start()
     Graphics.init()
     preClean()
     Time.init()
-    ScenesManager.loadUniversalScene()
-    ScenesManager.loadScene(1)
-    ScenesManager.startReadyScenes()
+    ScenesSystem.loadUniversalScene()
+    ScenesSystem.loadScene(1)
+    ScenesSystem.startReadyScenes()
 end
 
 ------
@@ -85,7 +85,7 @@ end
 function CoreRuntime._loop()
     InputSystem.readInputs()
     CollisionSystem.processCollisions()
-    local activeScenes = ScenesManager.getActiveScenes()
+    local activeScenes = ScenesSystem.getActiveScenes()
     for i = 1, #activeScenes do
         for j = 1, #activeScenes[i].gameObjects do
             activeScenes[i].gameObjects[j]:callUpdate()

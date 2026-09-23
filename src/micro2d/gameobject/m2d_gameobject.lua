@@ -6,7 +6,7 @@ local GameObject = {}
 GameObject.__index = GameObject
 
 local Transform = require("components.transform.m2d_transform")
-local ScenesManager = require("systems.scenes.m2d_scenes_system")
+local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 
 local componentsList = {
     ["Script"] = "components.script.m2d_script",
@@ -89,7 +89,7 @@ end
 --- @usage
 --- local obj = GameObject.instantiate("path/to/GameObject.lua")
 function GameObject.instantiate(gameObjectPath, isUniversal)
-    local scene = (isUniversal and ScenesManager.getUniversalScene() or ScenesManager.getActiveScenes()[1])
+    local scene = (isUniversal and ScenesSystem.getUniversalScene() or ScenesSystem.getActiveScenes()[1])
 
     local newObject
 
@@ -115,7 +115,7 @@ end
 --- @usage
 --- local obj = GameObject.findByName("MyObject")
 function GameObject.findByName(name)
-    for _, object in ipairs(ScenesManager.getActiveScenes()[1].gameObjects) do
+    for _, object in ipairs(ScenesSystem.getActiveScenes()[1].gameObjects) do
         if object.name == name then
             return object
         end

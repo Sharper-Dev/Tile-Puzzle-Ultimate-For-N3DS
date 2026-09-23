@@ -4,7 +4,7 @@
 
 local Functions = {}
 local InputSystem = require("systems.input.m2d_input_system")
-local ScenesManager = require("systems.scenes.m2d_scenes_system")
+local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 local DebuggerUI = require("debugger.m2d_debugger_ui")
 
 --- The key used to trigger debugger functions. | Default: KEY_L
@@ -32,7 +32,7 @@ local switchObjectToPrevKey = KEY_DLEFT
 --- @param isForward boolean Whether to switch to the next or previous object.
 local function switchObject(isForward)
     local Debugger = require("debugger.m2d_debugger")
-    local objectCount = #ScenesManager.getActiveScenes()[1].gameObjects
+    local objectCount = #ScenesSystem.getActiveScenes()[1].gameObjects
     local direction = isForward and 1 or -1
 
     Debugger.currentObjectIndex = (Debugger.currentObjectIndex + direction) % objectCount
@@ -41,7 +41,7 @@ local function switchObject(isForward)
         Debugger.currentObjectIndex = objectCount
     end
 
-    Debugger.debugObject(ScenesManager.getActiveScenes()[1].gameObjects[Debugger.currentObjectIndex])
+    Debugger.debugObject(ScenesSystem.getActiveScenes()[1].gameObjects[Debugger.currentObjectIndex])
 end
 
 --- Detects and handles the movement of the debug object.
