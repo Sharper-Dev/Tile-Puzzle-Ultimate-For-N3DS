@@ -1,7 +1,5 @@
 local PieceBuilder = {}
 local GameObject = require("gameobject.m2d_gameobject")
-local Debugger = require("debugger.m2d_debugger")
-local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 
 function PieceBuilder.createPiece(name, spritePath)
     local pieceObject = GameObject:new(name)
@@ -19,6 +17,7 @@ function PieceBuilder.createPiece(name, spritePath)
     boxCollider:setSize(62, 62)
     boxCollider:setOffset(-30, -30)
     boxCollider:insertIgnoreMetaLayer(1)
+
     boxCollider.onCollisionEnter = function(self, collider)
         if not self.gameObject.isMoving then return end
         table.insert(self.gameObject.colPlaces, collider.gameObject)
@@ -49,22 +48,24 @@ function PieceBuilder.createPiece(name, spritePath)
         local pieceLayer = self.gameObject.transform.position.z
         local pieceScalex = self.gameObject.transform.scale.x
         local pieceScaley = self.gameObject.transform.scale.y
+
         self.gameObject.isMoving = false
         self.gameObject.transform:setPosition(nil, nil, pieceLayer - 1)
         self.gameObject.transform:setScale(pieceScalex - 0.2, pieceScaley - 0.2)
-        local gotNew = false
-        for _, place in ipairs(self.gameObject.colPlaces) do
-            if place.currentPiece == nil then
-                local rowDistance = math.abs(place.row - self.gameObject.currentPlace.row)
-                local colDistance = math.abs(place.column - self.gameObject.currentPlace.column)
+        local gotNewPlace = false
+        local colPlaces = self.gameObject.colPlaces
+        for i = 1, #colPlaces do
+            if colPlaces[i].currentPiece == nil then
+                local rowDistance = math.abs(colPlaces[i].row - self.gameObject.currentPlace.row)
+                local colDistance = math.abs(colPlaces[i].column - self.gameObject.currentPlace.column)
                 if rowDistance + colDistance == 1 then
-                    self.gameObject:placePiece(place)
-                    gotNew = true
+                    self.gameObject:placePiece(colPlaces[i])
+                    gotNewPlace = true
                     break
                 end
             end
         end
-        if not gotNew then self.gameObject:placePiece(self.gameObject.currentPlace) end
+        if not gotNewPlace then self.gameObject:placePiece(self.gameObject.currentPlace) end
         if self.gameObject.colPlaces then self.gameObject.colPlaces = {} end
     end
 

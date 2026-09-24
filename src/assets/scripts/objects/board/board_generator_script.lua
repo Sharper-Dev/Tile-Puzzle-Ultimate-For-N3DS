@@ -1,6 +1,6 @@
 local Script = {}
 local GameObject = require("gameobject.m2d_gameobject")
-
+local Shuffler = require("scripts.objects.board.board_shuffler_script")
 local pieces = {}
 local places = {}
 
@@ -19,6 +19,7 @@ local function generate(isPiece, path)
 
             if isPiece then
                 object.transform:setPosition(0, 0)
+                object.number = (i - 1) * 3 + j
                 local sprite = object:getComponent("MultiSprite")
                 sprite.cellCursor = { x = j - 1, y = i - 1 }
                 table.insert(pieces, object)
@@ -40,10 +41,9 @@ function Script:start()
     Sprite:setScreen(BOTTOM_SCREEN)
     generate(false, "romfs:/assets/objects/game/piece/place/piece_place.lua")
     generate(true, "romfs:/assets/objects/game/piece/piece.lua")
-
-    for i = 1, #pieces do
-        pieces[i]:placePiece(places[i])
-    end
+    self.pieces = pieces
+    self.places = places
+    Shuffler.shuffle(self)
 end
 
 return Script
