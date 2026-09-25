@@ -89,22 +89,32 @@ local function processColliders(boxCollider1, boxCollider2)
 end
 
 function CollisionSystem.registerCollider(layer, boxCollider)
-    collisionLayers[layer] = collisionLayers[layer] or {}
-    collisionLayers[layer][tostring(boxCollider)] = boxCollider
+    if not collisionLayers[layer] then
+        collisionLayers[layer] = {}
+        collisionLayers[layer].colliders = {}
+        collisionLayers[layer].active = true
+    end
+    collisionLayers[layer].colliders[tostring(boxCollider)] = boxCollider
 end
 
 function CollisionSystem.unregisterCollider(layer, boxCollider)
-    collisionLayers[layer][tostring(boxCollider)] = nil
+    collisionLayers[layer].colliders[tostring(boxCollider)] = nil
+end
+
+function CollisionSystem.setLayerActive(layer, active)
+    collisionLayers[layer].active = active
 end
 
 function CollisionSystem.processCollisions()
 	for i = 1, #collisionLayers do
 		local layer = collisionLayers[i]
-		for _, boxCollider in pairs(layer) do
-            processTouch(boxCollider)
-            for _, boxCollider2 in pairs(layer) do
-                processColliders(boxCollider, boxCollider2)
-            end
+		if layer.active then
+    		for _, boxCollider in pairs(layer.colliders) do
+                processTouch(boxCollider)
+                for _, boxCollider2 in pairs(layer.colliders) do
+                    processColliders(boxCollider, boxCollider2)
+                end
+    		end
 		end
 	end
 end
