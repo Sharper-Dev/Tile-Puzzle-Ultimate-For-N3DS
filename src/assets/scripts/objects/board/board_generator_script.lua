@@ -4,7 +4,7 @@ local Shuffler = require("scripts.objects.board.board_shuffler_script")
 local pieces = {}
 local places = {}
 
-local function generate(isPiece, path)
+local function generate(isPiece, board, path)
     local distance = 68
     local name = (isPiece) and "piece_" or "place_"
 
@@ -20,6 +20,7 @@ local function generate(isPiece, path)
             if isPiece then
                 object.transform:setPosition(0, 0)
                 object.number = (i - 1) * 3 + j
+                object.board = board
                 local sprite = object:getComponent("MultiSprite")
                 sprite.cellCursor = { x = j - 1, y = i - 1 }
                 table.insert(pieces, object)
@@ -39,8 +40,8 @@ function Script:start()
     local Sprite = self:getComponent("Sprite")
     Sprite:setSprite("romfs:/assets/sprites/board/board.png")
     Sprite:setScreen(BOTTOM_SCREEN)
-    generate(false, "romfs:/assets/objects/game/piece/place/piece_place.lua")
-    generate(true, "romfs:/assets/objects/game/piece/piece.lua")
+    generate(false, self, "romfs:/assets/objects/game/piece/place/piece_place.lua")
+    generate(true, self, "romfs:/assets/objects/game/piece/piece.lua")
     self.pieces = pieces
     self.places = places
     Shuffler.shuffle(self)

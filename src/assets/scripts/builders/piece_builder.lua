@@ -67,6 +67,7 @@ function PieceBuilder.createPiece(name, spritePath)
         end
         if not gotNewPlace then self.gameObject:placePiece(self.gameObject.currentPlace) end
         if self.gameObject.colPlaces then self.gameObject.colPlaces = {} end
+        self.gameObject.board.callCheck()
     end
 
     return pieceObject
