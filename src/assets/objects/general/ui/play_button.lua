@@ -11,7 +11,7 @@ function thisScript.start()
     baseStart()
     thisObject.textOffset = { x = 62, y = 23 }
     thisObject.transform:setPosition(90, 50, 1)
-    ---ScenesSystem.loadScene(2)
+    --ScenesSystem.loadScene(2)
 end
 
 function thisButton.onClick()

@@ -28,10 +28,14 @@ local function processTouch(boxCollider)
         if isInside and boxCollider.hasTouch then
             boxCollider:onTouchStay()
         end
+        boxCollider.lastCheck = isInside
     else
         if boxCollider.hasTouch then
             boxCollider:onTouchUp()
             boxCollider.hasTouch = false
+            if boxCollider.lastCheck then
+                boxCollider:onTouchClick()
+            end
         end
     end
 end

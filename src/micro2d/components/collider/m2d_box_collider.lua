@@ -89,6 +89,7 @@ function BoxCollider:onCollisionExit(collider) end
 
 function BoxCollider:onTouchDown() end
 function BoxCollider:onTouchStay() end
+function BoxCollider:onTouchClick() end
 function BoxCollider:onTouchUp() end
 
 return BoxCollider
