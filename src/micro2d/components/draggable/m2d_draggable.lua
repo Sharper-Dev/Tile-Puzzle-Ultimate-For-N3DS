@@ -5,9 +5,10 @@
 local Draggable = {}
 Draggable.__index = Draggable
 
-local Debugger = require("debugger.m2d_debugger")
 local InputSystem = require("systems.input.m2d_input_system")
 
+--- Creates a new Draggable component.
+--- @param gameObject The game object to attach the component to.
 function Draggable:new(gameObject)
     self = setmetatable({}, Draggable)
 
@@ -22,23 +23,25 @@ function Draggable:new(gameObject)
 
     return self
 end
-
+--- Local function that handles the touch down event.
 local function onTouchDown(self)
-    Debugger.msg("down! I am " .. self.gameObject.name)
     self.isDragging = true
     self:onDragStart()
 end
 
+--- Local function that handles the touch up event.
 local function onTouchUp(self)
     self.isDragging = false
     self:onDragEnd()
 end
 
+--- Registers the touch down and touch up event handlers to the box collider.
 function Draggable:registerFunctions()
     self.boxCollider.onTouchDown = function() onTouchDown(self) end
     self.boxCollider.onTouchUp = function() onTouchUp(self) end
 end
 
+--- Checks every frame if is dragging, and moves the object to the touch position.
 function Draggable:update()
     if self.isDragging then
         local x, y = InputSystem.getTouch()
@@ -48,8 +51,13 @@ function Draggable:update()
     end
 end
 
+--- Called when the drag starts.
 function Draggable:onDragStart() end
+
+--- Called when the object is being dragged.
 function Draggable:onDragging() end
+
+--- Called when the drag ends.
 function Draggable:onDragEnd() end
 
 return Draggable
