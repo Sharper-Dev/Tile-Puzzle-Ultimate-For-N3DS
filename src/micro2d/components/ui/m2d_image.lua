@@ -92,6 +92,7 @@ end
 function Image:render()
     if not self.enabled then return end
     if not self.canvas.enabled then return end
+    if not self.gameObject.enabled then return end
 
     local position = self.gameObject.transform.position
     self.renderTask.layer = position.z

@@ -1,6 +1,4 @@
 local GameObject = require("gameobject.m2d_gameobject")
-local InputSystem = require("systems.input.m2d_input_system")
-local ScenesSystem = require("systems.scenes.m2d_scenes_system")
 local CollisionSystem = require("systems.collision.m2d_collision_system")
 local BoardChecker = require("scripts.objects.board.board_checker_script")
 local Debugger = require("debugger.m2d_debugger")
@@ -20,12 +18,6 @@ end
 
 Script.start = function()
     GeneratorScript.start(thisObject)
-end
-
-Script.update = function()
-    if InputSystem.getKeyDown(KEY_X) then
-        ScenesSystem.loadScene(1)
-    end
 end
 
 return thisObject

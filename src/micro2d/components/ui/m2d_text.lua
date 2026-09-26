@@ -85,6 +85,7 @@ end
 function Text:render()
     if not self.enabled then return end
     if not self.canvas.enabled then return end
+    if not self.gameObject.enabled then return end
 
     local transform = self.gameObject.transform
     local position = transform.position

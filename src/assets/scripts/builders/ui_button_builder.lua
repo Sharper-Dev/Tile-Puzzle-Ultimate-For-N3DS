@@ -19,7 +19,8 @@ function Builder.buildButton(name, content)
         textObject = GameObject.instantiate(GameObject:new(name .. "_text"), nil)
         local canvasObject = GameObject.findByName("canvas")
 
-        textObject.transform:setPosition(nil, nil, buttonObject.transform.position.z + 1)
+        textObject.transform:setPosition(buttonObject.transform.position.x + buttonObject.textOffset.x,
+            buttonObject.transform.position.y + buttonObject.textOffset.y, buttonObject.transform.position.z + 1)
         textObject.transform:setScale(0.5, 0.5)
 
         textComponent = textObject:addComponent("Text")
